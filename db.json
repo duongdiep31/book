@@ -1,0 +1,65 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "json-server",
+      "author": "typicode"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  },
+  "users": [
+    {
+      "email": "diepdsddds@gmail.com",
+      "password": "$2a$10$90eZo40xjC4/FnZlnFu5DeAn9fXTKT8GohTs3vMjfHFmMwG0knLyq",
+      "id": 1
+    },
+    {
+      "email": "diep@gmail.com",
+      "password": "$2a$10$wP.yGzzaXdv7ba3wumGm/.P0sdy8hzYArDr7/YKfD0AS202LWTr9q",
+      "id": 2
+    }
+  ],
+  "products": [
+    {
+      "name": "dsdsdsdsds",
+      "category": "2",
+      "status": "Còn Hàng",
+      "price": "1221212",
+      "author": "dsd",
+      "description": "dsds",
+      "image": "https://firebasestorage.googleapis.com/v0/b/typescript-ec8ed.appspot.com/o/categoriesImage%2Fnew_old_white_black_cat_computer_blackwhite_kitten-275524.jpg?alt=media&token=95f4e599-0540-4a7e-8103-530fb3ff6724",
+      "id": 1
+    }
+  ],
+  "categories": [
+    {
+      "name": "Children ",
+      "image": "https://firebasestorage.googleapis.com/v0/b/typescript-ec8ed.appspot.com/o/categoriesImage%2F22-619f27ea-3408-4867-bb3f-624da1e431b0.jpeg?alt=media&token=1654dd04-d948-452f-ae10-9af2df3bf31c",
+      "id": 1
+    },
+    {
+      "name": "Movie",
+      "image": "https://firebasestorage.googleapis.com/v0/b/typescript-ec8ed.appspot.com/o/categoriesImage%2F9780316476720.jpeg?alt=media&token=16d7ee21-f71a-4b14-a1f4-0fd87ef770d5",
+      "id": 2
+    },
+    {
+      "name": "Poetry",
+      "image": "https://firebasestorage.googleapis.com/v0/b/typescript-ec8ed.appspot.com/o/categoriesImage%2F41wzucdhgkl-sx311-bo1-204-203-200.jpeg?alt=media&token=d9db0d36-52ff-4a9c-ad27-811cba731047",
+      "id": 3
+    },
+    {
+      "name": "Classic",
+      "image": "https://firebasestorage.googleapis.com/v0/b/typescript-ec8ed.appspot.com/o/categoriesImage%2F9780140274981.jpeg?alt=media&token=207d069d-69e0-483b-a15f-beee5638c404",
+      "id": 4
+    }
+  ]
+}
