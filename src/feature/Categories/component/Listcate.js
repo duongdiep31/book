@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { deletecate, getAllcategory } from '../../../Store/action/categories';
 const Listcate =  (props) => {
-  const Result = props.categories.map((item,index) => {
+  const dispatch = useDispatch()
+  const categories = useSelector((state) => state.category.categories)
+
+          useEffect(()=>{
+            dispatch(getAllcategory)
+          },[dispatch])
+           const data = categories
+          let Result
+          if (data) {
+   Result = data.map((item,index) => {
 
    return( <React.Fragment
       key={index}
@@ -27,7 +38,7 @@ const Listcate =  (props) => {
                   Edit
                 </Link>
                 <button
-                  onClick={()=> props.onremovecate(item.id)}
+                  onClick={()=> dispatch(deletecate (item.id))}
                 
                 className="btn btn-danger btn-sm"  >
                   <i className="fas fa-trash">
@@ -42,6 +53,8 @@ const Listcate =  (props) => {
     </React.Fragment>)
   })
 
+}
+  
 
 
     return (

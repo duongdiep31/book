@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react"
-import {useForm, Resolver, SubmitHandler} from 'react-hook-form'
+import {useForm} from 'react-hook-form'
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import '../../../firebase/index'
 import{getStorage, ref, uploadBytesResumable, uploadBytes, getDownloadURL } from "@firebase/storage"
 import { getcate } from "../../../api/categories";
+import { useDispatch } from "react-redux";
+import { changecate } from "../../../Store/action/categories";
 const resolver = async (values) => {
     return {
       values: values.name ? values : {},
@@ -45,10 +47,11 @@ const Changecate = (props) => {
           })
         } )                          
 }
+const dispatch = useDispatch()
 const onSubmit = (category) => {
     const zz = {...category,image}
-    props.onChangecate(zz)    
-navigate("/admin/cateadmin" , {replace:true})
+        dispatch(changecate(category))
+        navigate("/admin/cateadmin" , {replace:true})
 };
 
 

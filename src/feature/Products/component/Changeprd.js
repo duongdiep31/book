@@ -5,6 +5,9 @@ import { Link } from "react-router-dom";
 import '../../../firebase/index'
 import{getStorage, ref, uploadBytesResumable, uploadBytes, getDownloadURL } from "@firebase/storage"
 import { get } from "../../../api/product";
+import { changePrd } from "../../../Store/action/products";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllcategory } from "../../../Store/action/categories";
 
 const resolver = async (values) => {
     return {
@@ -25,10 +28,11 @@ const Changeprd = (props) => {
     const {register, handleSubmit, formState: { errors },reset} = useForm({ resolver });
     const navigate = useNavigate()
     const [image,setimage] = useState('')
+const dispatch = useDispatch()
+
     useEffect(() => {
         get(id)
         .then(async response => {
-            console.log(response);
             await setimage(response.data.image)
             await reset(response.data)
         })
@@ -48,9 +52,28 @@ const Changeprd = (props) => {
 }
 const onSubmit = (product) => {
     const zz = {...product,image}
-    props.onHandleChangeprd(zz)    
-navigate("/admin/prdadmin" , {replace:true})
+        dispatch(changePrd(zz))
+        navigate("/admin/prdadmin" , {replace:true})
 };
+
+    const cate = useSelector((state) => (state.category.categories))
+        useEffect(()=>{
+        dispatch(getAllcategory)
+        },[dispatch])
+            let Result
+                        if (cate) {
+                                Result = cate.map((item,index)=>{
+                                    return(
+                                        <React.Fragment
+                                            key={index}
+                                        >
+                                        <option value={item.id} >{item.name}</option>
+                                        </React.Fragment>
+                                    )
+                                })
+                        }
+
+
     return (
         <>
             <section className="content-header">
@@ -89,15 +112,7 @@ navigate("/admin/prdadmin" , {replace:true})
                                         <label htmlFor="inputStatus">Categories</label>
                                         <select  {...register('category', {required:true})} id="inputStatus" className="form-control custom-select">
                                                         <option/>
-                                                    {props.categories.map((item,index)=>{
-                                                            return(
-                                                                <React.Fragment
-                                                                    key={index}
-                                                                >
-                                                                <option value={item.id} >{item.name}</option>
-                                                                </React.Fragment>
-                                                            )
-                                                        })
+                                                    { Result
                                                     }
                                         </select>
                                     </div>
@@ -124,6 +139,16 @@ navigate("/admin/prdadmin" , {replace:true})
                                         <label htmlFor="image">Image</label>
                                         <input onChange={handleImage} className="form-control" id="image" type="file" />
                                     </div>
+                                    <div>
+                                        <img
+                                        alt={'...'} style={
+                                            {
+                                            width: '20%',
+                                            height: '20%',
+                                            marginBottom: '20px'
+                                            }
+                                        } src= {image} />
+                                        </div>
                                     <div className="col-12">
                                         <Link to="#" className="btn btn-secondary">Cancel</Link>
                                         <button disabled={!image} className="btn btn-success float-right" >Submit</button>

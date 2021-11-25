@@ -1,9 +1,12 @@
-import React, { useState } from "react"
-import {useForm, Resolver, SubmitHandler} from 'react-hook-form'
+import React, { useEffect, useState } from "react"
+import {useForm} from 'react-hook-form'
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import '../../../firebase/index'
 import{getStorage, ref, uploadBytesResumable, uploadBytes, getDownloadURL } from "@firebase/storage"
+import { useDispatch, useSelector } from "react-redux";
+import { getAllcategory } from "../../../Store/action/categories";
+import { addPrd } from "../../../Store/action/products";
 
 const resolver = async (values) => {
     return {
@@ -12,8 +15,21 @@ const resolver = async (values) => {
         ? {
             name: {
               type: "required",
-              message: "This is required."
+              message: "Please enter Name"
+            },
+            price:{
+                type: "required",
+                message: "Please enter Price"
+            },
+            author:{
+                type: "required",
+                message: "Please enter Author"
+            },
+            description:{
+                type: "required",
+                message: "Please enter Description"
             }
+
           }
         : {}
     };
@@ -38,9 +54,34 @@ const Addproduct = (props) => {
 }
 const onSubmit = (product) => {
     const zz = {...product,image}
-    props.onAddprd(zz)    
+    dispatch(addPrd(zz))
 navigate("/admin/prdadmin" , {replace:true})
 };
+
+    const dispatch = useDispatch()
+    const categories = useSelector((state) => state.category.categories)
+    useEffect(() => {
+        dispatch(getAllcategory)
+    },[dispatch])
+
+let categoriess;
+if (categories) {
+    categoriess = categories.map((item,index) => {
+        console.log(item.id);
+        return(
+            <React.Fragment
+                key={index}
+            >
+            <option value={item.id} >{item.name}</option>
+            </React.Fragment>
+        )
+    })
+}
+
+
+
+
+
     return (
         <>
             <section className="content-header">
@@ -74,20 +115,13 @@ navigate("/admin/prdadmin" , {replace:true})
                                     <div className="form-group">
                                         <label htmlFor="inputName">Name</label>
                                         <input type="text" {...register('name', {required:true})} id="inputName" className="form-control" />
+                                        <p>{errors.name?.message}</p>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="inputStatus">Categories</label>
-                                        <select  {...register('category', {required:true})} id="inputStatus" className="form-control custom-select">
+                                        <select  {...register('cateId', {required:true})} id="inputStatus" className="form-control custom-select">
                                                         <option/>
-                                                    {props.categories.map((item,index)=>{
-                                                            return(
-                                                                <React.Fragment
-                                                                    key={index}
-                                                                >
-                                                                <option value={item.id} >{item.name}</option>
-                                                                </React.Fragment>
-                                                            )
-                                                        })
+                                                    {categoriess
                                                     }
                                         </select>
                                     </div>
@@ -101,14 +135,20 @@ navigate("/admin/prdadmin" , {replace:true})
                                     <div className="form-group">
                                         <label htmlFor="inputClientCompany">Price</label>
                                         <input   {...register('price', {required:true})} type="text" id="inputClientCompany" className="form-control" />
+                                        <p>{errors.price?.message}</p>
+
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="inputProjectLeader">Author</label>
                                         <input  {...register('author', {required:true})} type="text" id="inputProjectLeader" className="form-control" />
+                                        <p>{errors.author?.message}</p>
+                                                    
                                     </div>
-                                    <div className="form-group">
+                                      <div className="form-group">
                                         <label htmlFor="inputDescription">Description</label>
                                         <textarea   {...register('description', {required:true})} id="inputDescription" className="form-control" rows={4} defaultValue={""} />
+                                        <p>{errors.description?.message}</p>
+                                                    
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="image">Image</label>

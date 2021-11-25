@@ -16,6 +16,7 @@ const Signup = () => {
             console.log(user);
                     signup(user)
                                 .then(response => {
+                                    console.log(response);
                                     toast.success('Đăng kí thành công') 
                                     navigate("/signin", {replace:true})
                                 }
@@ -31,10 +32,22 @@ const Signup = () => {
                 <div className="card-body">
                     <div className='container'>
                     <form onSubmit={handleSubmit(onSubmit)} >
+                    <div className="form-group row">
+                            <label className="col-sm-2 col-form-label" htmlFor="inputEmail3">Name</label>
+                            <div className="col-sm-10">
+                                <input {...register('name', {required: true})} className="form-control" id="inputEmail3" type="text" placeholder="Email" />
+                            </div>
+                        </div>
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label" htmlFor="inputEmail3">Email</label>
                             <div className="col-sm-10">
                                 <input {...register('email', {required: true})} className="form-control" id="inputEmail3" type="email" placeholder="Email" />
+                            </div>
+                        </div>
+                        <div className="form-group row">
+                            <label className="col-sm-2 col-form-label" htmlFor="inputEmail3">Phone</label>
+                            <div className="col-sm-10">
+                                <input {...register('phone', {required: true})} className="form-control" id="inputEmail3" type="name" placeholder="Email" />
                             </div>
                         </div>
                         <div className="form-group row">

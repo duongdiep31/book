@@ -29,15 +29,13 @@ const Signin =  () => {
     const user =  isAuthenticate()
     
     const onSubmit = (data) => {
+        console.log(data);
         signin(data)
             .then(response => {
-
+                console.log(response);
                 authenticate(response.data)
                 setRedirecTo(true)
                 toast.success("ĐĂng nhập thành công")
-        
-
-
             }
             ).catch((error) => toast.error(error.response.data))
     }

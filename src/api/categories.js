@@ -4,7 +4,7 @@ export const getAllcate = () => {
     return instance.get(url)
 }
 export const getcate = (id) => {
-    const url = `/categories/` + id
+    const url = `/categories/${id}` 
     return instance.get(url)
 }
 export const removecate = (id )=> {

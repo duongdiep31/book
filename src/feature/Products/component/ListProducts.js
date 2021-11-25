@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { deletePrd, getAllproduct } from '../../../Store/action/products';
 const Listproducts = (props) => {
+  const products = useSelector((state) => state.product.products)
+  const dispatch = useDispatch()
 
-    const Result = props.products.map((item,index)=> {
+  useEffect(()=>{
+    dispatch(getAllproduct)
+  },[dispatch])
+
+
+      let Result;
+     if (products) {
+     Result =products.map((item,index)=> {
         return(
             <React.Fragment
             key={index}>
@@ -36,7 +47,7 @@ const Listproducts = (props) => {
                   </i>
                   Edit
                 </Link>
-                <button onClick={() => props.onRemoveprd(item.id)} className="btn btn-danger btn-sm" to="#">
+                <button onClick={() => dispatch(deletePrd(item.id))} className="btn btn-danger btn-sm" to="#">
                   <i className="fas fa-trash">
                   </i>
                   Delete
@@ -48,7 +59,9 @@ const Listproducts = (props) => {
             </React.Fragment>
         )
     })
-
+     }
+   
+    
 
     return (
             <>

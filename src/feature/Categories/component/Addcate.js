@@ -1,17 +1,20 @@
 import React, { useState } from "react"
-import {useForm, Resolver, SubmitHandler} from 'react-hook-form'
+import {useForm} from 'react-hook-form'
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import '../../../firebase/index'
 import{getStorage, ref, uploadBytesResumable, uploadBytes, getDownloadURL } from "@firebase/storage"
+import { useDispatch } from "react-redux";
+import { addcate } from "../../../Store/action/categories";
 const resolver = async (values) => {
+
     return {
       values: values.name ? values : {},
       errors: !values.name
         ? {
             name: {
               type: "required",
-              message: "This is required."
+              message: "Please enter Name"
             }
           }
         : {}
@@ -34,9 +37,10 @@ const Addcate = (props) => {
           })
         } )                          
 }
+const dispatch = useDispatch()
 const onSubmit = (category) => {
     const zz = {...category,image}
-    props.onAddcate(zz)    
+    dispatch(addcate(zz))
 navigate("/admin/cateadmin" , {replace:true})
 };
 
@@ -74,7 +78,8 @@ navigate("/admin/cateadmin" , {replace:true})
                                 <form  onSubmit={handleSubmit(onSubmit)}  >
                                     <div className="form-group">
                                         <label htmlFor="inputName">Name</label>
-                                        <input {...register('name', {required:true})}  type="text" id="inputName" className="form-control" />
+                                     <input {...register('name', {required:true})}  type="text" id="inputName" className="form-control" />
+                                            <p>{errors.name?.message}</p>
                                     </div>
                            
                                     <div className="form-group">
