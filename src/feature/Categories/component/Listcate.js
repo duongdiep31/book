@@ -12,46 +12,45 @@ const Listcate =  (props) => {
            const data = categories
           let Result
           if (data) {
-   Result = data.map((item,index) => {
+              Result = data.map((item,index) => {
+              return( <React.Fragment
+                  key={index}
+                >
+                  <tr>
+                          <td>
+                            {index+1}
+                          </td>
+                          <td>
+                            {item.name}
+                          </td>
+                          <td>
+                          <img alt="Avatar" className="table-avatar" src={item.image} />
+                          
+                          </td>
+                        
+                      
+                          <td className="project-actions text-right">
+                            
+                            <Link className="btn btn-info btn-sm" to={`/admin/changecate/${item._id}`}>
+                              <i className="fas fa-pencil-alt">
+                              </i>
+                              Edit
+                            </Link>
+                            <button
+                              onClick={()=> {
+                                             dispatch(deletecate (item._id))}}
+                            className="btn btn-danger btn-sm"  >
+                              <i className="fas fa-trash">
+                              </i>
+                              Delete
+                            </button>
+                          </td>
+                        </tr>
+                      
 
-   return( <React.Fragment
-      key={index}
-    >
-      <tr>
-              <td>
-                {index+1}
-              </td>
-              <td>
-                {item.name}
-              </td>
-              <td>
-              <img alt="Avatar" className="table-avatar" src={item.image} />
-               
-              </td>
-             
-           
-              <td className="project-actions text-right">
-                
-                <Link className="btn btn-info btn-sm" to={`/admin/changecate/${item.id}`}>
-                  <i className="fas fa-pencil-alt">
-                  </i>
-                  Edit
-                </Link>
-                <button
-                  onClick={()=> dispatch(deletecate (item.id))}
-                
-                className="btn btn-danger btn-sm"  >
-                  <i className="fas fa-trash">
-                  </i>
-                  Delete
-                </button>
-              </td>
-            </tr>
-          
 
-
-    </React.Fragment>)
-  })
+                </React.Fragment>)
+              })
 
 }
   

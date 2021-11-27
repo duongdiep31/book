@@ -1,10 +1,10 @@
 
-import { useEffect, useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+// import { useEffect, useState } from 'react';
+import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
-import { getAllcate, insertcate, removecate, updatecate } from './api/categories';
+// import { getAllcate, insertcate, removecate, updatecate } from './api/categories';
 import './App.css';
-import {getAll, insert, remove, update} from './api/product'
+// import {getAll, insert, remove, update} from './api/product'
 import Routers from './Routers';
 
 function App() {

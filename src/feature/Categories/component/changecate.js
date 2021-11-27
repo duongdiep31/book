@@ -50,7 +50,7 @@ const Changecate = (props) => {
 const dispatch = useDispatch()
 const onSubmit = (category) => {
     const zz = {...category,image}
-        dispatch(changecate(category))
+        dispatch(changecate(zz))
         navigate("/admin/cateadmin" , {replace:true})
 };
 
@@ -89,6 +89,8 @@ const onSubmit = (category) => {
                                     <div className="form-group">
                                         <label htmlFor="inputName">Name</label>
                                         <input {...register('name', {required:true})}  type="text" id="inputName" className="form-control" />
+                                        <p>{errors.name?.message}</p>
+
                                     </div>
                            
                                     <div className="form-group">

@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import GoogleLogin from "react-google-login";
+import FacebookLogin from "react-facebook-login"
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
@@ -62,6 +63,8 @@ const Signin =  () => {
     }
 
 
+   
+
     const userRedirect =  () => {
 
         // Nếu state == true
@@ -74,6 +77,24 @@ const Signin =  () => {
                             }
 
     };
+
+
+    const facebooklogin = () => {
+                const componentClicked = (response)=> { console.log('click',response);}
+
+        const responseFacebook = (response) => {console.log('fb',response);}
+
+        return(
+        <FacebookLogin 
+            appId="870872730277940"
+            autoLoad = {false}
+             fields="name,email,picture"
+             onClick={componentClicked}
+             callback={responseFacebook}
+ /> )
+
+    }
+
 
 
 
@@ -105,7 +126,7 @@ const Signin =  () => {
                                     marginLeft: '932px'
                                 }} type="submit">Sign In</button>
                                 {logingg()
-                                } or      <br/>
+                                } or   {facebooklogin()}  <br/>
                                 <span>Don't have an account? <Link to='/signup' >Sign Up</Link></span>
                             </div>
                         </div>

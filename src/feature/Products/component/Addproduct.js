@@ -67,12 +67,12 @@ navigate("/admin/prdadmin" , {replace:true})
 let categoriess;
 if (categories) {
     categoriess = categories.map((item,index) => {
-        console.log(item.id);
+        
         return(
             <React.Fragment
                 key={index}
             >
-            <option value={item.id} >{item.name}</option>
+            <option value={item._id} >{item.name}</option>
             </React.Fragment>
         )
     })

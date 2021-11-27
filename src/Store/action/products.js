@@ -10,36 +10,37 @@ export const getAllproduct = async (dispatch) => {
 }
 export const addPrd =  (product) => async (dispatch) => {
             const {data} = await insert(product)
-            console.log(data);
             dispatch({
                 type: "addprd",
                 payload: data
             })
 
 }
-export const deletePrd =   (id) => async (dispatch) => { 
+export const deletePrd = (id) => async (dispatch) => { 
     try {
-       await remove(id)
-            toast.success("delete successfully")
-         dispatch({
-            type: 'deleteprd',
-            payload: id
-        })
-    } catch (error) {
-            toast.error(error)
-    }
+        await remove(id)
+        toast.success("Delete Successfully")
+        dispatch({
+           type: 'deleteprd',
+           payload: id
+       }
+       )
+
+   } catch (error) {
+           toast.error(error)
+   }
+       
 
 }
 export const changePrd = (product) => async (dispatch) => {
     try {
-        const {data} = await update(product.id,product)
-        console.log(data);
+        const {data} = await update(product._id,product)
         toast.success("Change successfully")
         dispatch({
             type: "changePrd",
             payload: data
         })
     } catch (error) {
-            toast.error(error)
+            toast.error('Error')
     }
 }

@@ -8,9 +8,9 @@ const productReducer = (state = initialState, aciton) => {
         case "addprd":
             return{...state,products: [...state.products, aciton.payload]};
         case "deleteprd":
-            return{...state, products: state.products.filter((item) => item.id != aciton.payload )}    
-            case "changePrd":
-                return{...state, products: state.products.map((item) => item.id === aciton.payload.id ? aciton.payload : item  ) }                
+            return{...state, products: state.products.filter((item) => item._id !== aciton.payload )}    
+        case "changePrd":
+                return{...state, products: state.products.map((item) => item._id === aciton.payload._id ? aciton.payload : item  ) }                
         default :
         return state
     }

@@ -1,9 +1,18 @@
-
-import React from 'react'
-
-
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllcate } from '../../../api/categories'
 const Categories = (props) => {
-          const data = props.cate.categories
+  const dispatch = useDispatch()
+  const categories = useSelector((state) => state.category.categories)
+          useEffect(()=>{
+            dispatch(getAllcate)
+          },[dispatch])
+
+
+
+
+
+          const data = categories
           let Result
            if (data) {
               Result  =  data.map((item,index)=>{
@@ -12,7 +21,7 @@ const Categories = (props) => {
                             <div  className="col-md-3 mb-4 mb-md-0" >
                             <a style={{
                                 height:'400px'
-                              }} className="category-item" href={`/category/${item.id}`}>
+                              }} className="category-item" href={`/category/${item._id}`}>
                                 <img style ={{
                                   height:'100%',
                                   width:'100%'

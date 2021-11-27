@@ -5,64 +5,54 @@ import { deletePrd, getAllproduct } from '../../../Store/action/products';
 const Listproducts = (props) => {
   const products = useSelector((state) => state.product.products)
   const dispatch = useDispatch()
-
   useEffect(()=>{
     dispatch(getAllproduct)
   },[dispatch])
-
-
       let Result;
      if (products) {
-     Result =products.map((item,index)=> {
-        return(
-            <React.Fragment
-            key={index}>
-            <tr>
-              <td>
-                {index+1}
-              </td>
-              <td>
-                    {item.name}
-              </td>
-              <td>
-            
-                    <img alt="Avatar" className="table-avatar" src={item.image} />
-         
-              </td>
-              <td className="project_progress">
-                            {item.author}
-              </td>
-              <td className="project-state">
-                <span className="badge badge-success">{item.status}</span>
-              </td>
-              <td className="project-actions text-right">
+          Result =products.map((item,index)=> {
+              return(
+                  <React.Fragment
+                  key={index}>
+                  <tr>
+                    <td>
+                      {index+1}
+                    </td>
+                    <td>
+                          {item.name}
+                    </td>
+                    <td>
+                          <img alt="Avatar" className="table-avatar" src={item.image} />
+                    </td>
+                    <td className="project_progress">
+                                  {item.author}
+                    </td>
+                    <td className="project-state">
+                      <span className="badge badge-success">{item.status}</span>
+                    </td>
+                    <td className="project-actions text-right">
 
-                <Link className="btn btn-primary btn-sm" to="#">
-                  <i className="fas fa-folder">
-                  </i>
-                  View
-                </Link>
-                <Link className="btn btn-info btn-sm" to={`/admin/changeprd/${item.id}`}>
-                  <i className="fas fa-pencil-alt">
-                  </i>
-                  Edit
-                </Link>
-                <button onClick={() => dispatch(deletePrd(item.id))} className="btn btn-danger btn-sm" to="#">
-                  <i className="fas fa-trash">
-                  </i>
-                  Delete
-                </button>
-              </td>
-            </tr>
-
-
-            </React.Fragment>
-        )
-    })
-     }
-   
-    
-
+                      <Link className="btn btn-primary btn-sm" to="#">
+                        <i className="fas fa-folder">
+                        </i>
+                        View
+                      </Link>
+                      <Link className="btn btn-info btn-sm" to={`/admin/changeprd/${item._id}`}>
+                        <i className="fas fa-pencil-alt">
+                        </i>
+                        Edit
+                      </Link>
+                      <button onClick={() => dispatch(deletePrd(item._id))} className="btn btn-danger btn-sm" to="#">
+                        <i className="fas fa-trash">
+                        </i>
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                  </React.Fragment>
+              )
+          })
+     }else{console.log('error');}
     return (
             <>
   <section className="content-header">
@@ -119,18 +109,12 @@ const Listproducts = (props) => {
           </thead>
           <tbody>
                 {Result}
-          
           </tbody>
         </table>
-
       </div>
-      {/* /.card-body */}
     </div>
-    {/* /.card */}
   </section>
-
             </>
-      
     );
 }
 

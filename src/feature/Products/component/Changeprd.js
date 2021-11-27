@@ -16,20 +16,31 @@ const resolver = async (values) => {
         ? {
             name: {
               type: "required",
-              message: "This is required."
+              message: "Please enter Name"
+            },
+            price:{
+                type: "required",
+                message: "Please enter Price"
+            },
+            author:{
+                type: "required",
+                message: "Please enter Author"
+            },
+            description:{
+                type: "required",
+                message: "Please enter Description"
             }
+
           }
         : {}
     };
   };
-
 const Changeprd = (props) => {
     const {id} = useParams()
     const {register, handleSubmit, formState: { errors },reset} = useForm({ resolver });
     const navigate = useNavigate()
     const [image,setimage] = useState('')
 const dispatch = useDispatch()
-
     useEffect(() => {
         get(id)
         .then(async response => {
@@ -67,7 +78,7 @@ const onSubmit = (product) => {
                                         <React.Fragment
                                             key={index}
                                         >
-                                        <option value={item.id} >{item.name}</option>
+                                        <option value={item._id} >{item.name}</option>
                                         </React.Fragment>
                                     )
                                 })
@@ -103,16 +114,16 @@ const onSubmit = (product) => {
                                 </div>
                             </div>
                             <div className="card-body">
-                                <form onSubmit={handleSubmit(onSubmit)} >
+                            <form onSubmit={handleSubmit(onSubmit)} >
                                     <div className="form-group">
                                         <label htmlFor="inputName">Name</label>
                                         <input type="text" {...register('name', {required:true})} id="inputName" className="form-control" />
+                                        <p>{errors.name?.message}</p>
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="inputStatus">Categories</label>
-                                        <select  {...register('category', {required:true})} id="inputStatus" className="form-control custom-select">
-                                                        <option/>
-                                                    { Result
+                                        <select  {...register('cateId', {required:true})} id="inputStatus" className="form-control custom-select">
+                                                    {Result
                                                     }
                                         </select>
                                     </div>
@@ -126,29 +137,25 @@ const onSubmit = (product) => {
                                     <div className="form-group">
                                         <label htmlFor="inputClientCompany">Price</label>
                                         <input   {...register('price', {required:true})} type="text" id="inputClientCompany" className="form-control" />
+                                        <p>{errors.price?.message}</p>
+
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="inputProjectLeader">Author</label>
                                         <input  {...register('author', {required:true})} type="text" id="inputProjectLeader" className="form-control" />
+                                        <p>{errors.author?.message}</p>
+                                                    
                                     </div>
-                                    <div className="form-group">
+                                      <div className="form-group">
                                         <label htmlFor="inputDescription">Description</label>
                                         <textarea   {...register('description', {required:true})} id="inputDescription" className="form-control" rows={4} defaultValue={""} />
+                                        <p>{errors.description?.message}</p>
+                                                    
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="image">Image</label>
                                         <input onChange={handleImage} className="form-control" id="image" type="file" />
                                     </div>
-                                    <div>
-                                        <img
-                                        alt={'...'} style={
-                                            {
-                                            width: '20%',
-                                            height: '20%',
-                                            marginBottom: '20px'
-                                            }
-                                        } src= {image} />
-                                        </div>
                                     <div className="col-12">
                                         <Link to="#" className="btn btn-secondary">Cancel</Link>
                                         <button disabled={!image} className="btn btn-success float-right" >Submit</button>
