@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 export const getAllcategory = async (dispatch) => {
             const {data}  = await getAllcate()
+            console.log(data);
             dispatch({
                 type: "getAllcate",
                 payload: data

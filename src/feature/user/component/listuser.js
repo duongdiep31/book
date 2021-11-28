@@ -1,6 +1,53 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { deleteuser, getAlluser } from '../../../Store/action/userAction';
 const Listuser = () => {
+  const User = useSelector((state) => state.user.users )
+  const dispatch = useDispatch()
+  useEffect(()=> {
+    dispatch(getAlluser)
+  },[dispatch])
+  
+  let Result
+  if (User) {
+      Result = User.map((item,index) => {
+        return (
+          <React.Fragment key={index} >
+                 <tr>
+              <td>
+                {index+1}
+              </td>
+              <td>
+                {item.name}
+              </td>
+              <td>
+                {item.email}
+              </td>
+              <td>
+                {item.role}
+              </td>
+           
+              <td className="project-actions text-right">
+                <button onClick={
+                    ()=>{
+                      dispatch(deleteuser(item._id))
+                    }
+
+                } className="btn btn-danger btn-sm" to="#">
+                  <i className="fas fa-trash">
+                  </i>
+                  Delete
+                </button>
+              </td>
+            </tr>
+
+          </React.Fragment>
+        )
+      } )
+  }
+
+
     return (
             <>
   <section className="content-header">
@@ -44,64 +91,18 @@ const Listuser = () => {
                  Name
               </th>
               <th>
-                Image
+                Email
               </th>
-           
+              <th>
+                Role
+              </th>
               <th style={{width: '20%'}}>
                   Action
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                #
-              </td>
-              <td>
-                <Link to='#'>
-                  AdminLTE v3
-                </Link>
-                <br />
-                <small>
-                  Created 01.01.2019
-                </small>
-              </td>
-              <td>
-                <ul className="list-inline">
-                  <li className="list-inline-item">
-                    <img alt="Avatar" className="table-avatar" src="../../dist/img/avatar.png" />
-                  </li>
-                  <li className="list-inline-item">
-                    <img alt="Avatar" className="table-avatar" src="../../dist/img/avatar2.png" />
-                  </li>
-                  <li className="list-inline-item">
-                    <img alt="Avatar" className="table-avatar" src="../../dist/img/avatar3.png" />
-                  </li>
-                  <li className="list-inline-item">
-                    <img alt="Avatar" className="table-avatar" src="../../dist/img/avatar4.png" />
-                  </li>
-                </ul>
-              </td>
-             
-           
-              <td className="project-actions text-right">
-                <Link className="btn btn-primary btn-sm" to="#">
-                  <i className="fas fa-folder">
-                  </i>
-                  View
-                </Link>
-                <Link className="btn btn-info btn-sm" to="#">
-                  <i className="fas fa-pencil-alt">
-                  </i>
-                  Edit
-                </Link>
-                <Link className="btn btn-danger btn-sm" to="#">
-                  <i className="fas fa-trash">
-                  </i>
-                  Delete
-                </Link>
-              </td>
-            </tr>
+          {Result}
           
           </tbody>
         </table>

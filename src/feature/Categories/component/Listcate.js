@@ -5,7 +5,6 @@ import { deletecate, getAllcategory } from '../../../Store/action/categories';
 const Listcate =  (props) => {
   const dispatch = useDispatch()
   const categories = useSelector((state) => state.category.categories)
-
           useEffect(()=>{
             dispatch(getAllcategory)
           },[dispatch])

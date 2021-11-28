@@ -15,6 +15,9 @@ import Addcate from "./feature/Categories/component/Addcate";
 import Listuser from "./feature/user/component/listuser";
 import Changecate from "./feature/Categories/component/changecate";
 import Changeprd from "./feature/Products/component/Changeprd";
+import Privateroute from "./auth/privateRoute";
+
+
 const Routers = (props) => {
         return (
             <BrowserRouter>
@@ -30,18 +33,21 @@ const Routers = (props) => {
 
                             </Route>
                             {/* admin */}
-                            <Route path='/admin/' element={<Admin/>} >
+                            <Route path='/admin/*' element={
+                                <Privateroute ><Admin/></Privateroute>
+                         } >
                                     <Route index  element={<Dashboard />} /> 
                                     <Route path='prdadmin' element={<Listproducts {...props}  />} />
-                                    <Route path='addprd' element={<Addproduct{...props} />}  />
+                                    <Route path='addprd' element={<Addproduct{...props}/>}  />
                                     <Route path='changeprd/:id' element={<Changeprd {...props} />} />
-                                    <Route path='cateadmin' element={<Listcate {...props}   />} />
-                                    <Route path='addcate' element={<Addcate onAddcate ={props.onAddcate} />} />
-                                    <Route  path='changecate/:id' element={<Changecate onChangecate = {props.onChangecate} />}  />
+                                     <Route path='cateadmin' element={<Listcate {...props}   />} />
+                                     <Route path='addcate' element={<Addcate onAddcate ={props.onAddcate} />} />
+                                     <Route  path='changecate/:id' element={<Changecate onChangecate = {props.onChangecate} />}  />
                                     <Route path='user' element={<Listuser/>} />
+
+
+
                             </Route>
-
-
 
 
 
