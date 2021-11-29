@@ -13,7 +13,6 @@ const Signup = () => {
     const navigate = useNavigate();
 
         const onSubmit = (user) => {
-            console.log(user);
                     signup(user)
                                 .then(response => {
                                     console.log(response);

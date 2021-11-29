@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { isAuthenticate } from "../../../ultis"
 import { useNavigate } from "react-router";
+import { signout } from "../../../api/auth";
 
 const Header = () => {
   const user = isAuthenticate()
@@ -14,14 +15,16 @@ const Header = () => {
         if (user) {
           return <button
                 onClick= {() => {
-                
-                        if (typeof window != "undefined") {
-                          localStorage.removeItem('user');
-                              navigate("/", {replace:true} )
-                        }
+                  if(typeof window != "undefined"){
+                    localStorage.removeItem('user');
+                    navigate('/', {replace:true})
+                    return signout()
+                    .then(response => response.data)
+                    .catch(error => console.log(error))
+                }
+                     }}
 
-
-                }} 
+                 
           
           style={{
                 background: '#f8f9fa',

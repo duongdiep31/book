@@ -21,26 +21,22 @@ const resolver = async (values) => {
             : {}
     };
 };
-
 const Signin =  () => {
     const { register, handleSubmit } = useForm({resolver})
     const navigate = useNavigate();
     const [redirectTo, setRedirecTo] = useState(false);
-    // const [google,setgoogle] = useState(false)
-    const user =  isAuthenticate()
-    
+    const {user} =  isAuthenticate()
+    console.log(user);
     const onSubmit = (data) => {
-        console.log(data);
         signin(data)
             .then(response => {
-                console.log(response);
+                console.log(response.data);
                 authenticate(response.data)
                 setRedirecTo(true)
                 toast.success("ĐĂng nhập thành công")
             }
-            ).catch((error) => toast.error(error.response.data))
+            ).catch((error) => toast.error("thất bại"))
     }
-
     const logingg = () => {
         const responseGoogle = (response) => {
             console.log(response);
@@ -61,15 +57,11 @@ const Signin =  () => {
             />
         )
     }
-
-
-   
-
     const userRedirect =  () => {
-
-        // Nếu state == true
         if (redirectTo) {
-                        if (user.user.id === 1  || user.googleId) {
+
+            console.log(user);
+                        if (user.role === '0') {
                             navigate("/admin");
                         } else {
                             navigate("/");

@@ -1,17 +1,30 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteuser, getAlluser } from '../../../Store/action/userAction';
+import {  deleteUser, listUser } from '../../../Store/action/userAction';
+import { isAuthenticate } from '../../../ultis';
 const Listuser = () => {
-  const User = useSelector((state) => state.user.users )
+  const User = useSelector((state) => state.user.user)
   const dispatch = useDispatch()
   useEffect(()=> {
-    dispatch(getAlluser)
+    dispatch(listUser())
   },[dispatch])
-  
   let Result
   if (User) {
       Result = User.map((item,index) => {
+        const role = () => {
+          if (item.role === '0') {
+              return 'Hoàng thượng'
+          }else if(item.role === '2'){
+            return 'Giám đốc'
+          }else if (item.role === '3') {
+            return 'Content'
+          }else if (item.role === '4') {
+            return 'Giỏ Hàng'
+          }else{
+            return 'Khách hàng'
+          }
+        }
         return (
           <React.Fragment key={index} >
                  <tr>
@@ -25,15 +38,20 @@ const Listuser = () => {
                 {item.email}
               </td>
               <td>
-                {item.role}
+                {
+                 role()
+                }
               </td>
-           
               <td className="project-actions text-right">
+              <Link className="btn btn-info btn-sm" to={`/admin/changeprd/`}>
+                        <i className="fas fa-pencil-alt">
+                        </i>
+                        Edit
+                      </Link>
                 <button onClick={
                     ()=>{
-                      dispatch(deleteuser(item._id))
+                      dispatch(deleteUser(item._id))
                     }
-
                 } className="btn btn-danger btn-sm" to="#">
                   <i className="fas fa-trash">
                   </i>
@@ -41,7 +59,6 @@ const Listuser = () => {
                 </button>
               </td>
             </tr>
-
           </React.Fragment>
         )
       } )

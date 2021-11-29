@@ -8,3 +8,7 @@ export const signin = (user) => {
   const url = "/api/signin";
   return instance.post(url, user);
 };
+export const signout = () => {
+  const url = "/api/signout";
+  return instance.get(url)
+}

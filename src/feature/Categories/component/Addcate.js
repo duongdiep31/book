@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import '../../../firebase/index'
 import{getStorage, ref, uploadBytesResumable, uploadBytes, getDownloadURL } from "@firebase/storage"
 import { useDispatch } from "react-redux";
-import { addcate } from "../../../Store/action/categories";
+import { createcate } from "../../../Store/action/categories";
 const resolver = async (values) => {
 
     return {
@@ -20,7 +20,7 @@ const resolver = async (values) => {
         : {}
     };
   };
-const Addcate = (props) => {
+const Addcate = () => {
     const {register, handleSubmit, formState: { errors }} = useForm({ resolver });
     const navigate = useNavigate()
     const [image,setimage] = useState('')
@@ -40,11 +40,9 @@ const Addcate = (props) => {
 const dispatch = useDispatch()
 const onSubmit = (category) => {
     const zz = {...category,image}
-    dispatch(addcate(zz))
+    dispatch(createcate(zz))
 navigate("/admin/cateadmin" , {replace:true})
 };
-
-
     return (
         <>
             <section className="content-header">

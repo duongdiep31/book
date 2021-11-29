@@ -7,7 +7,7 @@ import{getStorage, ref, uploadBytesResumable, uploadBytes, getDownloadURL } from
 import { get } from "../../../api/product";
 import { changePrd } from "../../../Store/action/products";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllcategory } from "../../../Store/action/categories";
+import {itemcate } from "../../../Store/action/categories";
 
 const resolver = async (values) => {
     return {
@@ -69,7 +69,7 @@ const onSubmit = (product) => {
 
     const cate = useSelector((state) => (state.category.categories))
         useEffect(()=>{
-        dispatch(getAllcategory)
+        dispatch(itemcate())
         },[dispatch])
             let Result
                         if (cate) {

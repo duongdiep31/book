@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deletecate, getAllcategory } from '../../../Store/action/categories';
-const Listcate =  (props) => {
+import { deletecate, itemcate } from '../../../Store/action/categories';
+const Listcate =  () => {
   const dispatch = useDispatch()
-  const categories = useSelector((state) => state.category.categories)
+  const categories = useSelector((state) => state.category.category)
           useEffect(()=>{
-            dispatch(getAllcategory)
+            dispatch(itemcate())
           },[dispatch])
            const data = categories
           let Result

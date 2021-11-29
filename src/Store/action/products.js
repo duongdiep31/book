@@ -1,46 +1,30 @@
-import { toast } from "react-toastify"
-import { getAll, insert, remove, update } from "../../api/product"
-
-export const getAllproduct = async (dispatch) => {
-            const {data}  = await getAll()
-            dispatch({
-                type: "getAllproduct",
-                payload: data
-            })
-}
-export const addPrd =  (product) => async (dispatch) => {
-            const {data} = await insert(product)
-            dispatch({
-                type: "addprd",
-                payload: data
-            })
-
-}
-export const deletePrd = (id) => async (dispatch) => { 
-    try {
-        await remove(id)
-        toast.success("Delete Successfully")
-        dispatch({
-           type: 'deleteprd',
-           payload: id
-       }
-       )
-
-   } catch (error) {
-           toast.error(error)
-   }
-       
-
-}
-export const changePrd = (product) => async (dispatch) => {
-    try {
-        const {data} = await update(product._id,product)
-        toast.success("Change successfully")
-        dispatch({
-            type: "changePrd",
-            payload: data
-        })
-    } catch (error) {
-            toast.error('Error')
+import { createAsyncThunk } from "@reduxjs/toolkit";
+import { getAll, insert, remove, update } from "../../api/product";
+export const itemPrd = createAsyncThunk(
+    'product/itemPrd',
+    async () => {
+        const {data} = await getAll()
+        return data
     }
-}
+  )
+export const createPrd = createAsyncThunk(
+    'product/create',
+    async (product) => {
+        const {data} = await insert(product)
+        return data
+    }
+)
+export const deletePrd = createAsyncThunk(
+    'product/removePrd',
+    async (id) => {
+        const {data} = await remove(id)
+        return data
+    }
+)
+export const changePrd = createAsyncThunk(
+    'product/changePrd',
+    async (product ) => {
+        const {data} = await update(product._id,product)
+        return data
+    }
+)

@@ -5,8 +5,8 @@ import { Link } from "react-router-dom";
 import '../../../firebase/index'
 import{getStorage, ref, uploadBytesResumable, uploadBytes, getDownloadURL } from "@firebase/storage"
 import { useDispatch, useSelector } from "react-redux";
-import { getAllcategory } from "../../../Store/action/categories";
-import { addPrd } from "../../../Store/action/products";
+import {  createPrd } from "../../../Store/action/products";
+import { itemcate } from "../../../Store/action/categories";
 
 const resolver = async (values) => {
     return {
@@ -54,14 +54,14 @@ const Addproduct = (props) => {
 }
 const onSubmit = (product) => {
     const zz = {...product,image}
-    dispatch(addPrd(zz))
+    dispatch(createPrd(zz))
 navigate("/admin/prdadmin" , {replace:true})
 };
 
     const dispatch = useDispatch()
-    const categories = useSelector((state) => state.category.categories)
+    const categories = useSelector((state) => state.category.category)
     useEffect(() => {
-        dispatch(getAllcategory)
+        dispatch(itemcate())
     },[dispatch])
 
 let categoriess;

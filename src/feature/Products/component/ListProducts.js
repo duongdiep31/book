@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deletePrd, getAllproduct } from '../../../Store/action/products';
-const Listproducts = (props) => {
-  const products = useSelector((state) => state.product.products)
+import { deletePrd, itemPrd } from '../../../Store/action/products';
+const Listproducts = () => {
+  const products = useSelector((state) => state.product.product)
   const dispatch = useDispatch()
   useEffect(()=>{
-    dispatch(getAllproduct)
+    dispatch(itemPrd())
   },[dispatch])
       let Result;
      if (products) {
