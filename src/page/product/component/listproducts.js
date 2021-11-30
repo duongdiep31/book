@@ -1,12 +1,40 @@
-import React from "react"
+import React, { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
+import { addtocart } from "../../../Store/action/cartAction"
+import { itemPrd } from "../../../Store/action/products"
 import Views from "./prdViews"
 
 const CListPrd = (props) => {
         const url = "#productView" 
-          console.log(props)
-        
 
+          const dispatch = useDispatch()
+          const products = useSelector((state) => state.product.product)
+          useEffect(()=>{
+            dispatch(itemPrd())
+          },[dispatch])
+          const productsList = () => {
+            return products.map((item) => {
+            return(  <React.Fragment key={item._id} >
+                  <div className="col-lg-4 col-sm-6">
+            <div className="product text-center">
+              <div className="mb-3 position-relative">
+                <div className="badge text-white badge-" /><Link className="d-block" to="detail.html"><img style={{width: '255px', height:'350px'}} className="img-fluid w-100" src={item.image} alt="..." /></Link>
+                <div className="product-overlay">
+                  <ul className="mb-0 list-inline">
+                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
+                    <li className="list-inline-item m-0 p-0"><button onClick={() => dispatch(addtocart(item._id)) } className="btn btn-sm btn-dark">Add to cart</button></li>
+                    <li className="list-inline-item mr-0"><a className="btn btn-sm btn-outline-dark" href={url} data-toggle="modal"><i className="fas fa-expand" /></a></li>
+                  </ul>
+                </div>
+              </div>
+              <h6> <Link className="reset-anchor" to="detail.html">{item.name}</Link></h6>
+              <p className="small text-muted">$250</p>
+            </div>
+          </div>
+              </React.Fragment>)  
+            })
+          }
 
             return (
       <React.Fragment>
@@ -33,210 +61,8 @@ const CListPrd = (props) => {
         </div>
         <div className="row">
           {/* PRODUCT*/}
-         
-          <div className="col-lg-4 col-sm-6">
-            <div className="product text-center">
-              <div className="mb-3 position-relative">
-                <div className="badge text-white badge-" /><Link className="d-block" to="detail.html"><img className="img-fluid w-100" src="img/product-1.jpg" alt="..." /></Link>
-                <div className="product-overlay">
-                  <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-dark" to="cart.html">Add to cart</Link></li>
-                    <li className="list-inline-item mr-0"><a className="btn btn-sm btn-outline-dark" href={url} data-toggle="modal"><i className="fas fa-expand" /></a></li>
-                  </ul>
-                </div>
-              </div>
-              <h6> <Link className="reset-anchor" to="detail.html">Kui Ye Chen’s AirPods</Link></h6>
-              <p className="small text-muted">$250</p>
-            </div>
-          </div>
-          {/* PRODUCT*/}
-          <div className="col-lg-4 col-sm-6">
-            <div className="product text-center">
-              <div className="mb-3 position-relative">
-                <div className="badge text-white badge-" /><Link className="d-block" to="detail.html"><img className="img-fluid w-100" src="img/product-2.jpg" alt="..." /></Link>
-                <div className="product-overlay">
-                  <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-dark" to="cart.html">Add to cart</Link></li>
-                    <li className="list-inline-item mr-0"><Link className="btn btn-sm btn-outline-dark" to="#productView" data-toggle="modal"><i className="fas fa-expand" /></Link></li>
-                  </ul>
-                </div>
-              </div>
-              <h6> <Link className="reset-anchor" to="detail.html">Air Jordan 12 gym red</Link></h6>
-              <p className="small text-muted">$300</p>
-            </div>
-          </div>
-          {/* PRODUCT*/}
-          <div className="col-lg-4 col-sm-6">
-            <div className="product text-center">
-              <div className="mb-3 position-relative">
-                <div className="badge text-white badge-primary">New</div><Link className="d-block" to="detail.html"><img className="img-fluid w-100" src="img/product-3.jpg" alt="..." /></Link>
-                <div className="product-overlay">
-                  <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-dark" to="cart.html">Add to cart</Link></li>
-                    <li className="list-inline-item mr-0"><Link className="btn btn-sm btn-outline-dark" to="#productView" data-toggle="modal"><i className="fas fa-expand" /></Link></li>
-                  </ul>
-                </div>
-              </div>
-              <h6> <Link className="reset-anchor" to="detail.html">Cyan cotton t-shirt</Link></h6>
-              <p className="small text-muted">$25</p>
-            </div>
-          </div>
-          {/* PRODUCT*/}
-          <div className="col-lg-4 col-sm-6">
-            <div className="product text-center">
-              <div className="mb-3 position-relative">
-                <div className="badge text-white badge-" /><Link className="d-block" to="detail.html"><img className="img-fluid w-100" src="img/product-4.jpg" alt="..." /></Link>
-                <div className="product-overlay">
-                  <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-dark" to="cart.html">Add to cart</Link></li>
-                    <li className="list-inline-item mr-0"><Link className="btn btn-sm btn-outline-dark" to="#productView" data-toggle="modal"><i className="fas fa-expand" /></Link></li>
-                  </ul>
-                </div>
-              </div>
-              <h6> <Link className="reset-anchor" to="detail.html">Timex Unisex Originals</Link></h6>
-              <p className="small text-muted">$351</p>
-            </div>
-          </div>
-          {/* PRODUCT*/}
-          <div className="col-lg-4 col-sm-6">
-            <div className="product text-center">
-              <div className="mb-3 position-relative">
-                <div className="badge text-white badge-info">Sale</div><Link className="d-block" to="detail.html"><img className="img-fluid w-100" src="img/product-5.jpg" alt="..." /></Link>
-                <div className="product-overlay">
-                  <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-dark" to="cart.html">Add to cart</Link></li>
-                    <li className="list-inline-item mr-0"><Link className="btn btn-sm btn-outline-dark" to="#productView" data-toggle="modal"><i className="fas fa-expand" /></Link></li>
-                  </ul>
-                </div>
-              </div>
-              <h6> <Link className="reset-anchor" to="detail.html">Red digital smartwatch</Link></h6>
-              <p className="small text-muted">$250</p>
-            </div>
-          </div>
-          {/* PRODUCT*/}
-          <div className="col-lg-4 col-sm-6">
-            <div className="product text-center">
-              <div className="mb-3 position-relative">
-                <div className="badge text-white badge-" /><Link className="d-block" to="detail.html"><img className="img-fluid w-100" src="img/product-6.jpg" alt="..." /></Link>
-                <div className="product-overlay">
-                  <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-dark" to="cart.html">Add to cart</Link></li>
-                    <li className="list-inline-item mr-0"><Link className="btn btn-sm btn-outline-dark" to="#productView" data-toggle="modal"><i className="fas fa-expand" /></Link></li>
-                  </ul>
-                </div>
-              </div>
-              <h6> <Link className="reset-anchor" to="detail.html">Nike air max 95</Link></h6>
-              <p className="small text-muted">$300</p>
-            </div>
-          </div>
-          {/* PRODUCT*/}
-          <div className="col-lg-4 col-sm-6">
-            <div className="product text-center">
-              <div className="mb-3 position-relative">
-                <div className="badge text-white badge-" /><Link className="d-block" to="detail.html"><img className="img-fluid w-100" src="img/product-7.jpg" alt="..." /></Link>
-                <div className="product-overlay">
-                  <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-dark" to="cart.html">Add to cart</Link></li>
-                    <li className="list-inline-item mr-0"><Link className="btn btn-sm btn-outline-dark" to="#productView" data-toggle="modal"><i className="fas fa-expand" /></Link></li>
-                  </ul>
-                </div>
-              </div>
-              <h6> <Link className="reset-anchor" to="detail.html">Joemalone Women prefume</Link></h6>
-              <p className="small text-muted">$25</p>
-            </div>
-          </div>
-          {/* PRODUCT*/}
-          <div className="col-lg-4 col-sm-6">
-            <div className="product text-center">
-              <div className="mb-3 position-relative">
-                <div className="badge text-white badge-" /><Link className="d-block" to="detail.html"><img className="img-fluid w-100" src="img/product-8.jpg" alt="..." /></Link>
-                <div className="product-overlay">
-                  <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-dark" to="cart.html">Add to cart</Link></li>
-                    <li className="list-inline-item mr-0"><Link className="btn btn-sm btn-outline-dark" to="#productView" data-toggle="modal"><i className="fas fa-expand" /></Link></li>
-                  </ul>
-                </div>
-              </div>
-              <h6> <Link className="reset-anchor" to="detail.html">Apple Watch</Link></h6>
-              <p className="small text-muted">$351</p>
-            </div>
-          </div>
-          {/* PRODUCT*/}
-          <div className="col-lg-4 col-sm-6">
-            <div className="product text-center">
-              <div className="mb-3 position-relative">
-                <div className="badge text-white badge-danger">Sold</div><Link className="d-block" to="detail.html"><img className="img-fluid w-100" src="img/product-9.jpg" alt="..." /></Link>
-                <div className="product-overlay">
-                  <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-dark" to="cart.html">Add to cart</Link></li>
-                    <li className="list-inline-item mr-0"><Link className="btn btn-sm btn-outline-dark" to="#productView" data-toggle="modal"><i className="fas fa-expand" /></Link></li>
-                  </ul>
-                </div>
-              </div>
-              <h6> <Link className="reset-anchor" to="detail.html">Men silver Byron Watch</Link></h6>
-              <p className="small text-muted">$351</p>
-            </div>
-          </div>
-          {/* PRODUCT*/}
-          <div className="col-lg-4 col-sm-6">
-            <div className="product text-center">
-              <div className="mb-3 position-relative">
-                <div className="badge text-white badge-primary">New</div><Link className="d-block" to="detail.html"><img className="img-fluid w-100" src="img/product-10.jpg" alt="..." /></Link>
-                <div className="product-overlay">
-                  <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-dark" to="cart.html">Add to cart</Link></li>
-                    <li className="list-inline-item mr-0"><Link className="btn btn-sm btn-outline-dark" to="#productView" data-toggle="modal"><i className="fas fa-expand" /></Link></li>
-                  </ul>
-                </div>
-              </div>
-              <h6> <Link className="reset-anchor" to="detail.html">Ploaroid one step camera</Link></h6>
-              <p className="small text-muted">$351</p>
-            </div>
-          </div>
-          {/* PRODUCT*/}
-          <div className="col-lg-4 col-sm-6">
-            <div className="product text-center">
-              <div className="mb-3 position-relative">
-                <div className="badge text-white badge-" /><Link className="d-block" to="detail.html"><img className="img-fluid w-100" src="img/product-11.jpg" alt="..." /></Link>
-                <div className="product-overlay">
-                  <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-dark" to="cart.html">Add to cart</Link></li>
-                    <li className="list-inline-item mr-0"><Link className="btn btn-sm btn-outline-dark" to="#productView" data-toggle="modal"><i className="fas fa-expand" /></Link></li>
-                  </ul>
-                </div>
-              </div>
-              <h6> <Link className="reset-anchor" to="detail.html">Gray Nike running shoes</Link></h6>
-              <p className="small text-muted">$351</p>
-            </div>
-          </div>
-          {/* PRODUCT*/}
-          <div className="col-lg-4 col-sm-6">
-            <div className="product text-center">
-              <div className="mb-3 position-relative">
-                <div className="badge text-white badge-" /><Link className="d-block" to="detail.html"><img className="img-fluid w-100" src="img/product-12.jpg" alt="..." /></Link>
-                <div className="product-overlay">
-                  <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-dark" to="cart.html">Add to cart</Link></li>
-                    <li className="list-inline-item mr-0"><Link className="btn btn-sm btn-outline-dark" to="#productView" data-toggle="modal"><i className="fas fa-expand" /></Link></li>
-                  </ul>
-                </div>
-              </div>
-              <h6> <Link className="reset-anchor" to="detail.html">Black DSLR lense</Link></h6>
-              <p className="small text-muted">$351</p>
-            </div>
-          </div>
+              {productsList()}
+          
         </div>
         {/* PAGINATION*/}
         <nav aria-label="Page navigation example">

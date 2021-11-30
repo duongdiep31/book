@@ -15,27 +15,36 @@ const resolver = async (values) => {
             ? {
                 email: {
                     type: "required",
-                    message: "This is required."
+                    message: "Mail?"
+                },
+                password: {
+                    type: "required",
+                    message: "Password?"
                 }
             }
             : {}
     };
 };
 const Signin =  () => {
-    const { register, handleSubmit } = useForm({resolver})
+    const { register, handleSubmit, formState: { errors } } = useForm({resolver})
     const navigate = useNavigate();
     const [redirectTo, setRedirecTo] = useState(false);
     const {user} =  isAuthenticate()
-    console.log(user);
     const onSubmit = (data) => {
-        signin(data)
+            try {
+               signin(data)
             .then(response => {
-                console.log(response.data);
                 authenticate(response.data)
                 setRedirecTo(true)
-                toast.success("ĐĂng nhập thành công")
+                toast.success("ĐĂng nhập thành công")})
+            } catch (error) {
+                 return toast.error("Đăng nhập thất bại")
             }
-            ).catch((error) => toast.error("thất bại"))
+       
+       
+       
+   
+         
     }
     const logingg = () => {
         const responseGoogle = (response) => {
@@ -59,9 +68,7 @@ const Signin =  () => {
     }
     const userRedirect =  () => {
         if (redirectTo) {
-
-            console.log(user);
-                        if (user.role === '0') {
+                        if (user.role !== '1') {
                             navigate("/admin");
                         } else {
                             navigate("/");
@@ -73,7 +80,6 @@ const Signin =  () => {
 
     const facebooklogin = () => {
                 const componentClicked = (response)=> { console.log('click',response);}
-
         const responseFacebook = (response) => {console.log('fb',response);}
 
         return(
@@ -102,12 +108,16 @@ const Signin =  () => {
                             <label className="col-sm-2 col-form-label" htmlFor="inputEmail3">Email</label>
                             <div className="col-sm-10">
                                 <input {...register('email', { required: true })} className="form-control" id="inputEmail3" type="email" placeholder="Email" />
+                                <p>{errors.email?.message}</p>
+
                             </div>
                         </div>
                         <div className="form-group row">
                             <label className="col-sm-2 col-form-label" htmlFor="inputPassword3">Password</label>
                             <div className="col-sm-10">
                                 <input {...register('password', { required: true })} className="form-control" id="inputPassword3" type="password" placeholder="Password" />
+                                <p>{errors.password?.message}</p>
+
                             </div>
                         </div>
 

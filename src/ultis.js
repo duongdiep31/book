@@ -1,8 +1,4 @@
-import { useNavigate } from "react-router";
-import { signout } from "./api/auth";
-
 export const authenticate = (user) => {
-    console.log(user);
     localStorage.setItem("user", JSON.stringify(user))
 }
 export const isAuthenticate = () => {
@@ -13,4 +9,3 @@ export const isAuthenticate = () => {
         return false
     }
 }
-

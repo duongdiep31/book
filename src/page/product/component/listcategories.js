@@ -4,11 +4,10 @@ import { Link } from "react-router-dom"
 import {  itemcate } from "../../../Store/action/categories"
 const ClistCategories = (props) => {
   const dispatch = useDispatch()
-  const categories = useSelector((state) => state.category)
+  const categories = useSelector((state) => state.category.category)
     useEffect(()=>{
       dispatch(itemcate())
     },[dispatch])
-    console.log(categories);
     let Result;
     if (categories) {
         Result =  categories.map((item,index) => {

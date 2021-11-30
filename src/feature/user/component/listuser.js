@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {  deleteUser, listUser } from '../../../Store/action/userAction';
-import { isAuthenticate } from '../../../ultis';
 const Listuser = () => {
   const User = useSelector((state) => state.user.user)
   const dispatch = useDispatch()
@@ -11,7 +10,8 @@ const Listuser = () => {
   },[dispatch])
   let Result
   if (User) {
-      Result = User.map((item,index) => {
+      const filter = User.filter(item => item.role !== "0")
+      Result = filter.map((item,index) => {
         const role = () => {
           if (item.role === '0') {
               return 'Hoàng thượng'
@@ -43,7 +43,7 @@ const Listuser = () => {
                 }
               </td>
               <td className="project-actions text-right">
-              <Link className="btn btn-info btn-sm" to={`/admin/changeprd/`}>
+              <Link className="btn btn-info btn-sm" to={`/admin/roleuser/${item._id}`}>
                         <i className="fas fa-pencil-alt">
                         </i>
                         Edit

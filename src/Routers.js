@@ -15,9 +15,11 @@ import Addcate from "./feature/Categories/component/Addcate";
 import Listuser from "./feature/user/component/listuser";
 import Changecate from "./feature/Categories/component/changecate";
 import Changeprd from "./feature/Products/component/Changeprd";
-import Privateroute from "./auth/privateRoute";
-
-
+import Error from "./page/404";
+import Role from "./feature/user/component/role";
+import PrivateRoute from "./auth/route/privateRoute";
+import ProtectedAuth from "./auth/route/protectedAuth";
+import ProtectedUser from "./auth/route/protectedUser";
 const Routers = (props) => {
         return (
             <BrowserRouter>
@@ -25,27 +27,25 @@ const Routers = (props) => {
                         <Routes>
                             {/* website */}
                             <Route path='/' element={<Website/>}   >
-                            <Route  index element={<Homepage {...props} />} />
+                            <Route  index element={<Homepage  />} />
                                 <Route  path ='cart' element={<Cart />} />
-                            <Route  path='shop' element={<Shop {...props} />} />
-                            <Route path='signup' element={<Signup />}  /> 
-                            <Route path ='signin' element={<Signin />}  />
-
-                            </Route>
+                            <Route  path='shop' element={<Shop  />} />
+                            <Route path='signup' element={<ProtectedAuth><Signup /></ProtectedAuth>}  /> 
+                            <Route path ='signin' element={<ProtectedAuth><Signin /> </ProtectedAuth>}  />
+                            <Route  path='/404' element={<Error />}/></Route>
                             {/* admin */}
                             <Route path='/admin/*' element={
-                                <Privateroute ><Admin/></Privateroute>
+                                <PrivateRoute ><Admin/></PrivateRoute>
                          } >
                                     <Route index  element={<Dashboard />} /> 
-                                    <Route path='prdadmin' element={<Listproducts {...props}  />} />
-                                    <Route path='addprd' element={<Addproduct{...props}/>}  />
-                                    <Route path='changeprd/:id' element={<Changeprd {...props} />} />
-                                     <Route path='cateadmin' element={<Listcate {...props}   />} />
-                                     <Route path='addcate' element={<Addcate onAddcate ={props.onAddcate} />} />
-                                     <Route  path='changecate/:id' element={<Changecate onChangecate = {props.onChangecate} />}  />
-                                    <Route path='user' element={<Listuser/>} />
-
-
+                                    <Route path='prdadmin' element={<Listproducts   />} />
+                                    <Route path='addprd' element={<Addproduct/>}  />
+                                    <Route path='changeprd/:id' element={<Changeprd  />} />
+                                     <Route path='cateadmin' element={<Listcate   />} />
+                                     <Route path='addcate' element={<Addcate  />} />
+                                     <Route  path='changecate/:id' element={<Changecate />}  />
+                                    <Route path='user' element={ <ProtectedUser> <Listuser/> </ProtectedUser> } />
+                                    <Route path='roleuser/:id' element= {  <ProtectedUser> <Role /> </ProtectedUser>} />
 
                             </Route>
 
