@@ -45,7 +45,7 @@ const dispatch = useDispatch()
         get(id)
         .then(async response => {
             await setimage(response.data.image)
-            await reset(response.data)
+            reset(response.data)
         })
     },[id,reset])
     const handleImage = (url) => {
@@ -67,12 +67,12 @@ const onSubmit = (product) => {
         navigate("/admin/prdadmin" , {replace:true})
 };
 
-    const cate = useSelector((state) => (state.category.categories))
+    const cate = useSelector((state) => (state.category.category))
         useEffect(()=>{
         dispatch(itemcate())
         },[dispatch])
             let Result
-                        if (cate) {
+                        if (cate && Array.isArray(cate)) {
                                 Result = cate.map((item,index)=>{
                                     return(
                                         <React.Fragment

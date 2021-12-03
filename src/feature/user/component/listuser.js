@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {  deleteUser, listUser } from '../../../Store/action/userAction';
+import {  deleteUser, userList } from '../../../Store/action/userAction';
+// import { userList } from '../../../Store/slice/userReducer';
 const Listuser = () => {
-  const User = useSelector((state) => state.user.user)
+  const user = useSelector((state) => state.user.user)
+  const token = useSelector((state) => state.auth.auth.token)
   const dispatch = useDispatch()
   useEffect(()=> {
-    dispatch(listUser())
+    dispatch(userList(token))
   },[dispatch])
   let Result
-  if (User) {
-      const filter = User.filter(item => item.role !== "0")
+  if (user && Array.isArray(user)) {
+      const filter = user.filter(item => item.role !== "0")
       Result = filter.map((item,index) => {
         const role = () => {
           if (item.role === '0') {
@@ -50,7 +52,7 @@ const Listuser = () => {
                       </Link>
                 <button onClick={
                     ()=>{
-                      dispatch(deleteUser(item._id))
+                      dispatch(deleteUser(item._id,token))
                     }
                 } className="btn btn-danger btn-sm" to="#">
                   <i className="fas fa-trash">

@@ -1,9 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router';
-import { isAuthenticate } from '../../ultis';
+import store from '../../Store';
     
 function ProtectedAuth({ children }) {
-    const user = isAuthenticate();
+  const user = store.getState().auth.auth
     return  user ? <Navigate to="/" /> : children
   }
 

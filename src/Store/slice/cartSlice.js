@@ -1,22 +1,48 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Navigate } from "react-router";
-import { addtocart, getCartitem } from "../action/cartAction";
-export const cartSlice = createSlice({
+import { toast } from "react-toastify";
+ const cartSlice = createSlice({
     name: 'cart',
     initialState: {
         cart: []        
     },
-    extraReducers:  (builder)  =>{
-            builder.addCase(getCartitem.fulfilled, (state, action) => {
-                        state.cart = action.payload
-            })
-            builder.addCase(addtocart.fulfilled, (state,aciton) => {
-                        state.cart += aciton.payload,
-                        <Navigate to='/cart' />
-            })
-            builder.addCase(deletecate.fulfilled, (state, action) => {
-                state.cart = state.cart.filter(item => item._id !== action.payload)
-            })
+    reducers: {
+        addtocart(state, action){
+                try {
+            const newProduct = action.payload;
+            const existProduct = state.cart.find(item => item._id === newProduct._id);
+            if (!existProduct) {
+                state.cart.push(newProduct)
+            } else {
+                existProduct.quantity += newProduct.quantity
+            }
+                toast.success("Successfully")
+                } catch (error) {
+                    toast.error(error)
+                }
+
+
+            
+        
+        },
+        increaseCart(state, action) {
+                 state.cart.find(item => item._id === action.payload).quantity++;
+        },
+        decreaseCart(state, action) {
+            const items = state.cart.find(item => item._id === action.payload);
+            items.quantity--;
+            if (items.quantity < 1) {
+                state.cart = state.cart.filter(item => item._id !== items._id);
+            }
+        },
+        removeItemFromCart(state, action) {
+            const id = action.payload;
+            state.cart = state.cart.filter(item => item._id !== id);
         }
+    },
+    extraReducers: {
+        
+    }
+ 
   })
+  export const {addtocart, increaseCart,decreaseCart,removeItemFromCart} = cartSlice.actions
   export default cartSlice

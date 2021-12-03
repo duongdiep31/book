@@ -1,8 +1,7 @@
 import React from "react"
-import Categories from "./component/categories"
 import Trending from "./component/trending"
 import { Link } from "react-router-dom"
-const Homepage = (props) => {
+const Homepage = () => {
   return (
     <React.Fragment>
       <div>
@@ -61,7 +60,7 @@ const Homepage = (props) => {
             </div>
           </section>
           {/* TRENDING PRODUCTS*/}
-          <Trending  {...props} />
+          <Trending   />
           {/* SERVICES*/}
           <section className="py-5 bg-light">
             <div className="container">

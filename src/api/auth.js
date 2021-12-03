@@ -1,5 +1,4 @@
 import instance from "./instance";
-
 export const signup = (user) => {
   const url = "/api/register";
   return instance.post(url, user)

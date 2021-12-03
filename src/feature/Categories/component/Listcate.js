@@ -10,7 +10,7 @@ const Listcate =  () => {
           },[dispatch])
            const data = categories
           let Result
-          if (data) {
+          if (data && Array.isArray(data)) {
               Result = data.map((item,index) => {
               return( <React.Fragment
                   key={index}

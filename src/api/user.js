@@ -1,31 +1,30 @@
-import { isAuthenticate } from "../ultis";
 import instance from "./instance";
-const token = isAuthenticate().token
-export const getAllUser = () => {
+export const getAllUser = (token) => {
     const url = '/api/users'
     return instance.get(url, {
         headers: {
-            "Authorization": "Bearer " + token       }
-    })
+            "Authorization": "Bearer " + token}
+    }
+    )
 }
-export const getUser = (id) => {
+export const getUser = (id,token) => {
     const url = `/api/users/${id}` 
     return instance.get(url, {
         headers: {
-            "Authorization": "Bearer " + token       }
+            "Authorization": "Bearer "+ token       }
     })
 }
-export const removeUser = (id )=> {
+export const removeUser = (id,token )=> {
     const url = `/api/users/${id}`
     return instance.delete(url, {
         headers: {
-            "Authorization": "Bearer " + token       }
+            "Authorization": "Bearer "+ token       }
     })
 }
-export const updateUser = (id, product) => {
+export const updateUser = (id, product,token) => {
     const url = `/api/users/${id}`;
     return instance.patch(url, product, {
         headers: {
-            "Authorization": "Bearer " + token       }
+            "Authorization": "Bearer " + token      }
     })
 }

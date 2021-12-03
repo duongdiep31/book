@@ -8,7 +8,7 @@ export const itemPrd = createAsyncThunk(
     }
   )
 export const createPrd = createAsyncThunk(
-    'product/create',
+    'product/createPrd',
     async (product) => {
         const {data} = await insert(product)
         return data

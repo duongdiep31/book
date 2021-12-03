@@ -1,5 +1,72 @@
+import React from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
+import { decreaseCart, increaseCart, removeItemFromCart } from "../../Store/slice/cartSlice"
 const Cart = () => {
+    const dispatch = useDispatch()
+    const fetchItemCart = useSelector((state) => state.cart.cart)
+       const fetchUser  = useSelector((state) => state.auth.auth)
+       console.log(fetchUser);
+    const subtotal = fetchItemCart.reduce((a, b) => a + b.price * b.quantity, 0)
+    const nf = Intl.NumberFormat();
+
+    const listCart = () => {
+
+      if (fetchUser) {
+            
+
+
+
+        
+      }else{
+          return   fetchItemCart.map((item, index) => {
+            const total = item.quantity * item.price
+            const quantity = item.quantity
+            return(
+              <React.Fragment key={index} >
+            <tr>
+      <th className="pl-0 border-0" scope="row">
+        <div className="media align-items-center"><Link className="reset-anchor d-block animsition-link" to="detail.html"><img src={item.image} alt="..." width={70} /></Link>
+          <div className="media-body ml-3"><strong className="h6"><Link className="reset-anchor animsition-link" to="detail.html">{item.name}</Link></strong></div>
+        </div>
+      </th>
+      <td className="align-middle border-0">
+        <p className="mb-0 small">{nf.format(item.price)}</p>
+      </td>
+      <td className="align-middle border-0">
+        <div className="border d-flex align-items-center justify-content-between px-3"><span className="small text-uppercase text-gray headings-font-family">Quantity</span>
+          <div className="quantity">
+            <button onClick = {() => {
+                      dispatch(decreaseCart(item._id))
+            }} className="dec-btn p-0"><i className="fas fa-caret-left" /></button>
+            <input className="form-control form-control-sm border-0 shadow-0 p-0" type="text" defaultValue={quantity} />
+            <button onClick = {() => {
+                      dispatch(increaseCart(item._id))
+            }} className="inc-btn p-0"><i className="fas fa-caret-right" /></button>
+          </div>
+        </div>
+      </td>
+      <td className="align-middle border-0">
+        <p className="mb-0 small">{nf.format(total)}</p>
+      </td>
+      <td className="align-middle border-0"><Link onClick={() => dispatch(removeItemFromCart(item._id))} className="reset-anchor" to="#"><i className="fas fa-trash-alt small text-muted" /></Link></td>
+    </tr>
+
+              </React.Fragment>
+            )
+          } )
+      }
+
+
+
+
+
+
+
+
+
+    }
+
         return(
             <div>
   <div className="modal fade" id="productView" tabIndex={-1} role="dialog" aria-hidden="true">
@@ -76,52 +143,10 @@ const Cart = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <th className="pl-0 border-0" scope="row">
-                    <div className="media align-items-center"><Link className="reset-anchor d-block animsition-link" to="detail.html"><img src="img/product-detail-3.jpg" alt="..." width={70} /></Link>
-                      <div className="media-body ml-3"><strong className="h6"><Link className="reset-anchor animsition-link" to="detail.html">Red digital smartwatch</Link></strong></div>
-                    </div>
-                  </th>
-                  <td className="align-middle border-0">
-                    <p className="mb-0 small">$250</p>
-                  </td>
-                  <td className="align-middle border-0">
-                    <div className="border d-flex align-items-center justify-content-between px-3"><span className="small text-uppercase text-gray headings-font-family">Quantity</span>
-                      <div className="quantity">
-                        <button className="dec-btn p-0"><i className="fas fa-caret-left" /></button>
-                        <input className="form-control form-control-sm border-0 shadow-0 p-0" type="text" defaultValue={1} />
-                        <button className="inc-btn p-0"><i className="fas fa-caret-right" /></button>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="align-middle border-0">
-                    <p className="mb-0 small">$250</p>
-                  </td>
-                  <td className="align-middle border-0"><Link className="reset-anchor" to="#"><i className="fas fa-trash-alt small text-muted" /></Link></td>
-                </tr>
-                <tr>
-                  <th className="pl-0 border-light" scope="row">
-                    <div className="media align-items-center"><Link className="reset-anchor d-block animsition-link" to="detail.html"><img src="img/product-detail-2.jpg" alt="..." width={70} /></Link>
-                      <div className="media-body ml-3"><strong className="h6"><Link className="reset-anchor animsition-link" to="detail.html">Apple watch</Link></strong></div>
-                    </div>
-                  </th>
-                  <td className="align-middle border-light">
-                    <p className="mb-0 small">$250</p>
-                  </td>
-                  <td className="align-middle border-light">
-                    <div className="border d-flex align-items-center justify-content-between px-3"><span className="small text-uppercase text-gray headings-font-family">Quantity</span>
-                      <div className="quantity">
-                        <button className="dec-btn p-0"><i className="fas fa-caret-left" /></button>
-                        <input className="form-control form-control-sm border-0 shadow-0 p-0" type="text" defaultValue={1} />
-                        <button className="inc-btn p-0"><i className="fas fa-caret-right" /></button>
-                      </div>
-                    </div>
-                  </td>
-                  <td className="align-middle border-light">
-                    <p className="mb-0 small">$250</p>
-                  </td>
-                  <td className="align-middle border-light"><Link className="reset-anchor" to="#"><i className="fas fa-trash-alt small text-muted" /></Link></td>
-                </tr>
+
+                    {
+                    listCart()
+                    }
               </tbody>
             </table>
           </div>
@@ -139,9 +164,9 @@ const Cart = () => {
             <div className="card-body">
               <h5 className="text-uppercase mb-4">Cart total</h5>
               <ul className="list-unstyled mb-0">
-                <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Subtotal</strong><span className="text-muted small">$250</span></li>
+                <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Subtotal</strong><span className="text-muted small">{nf.format(subtotal)}</span></li>
                 <li className="border-bottom my-2" />
-                <li className="d-flex align-items-center justify-content-between mb-4"><strong className="text-uppercase small font-weight-bold">Total</strong><span>$250</span></li>
+                <li className="d-flex align-items-center justify-content-between mb-4"><strong className="text-uppercase small font-weight-bold">Total</strong><span>{nf.format(subtotal)}</span></li>
                 <li>
                   <form action="#">
                     <div className="form-group mb-0">

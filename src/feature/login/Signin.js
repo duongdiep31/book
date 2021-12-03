@@ -5,9 +5,9 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import { signin } from "../../api/auth";
-import { authenticate, isAuthenticate } from "../../ultis";
-
+import { authenticate} from "../../ultis";
+import { useDispatch, useSelector } from "react-redux";
+import { signIn } from "../../Store/action/authAction";
 const resolver = async (values) => {
     return {
         values: values.email ? values : {},
@@ -29,26 +29,17 @@ const Signin =  () => {
     const { register, handleSubmit, formState: { errors } } = useForm({resolver})
     const navigate = useNavigate();
     const [redirectTo, setRedirecTo] = useState(false);
-    const {user} =  isAuthenticate()
+    const dispatch = useDispatch()
+    const auth = useSelector((state) => state.auth.auth)
+    const loading = useSelector((state) => state.auth.loading)
     const onSubmit = (data) => {
-            try {
-               signin(data)
-            .then(response => {
-                authenticate(response.data)
-                setRedirecTo(true)
-                toast.success("ĐĂng nhập thành công")})
-            } catch (error) {
-                 return toast.error("Đăng nhập thất bại")
-            }
+         dispatch(signIn(data))
+        toast.success("Successfully")
+         setRedirecTo(true)
        
-       
-       
-   
-         
     }
     const logingg = () => {
         const responseGoogle = (response) => {
-            console.log(response);
             authenticate(response.profileObj)
             navigate('/', {replace:true})
         }
@@ -68,16 +59,18 @@ const Signin =  () => {
     }
     const userRedirect =  () => {
         if (redirectTo) {
-                        if (user.role !== '1') {
-                            navigate("/admin");
-                        } else {
-                            navigate("/");
-                        }
+            if (loading) {
+                if (auth) {
+                            if (auth.user.role !== '1') {
+                                navigate("/admin");
+                            } else {
+                                navigate("/");
                             }
-
+                        }
+            }
+           
+                            }
     };
-
-
     const facebooklogin = () => {
                 const componentClicked = (response)=> { console.log('click',response);}
         const responseFacebook = (response) => {console.log('fb',response);}
@@ -90,12 +83,7 @@ const Signin =  () => {
              onClick={componentClicked}
              callback={responseFacebook}
  /> )
-
     }
-
-
-
-
     return (<div className='container' >
         {userRedirect()}
         <div className="card mb-4" id="forms">

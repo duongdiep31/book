@@ -9,7 +9,7 @@ const Listproducts = () => {
     dispatch(itemPrd())
   },[dispatch])
       let Result;
-     if (products) {
+     if (products && Array.isArray(products)) {
           Result =products.map((item,index)=> {
               return(
                   <React.Fragment

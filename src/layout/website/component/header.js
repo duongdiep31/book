@@ -1,48 +1,36 @@
 import React from "react"
 import { NavLink } from "react-router-dom"
 import { Link } from "react-router-dom"
-import { isAuthenticate } from "../../../ultis"
 import { useNavigate } from "react-router";
-import { signout } from "../../../api/auth";
-
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../../../Store/action/authAction";
 const Header = () => {
-  const user = isAuthenticate()
   const navigate = useNavigate()
-  
+  const auth = useSelector((state) => state.auth.auth)
+  const fetchCart = useSelector((state) => state.cart.cart)
+  const dispatch = useDispatch()
   const button = () => {
-
-
-        if (user) {
+        if (auth) {
           return <button
-                onClick= {() => {
-                  if(typeof window != "undefined"){
-                    localStorage.removeItem('user');
-                    navigate('/', {replace:true})
-                    return signout()
-                    .then(response => response.data)
-                    .catch(error => console.log(error))
-                }
-                     }}
+          onClick= {() => {
+            if(typeof window != "undefined"){
+              dispatch(logout())
+              navigate('/', {replace:true})
+             }
+               }
+              }
+    style={{
+          background: '#f8f9fa',
+          border: 'none'
 
-                 
-          
-          style={{
-                background: '#f8f9fa',
-                border: 'none'
-
-          }} className="nav-link"   >  <i className="   mr-1 text-gray   fas fa-power-off"/>   Logout</button>
-
-
-
-          
-        }else{
-          return (<Link className="nav-link" to="/signin"> <i className="fas fa-user-alt mr-1 text-gray" />Login</Link>)
-
+    }} className="nav-link"   >  <i className="   mr-1 text-gray   fas fa-power-off"/>   Logout</button>
+        }
+        else{
+            return (<Link className="nav-link" to="/signin"><i className="fas fa-user-alt mr-1 text-gray"/>Login</Link>)
         }
   }
     return (
         <React.Fragment>
-                
 <header className="header bg-white">
   <div className="container px-0 px-lg-3">
     <nav className="navbar navbar-expand-lg navbar-light py-3 px-lg-0"><Link className="navbar-brand" to="/"><span className="font-weight-bold text-uppercase text-dark">Boutique</span></Link>
@@ -63,7 +51,7 @@ const Header = () => {
           </li>
         </ul>
         <ul className="navbar-nav ml-auto">               
-          <li className="nav-item"><Link className="nav-link" to="cart"> <i className="fas fa-dolly-flatbed mr-1 text-gray" />Cart<small className="text-gray">(2)</small></Link></li>
+          <li className="nav-item"><Link className="nav-link" to="cart"> <i className="fas fa-dolly-flatbed mr-1 text-gray" />Cart<small className="text-gray">({fetchCart.length})</small></Link></li>
           <li className="nav-item"><Link className="nav-link" to="#"> <i className="far fa-heart mr-1" /><small className="text-gray"> (0)</small></Link></li>
           <li className="nav-item">{  button()   }</li>
         </ul>
