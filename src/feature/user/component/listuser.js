@@ -5,10 +5,9 @@ import {  deleteUser, userList } from '../../../Store/action/userAction';
 // import { userList } from '../../../Store/slice/userReducer';
 const Listuser = () => {
   const user = useSelector((state) => state.user.user)
-  const token = useSelector((state) => state.auth.auth.token)
   const dispatch = useDispatch()
   useEffect(()=> {
-    dispatch(userList(token))
+    dispatch(userList())
   },[dispatch])
   let Result
   if (user && Array.isArray(user)) {
@@ -52,7 +51,7 @@ const Listuser = () => {
                       </Link>
                 <button onClick={
                     ()=>{
-                      dispatch(deleteUser(item._id,token))
+                      dispatch(deleteUser(item._id))
                     }
                 } className="btn btn-danger btn-sm" to="#">
                   <i className="fas fa-trash">

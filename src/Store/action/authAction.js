@@ -5,6 +5,7 @@ export const signIn = createAsyncThunk(
     'auth/signIn',
     async (user) => {
         const  {data}  = await signin(user)
+        console.log(data)
         return data
     }
 )

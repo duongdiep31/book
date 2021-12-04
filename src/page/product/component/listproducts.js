@@ -11,63 +11,56 @@ const CListPrd = (props) => {
   const url = "#productView"
   const dispatch = useDispatch()
   const products = useSelector((state) => state.product.product)
-  const fetchCart = useSelector((state) => state.cart.cart)
-  const fetchUser  = useSelector((state) => state.auth.auth)
+  const fetchUser = useSelector((state) => state.auth.auth)
   useEffect(() => {
     dispatch(itemPrd())
   }, [dispatch])
-      const productsList = () => {
-        if (products && Array.isArray(products)) {
-     return   products.map(item => {
-    return (<React.Fragment key={item._id} >
-      <div className="col-lg-4 col-sm-6">
-        <div className="product text-center">
-          <div className="mb-3 position-relative">
-            <div className="badge text-white badge-" /><Link className="d-block" to="detail.html"><img style={{ width: '255px', height: '350px' }} className="img-fluid w-100" src={item.image} alt="..." /></Link>
-            <div className="product-overlay">
-              <ul className="mb-0 list-inline">
-                <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
-                <li className="list-inline-item m-0 p-0"><button onClick={async () => {
-                  const { data } = await get(item._id)
-                  const cartItems = {
-                    ...data,
-                    quantity: 1
-                  }
-                  if (fetchUser) {
-                    const idUser = fetchUser.user._id
-                    console.log(idUser);
-                    try {
-                      const data = {
-                        idUser: idUser,
-                        idBook: item._id
+  const productsList = () => {
+    if (products && Array.isArray(products)) {
+      return products.map(item => {
+        return (<React.Fragment key={item._id} >
+          <div className="col-lg-4 col-sm-6">
+            <div className="product text-center">
+              <div className="mb-3 position-relative">
+                <div className="badge text-white badge-" /><Link className="d-block" to={`/detail/${item._id}`}><img style={{ width: '255px', height: '350px' }} className="img-fluid w-100" src={item.image} alt="..." /></Link>
+                <div className="product-overlay">
+                  <ul className="mb-0 list-inline">
+                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
+                    <li className="list-inline-item m-0 p-0"><button onClick={async () => {
+                      const { data } = await get(item._id)
+                      const cartItems = {
+                        ...data,
+                        quantity: 1
                       }
-                    await addToCart(data)
-                      toast.success("SuccessFully")
-                    } catch (error) {
-                      toast.error("Failed")
-                    }
-                  }else{
-                    dispatch( addtocart(cartItems))
-                  }
+                      if (fetchUser) {
+                        const idUser = fetchUser.user._id
+                        try {
+                          const data = {
+                            idUser: idUser,
+                            idBook: item._id
+                          }
+                          await addToCart(data)
+                          toast.success("SuccessFully")
+                        } catch (error) {
+                          toast.error("Failed")
+                        }
+                      } else {
+                        dispatch(addtocart(cartItems))
+                      }
 
-                }} className="btn btn-sm btn-dark">Add to cart</button></li>
-                <li className="list-inline-item mr-0"><a className="btn btn-sm btn-outline-dark" href={url} data-toggle="modal"><i className="fas fa-expand" /></a></li>
-              </ul>
+                    }} className="btn btn-sm btn-dark">Add to cart</button></li>
+                    <li className="list-inline-item mr-0"><a className="btn btn-sm btn-outline-dark" href={url} data-toggle="modal"><i className="fas fa-expand" /></a></li>
+                  </ul>
+                </div>
+              </div>
+              <h6> <Link className="reset-anchor" to="detail.html">{item.name}</Link></h6>
+              <p className="small text-muted">$250</p>
             </div>
           </div>
-          <h6> <Link className="reset-anchor" to="detail.html">{item.name}</Link></h6>
-          <p className="small text-muted">$250</p>
-        </div>
-      </div>
-    </React.Fragment>)
-
-})
-
-
-        }
-      }
-
-
+        </React.Fragment>)
+      })
+    }
+  }
   return (
     <React.Fragment>
       <Views />
@@ -109,6 +102,6 @@ const CListPrd = (props) => {
       </div>
     </React.Fragment>
   )
-  }
+}
 
 export default CListPrd

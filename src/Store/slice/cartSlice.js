@@ -1,9 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import { addtocartApi, getAllCartApi, removeCart } from "../action/cartAction";
  const cartSlice = createSlice({
     name: 'cart',
     initialState: {
-        cart: []        
+        cart: [],
+        cartApi: []        
     },
     reducers: {
         addtocart(state, action){
@@ -19,10 +21,6 @@ import { toast } from "react-toastify";
                 } catch (error) {
                     toast.error(error)
                 }
-
-
-            
-        
         },
         increaseCart(state, action) {
                  state.cart.find(item => item._id === action.payload).quantity++;
@@ -37,10 +35,19 @@ import { toast } from "react-toastify";
         removeItemFromCart(state, action) {
             const id = action.payload;
             state.cart = state.cart.filter(item => item._id !== id);
-        }
+        },
+
     },
-    extraReducers: {
-        
+    extraReducers: (builder) => {
+            builder.addCase(getAllCartApi.fulfilled, (state, action) => {
+                state.cartApi = action.payload
+            })
+            builder.addCase(addtocartApi.fulfilled, (state, action) => {
+                state.cartApi = action.payload
+            })
+            builder.addCase(removeCart.fulfilled, (state, action) => {
+                state.cartApi = state.cartApi.filter(item => item._id !== action.payload)
+            })
     }
  
   })

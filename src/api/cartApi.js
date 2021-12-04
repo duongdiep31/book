@@ -3,12 +3,12 @@ export const addToCart = (data) => {
     const url = '/api/addCart'
     return instance.post(url, data)
 }
-export const get = (id) => {
-    const url = `/api/book/detail/${id}` 
+export const getAllcart = () => {
+    const url = `/api/listCart/` 
     return instance.get(url)
 }
-export const remove = (id )=> {
-    const url = `/api/book/remove/${id}`
+export const deleteCart = (id )=> {
+    const url = `/api/deleteCart/${id}`
     return instance.delete(url)
 }
 export const insert = (product) => {

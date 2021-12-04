@@ -59,15 +59,14 @@ const Signin =  () => {
     }
     const userRedirect =  () => {
         if (redirectTo) {
-            if (loading) {
                 if (auth) {
                             if (auth.user.role !== '1') {
                                 navigate("/admin");
-                            } else {
+                            }
+                             else {
                                 navigate("/");
                             }
                         }
-            }
            
                             }
     };

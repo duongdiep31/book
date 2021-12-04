@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import {useForm} from 'react-hook-form'
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeUser } from "../../../Store/action/userAction";
 import { getUser } from "../../../api/user";
 
@@ -17,8 +17,8 @@ const Role = () => {
             reset(response.data)
         })
     },[id,reset])
-const onSubmit = (product) => {
-    dispatch(changeUser(product))
+const onSubmit = (user) => {
+    dispatch(changeUser(user))
         navigate("/admin/user" , {replace:true})
 };
     return (

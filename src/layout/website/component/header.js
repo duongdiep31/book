@@ -8,7 +8,15 @@ const Header = () => {
   const navigate = useNavigate()
   const auth = useSelector((state) => state.auth.auth)
   const fetchCart = useSelector((state) => state.cart.cart)
+  const fetchItemCartApi = useSelector((state) =>state.cart.cartApi)
   const dispatch = useDispatch()
+  const lengthCart = () => {
+    if (auth) {
+      return fetchItemCartApi.length
+    }else{
+      return fetchCart.length
+    }
+  }
   const button = () => {
         if (auth) {
           return <button
@@ -51,7 +59,7 @@ const Header = () => {
           </li>
         </ul>
         <ul className="navbar-nav ml-auto">               
-          <li className="nav-item"><Link className="nav-link" to="cart"> <i className="fas fa-dolly-flatbed mr-1 text-gray" />Cart<small className="text-gray">({fetchCart.length})</small></Link></li>
+          <li className="nav-item"><Link className="nav-link" to="cart"> <i className="fas fa-dolly-flatbed mr-1 text-gray" />Cart<small className="text-gray">({lengthCart()})</small></Link></li>
           <li className="nav-item"><Link className="nav-link" to="#"> <i className="far fa-heart mr-1" /><small className="text-gray"> (0)</small></Link></li>
           <li className="nav-item">{  button()   }</li>
         </ul>

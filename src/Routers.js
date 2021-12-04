@@ -20,6 +20,8 @@ import Role from "./feature/user/component/role";
 import PrivateRoute from "./auth/route/privateRoute";
 import ProtectedAuth from "./auth/route/protectedAuth";
 import ProtectedUser from "./auth/route/protectedUser";
+import Checkout from "./page/cart/checkout";
+import Details from "./page/Details";
 const Routers = (props) => {
         return (
             <BrowserRouter>
@@ -32,7 +34,10 @@ const Routers = (props) => {
                             <Route  path='shop' element={<Shop  />} />
                             <Route path='signup' element={<ProtectedAuth><Signup /></ProtectedAuth>}  /> 
                             <Route path ='signin' element={<ProtectedAuth><Signin /> </ProtectedAuth>}  />
-                            <Route  path='/404' element={<Error />}/></Route>
+                            <Route  path='/404' element={<Error />}/>
+                            <Route path='checkout' element={<Checkout />} />
+                            <Route path='/detail/:id' element={<Details />} />
+                            </Route>
                             {/* admin */}
                             <Route path='/admin/*' element={
                                 <PrivateRoute ><Admin/></PrivateRoute>
