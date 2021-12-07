@@ -5,7 +5,7 @@ import { addtocartApi, getAllCartApi, removeCart } from "../action/cartAction";
     name: 'cart',
     initialState: {
         cart: [],
-        cartApi: []        
+        cartApi: [], loading: false
     },
     reducers: {
         addtocart(state, action){
@@ -39,11 +39,15 @@ import { addtocartApi, getAllCartApi, removeCart } from "../action/cartAction";
 
     },
     extraReducers: (builder) => {
+            builder.addCase(addtocartApi.pending, (state, action) => {
+                state.loading = true
+            })
             builder.addCase(getAllCartApi.fulfilled, (state, action) => {
                 state.cartApi = action.payload
             })
             builder.addCase(addtocartApi.fulfilled, (state, action) => {
-                state.cartApi = action.payload
+                state.cartApi.push(action.payload)
+                state.loading = false
             })
             builder.addCase(removeCart.fulfilled, (state, action) => {
                 state.cartApi = state.cartApi.filter(item => item._id !== action.payload)

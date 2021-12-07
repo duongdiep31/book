@@ -7,6 +7,7 @@ import Views from "./prdViews"
 import { addToCart } from "../../../api/cartApi"
 import { toast } from "react-toastify"
 import { addtocart } from "../../../Store/slice/cartSlice"
+import { addtocartApi } from "../../../Store/action/cartAction"
 const CListPrd = (props) => {
   const url = "#productView"
   const dispatch = useDispatch()
@@ -35,11 +36,12 @@ const CListPrd = (props) => {
                       if (fetchUser) {
                         const idUser = fetchUser.user._id
                         try {
-                          const data = {
+                          const dataApi = {
                             idUser: idUser,
-                            idBook: item._id
+                            idBook: data._id,
+                            quantity: 1
                           }
-                          await addToCart(data)
+                          dispatch(addtocartApi(dataApi))
                           toast.success("SuccessFully")
                         } catch (error) {
                           toast.error("Failed")

@@ -3,8 +3,7 @@ import { changecate, createcate, deletecate, itemcate } from "../action/categori
  const categorySlice = createSlice({
     name: 'category',
     initialState: {
-        category: [
-        ]        
+        category: []        
     },
     extraReducers:  (builder)  =>{
             builder.addCase(itemcate.fulfilled, (state, action) => {

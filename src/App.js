@@ -8,7 +8,6 @@ import './App.css';
 import Routers from './Routers';
 
 function App() {
-
 //   const [products, setProducts] = useState([])
 //   const [categories, setCategories] = useState([])
 

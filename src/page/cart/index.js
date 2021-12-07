@@ -1,60 +1,57 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { get } from "../../api/product"
-import { getAllCartApi, removeCart } from '../../Store/action/cartAction'
+import { getAllcart } from "../../api/cartApi"
+import { removeCart } from '../../Store/action/cartAction'
 import { decreaseCart, increaseCart, removeItemFromCart } from "../../Store/slice/cartSlice"
 const Cart = () => {
   const dispatch = useDispatch()
   const fetchItemCart = useSelector((state) => state.cart.cart)
-  const fetchItemCartApi = useSelector((state) => state.cart.cartApi)
-  useEffect(() => {
-    dispatch(getAllCartApi())
-  }, dispatch)
-  const fetchUser = useSelector((state) => state.auth.auth)
+  const [cartApi, setcartApi] = useState([])
+  useEffect( async () => {
+    const {data} = await getAllcart()
+    setcartApi(data)
+},[])
+const fetchUser = useSelector((state) => state.auth.auth)
   const subtotal = fetchItemCart.reduce((a, b) => a + b.price * b.quantity, 0)
-  const subtotalApi = fetchItemCartApi.reduce((a, b) => a + b.price * b.quantity, 0)
   const nf = Intl.NumberFormat();
   const listCart = () => {
     if (fetchUser) {
-      const cartUser = fetchItemCartApi.filter(item => item.idUser === fetchUser.user._id)
-
+    const cartUser = cartApi.filter(item => item.idUser === fetchUser.user._id)
+    console.log(cartApi);
       const Result = cartUser.map((item, index) => {
-        // const {data}  = await get(item.idBook)
-        // console.log('data',data);
         return (
           <React.Fragment key={index} >
             <tr>
               <th className="pl-0 border-0" scope="row">
-                <div className="media align-items-center"><Link className="reset-anchor d-block animsition-link" to="detail.html"><img src={item.image} alt="..." width="70" /></Link>
-                  <div className="media-body ml-3"><strong className="h6"><Link className="reset-anchor animsition-link" to="detail.html">{item.name}</Link></strong></div>
+                <div className="media align-items-center"><Link className="reset-anchor d-block animsition-link" to="detail.html"><img src={item.idBook.image} alt="..." width="70" /></Link>
+                  <div className="media-body ml-3"><strong className="h6"><Link className="reset-anchor animsition-link" to="detail.html">{item.idBook.name}</Link></strong></div>
                 </div>
               </th>
               <td className="align-middle border-0">
-                <p className="mb-0 small">{item.price}</p>
+                <p className="mb-0 small">{item.idBook.price}</p>
               </td>
               <td className="align-middle border-0">
                 <div className="border d-flex align-items-center justify-content-between px-3"><span className="small text-uppercase text-gray headings-font-family">Quantity</span>
                   <div className="quantity">
                     <button
-                      onClick={() => dispatch(decreaseCart(item._id))}
+                      onClick={() => dispatch(decreaseCart(item.idBook._id))}
                       className="dec-btn p-0"><i className="fas fa-caret-left"></i></button>
                     <input className="form-control form-control-sm border-0 shadow-0 p-0" type="text" defaultValue={item.quantity} />
                     <button
-                      onClick={() => dispatch(increaseCart(item._id))}
+                      onClick={() => dispatch(increaseCart(item.idBook._id))}
                       className="inc-btn p-0"><i className="fas fa-caret-right"></i></button>
                   </div>
                 </div>
               </td>
               <td className="align-middle border-0">
-                <p className="mb-0 small">{nf.format(item.quantity * item.price)}</p>
+                <p className="mb-0 small">{nf.format(item.quantity * item.idBook.price)}</p>
               </td>
               <td className="align-middle border-0"><Link onClick={() => dispatch(removeCart(item._id))} className="reset-anchor" to="#"><i className="fas fa-trash-alt small text-muted"></i></Link></td>
             </tr>
           </React.Fragment>
         )
       })
-
       return Result
     }
     else {
@@ -63,7 +60,7 @@ const Cart = () => {
           <React.Fragment key={index} >
             <tr>
               <th className="pl-0 border-0" scope="row">
-                <div className="media align-items-center"><Link className="reset-anchor d-block animsition-link" to="detail.html"><img src={item.image} alt="..." width="70" /></Link>
+                <div className="media align-items-center"><Link className="reset-anchor d-block animsition-link" to={`/detail/${item._id}`}><img src={item.image} alt="..." width="70" /></Link>
                   <div className="media-body ml-3"><strong className="h6"><Link className="reset-anchor animsition-link" to="detail.html">{item.name}</Link></strong></div>
                 </div>
               </th>
@@ -95,6 +92,10 @@ const Cart = () => {
   }
   const subTotal = () => {
     if (fetchUser) {
+    const cartUser = cartApi.filter(item => item.idUser === fetchUser.user._id)
+    const subtotalApi = cartUser.reduce((a,b) => {
+      return a+ (b.idBook.price) * b.quantity
+    }, 0)
       return (
         <>
           <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Subtotal</strong><span className="text-muted small">{nf.format(subtotalApi)}</span></li>

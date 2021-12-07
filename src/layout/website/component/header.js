@@ -1,18 +1,23 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { NavLink } from "react-router-dom"
 import { Link } from "react-router-dom"
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../Store/action/authAction";
+import { getAllcart } from "../../../api/cartApi";
 const Header = () => {
   const navigate = useNavigate()
   const auth = useSelector((state) => state.auth.auth)
   const fetchCart = useSelector((state) => state.cart.cart)
-  const fetchItemCartApi = useSelector((state) =>state.cart.cartApi)
+  const [cartApi, setcartApi] = useState({})
+  useEffect( async() => {
+      const {data} = await getAllcart()
+      setcartApi(data)
+  },{})
   const dispatch = useDispatch()
   const lengthCart = () => {
     if (auth) {
-      return fetchItemCartApi.length
+      return cartApi.length
     }else{
       return fetchCart.length
     }
@@ -23,6 +28,7 @@ const Header = () => {
           onClick= {() => {
             if(typeof window != "undefined"){
               dispatch(logout())
+              localStorage.removeItem('persist:root')
               navigate('/', {replace:true})
              }
                }

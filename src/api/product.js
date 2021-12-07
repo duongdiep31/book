@@ -1,3 +1,4 @@
+import store from "../Store";
 import instance from "./instance";
 export const getAll = () => {
     const url = '/api/book/list'
@@ -13,7 +14,12 @@ export const remove = (id )=> {
 }
 export const insert = (product) => {
     const url = '/api/book/create/'
-    return instance.post(url, product)
+    const token = store.getState().auth.auth.token
+    return instance.post(url, product, {
+        headers: {
+            "Authorization": "Bearer " + token}
+    }
+        )
 }
 export const update = (id, product) => {
     const url = `/api/book/update/${id}`;

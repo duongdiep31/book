@@ -3,7 +3,7 @@ import {  logout, signIn } from "../action/authAction";
  const authSlice = createSlice({
     name: 'auth',
     initialState: {
-        auth: {}, isAuthenticated: false, loading: false,
+        auth: {}, isAuthenticated: false,
         message: '',
         loading: false
 

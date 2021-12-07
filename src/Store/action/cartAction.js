@@ -1,24 +1,41 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { addToCart, deleteCart, getAllcart } from "../../api/cartApi";
+import store from "..";
+import { addToCart, deleteCart, getAllcart, updateCart } from "../../api/cartApi";
 export const getAllCartApi = createAsyncThunk(
-    'auth//getAllCart',
+    'cartApi//getAllCart',
     async () => {
         const {data} = await getAllcart()
         return data
     }
 )
 export const addtocartApi = createAsyncThunk(
-    'cart/addtocart',
+    'cartApi/addtocart',
     async (cartItems) => {
-             const {data} = await addToCart(cartItems)
-             return data   
+                console.log('cart',cartItems);
+                const{data} = await getAllcart()
+                console.log(data);
+                const exitsUser = data.filter((item) => item.idUser === cartItems.idUser)
+        if (exitsUser) {
+            const existProduct = exitsUser.find((item) => item.idBook._id === cartItems.idBook)
+                if (existProduct) {
+                    const count = {
+                        quantity: existProduct.quantity+cartItems.quantity}
+                        const response = await updateCart(existProduct._id, count)
+                        return response.data
+                }else{
+                    const response = await addToCart(cartItems)
+                    return response.data
+                }
+               }else{
+                const response = await addToCart(cartItems)
+                return response.data
+                 }
     }
 )
 export const removeCart = createAsyncThunk(
-    'cart/removecart',
+    'cartApi/removecart',
     async (id) => {
         const {data} = await deleteCart(id)
-        console.log(data);
-     return id
+         return data._id
     }
 )
