@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { deletePrd, itemPrd } from '../../../Store/action/products';
 import ReactPaginate from 'react-paginate'
-import axios from 'axios';
+import { getAllPrd } from '../../../api/product';
 
 const Listproducts = () => {
   const products = useSelector((state) => state.product.product)
@@ -18,7 +18,8 @@ const Listproducts = () => {
   }, [dispatch,page])
   useEffect(() => {
     const getlength = async () => {
-      const res = await axios.get('http://192.168.1.10:4040/api/book/list')
+      const res = await getAllPrd()
+      console.log(res);
       const total = Math.ceil(res.data.length / page.limit)
       setTotalPage(total)
     }
@@ -77,7 +78,6 @@ const Listproducts = () => {
               )
           })
      }
-   
     return (
             <>
   <section className="content-header">

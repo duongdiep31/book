@@ -4,6 +4,11 @@ export const getAll = (page) => {
     const url = `/api/book/list?page=${page.page}&limit=${page.limit}`
     return instance.get(url)
 }
+export const getAllPrd = () => {
+    const url = `/api/book/list`
+    return instance.get(url)
+}
+
 export const get = (id) => {
     const url = `/api/book/detail/${id}` 
     return instance.get(url)
