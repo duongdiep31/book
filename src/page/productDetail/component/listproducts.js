@@ -32,7 +32,7 @@ const CListPrdDetail = (props) => {
       setTotalPage(total)
     }
     getlength()
-  },[])
+  },[page])
   const handlePageClick = (data) => {
           setPage(
             {

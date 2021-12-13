@@ -8,15 +8,14 @@ import { toast } from "react-toastify"
 import { addtocart } from "../../../Store/slice/cartSlice"
 import { addtocartApi } from "../../../Store/action/cartAction"
 import ReactPaginate from 'react-paginate'
-import axios from "axios"
-const CListPrd = (props) => {
+const CListPrd = () => {
   const url = "#productView"
   const dispatch = useDispatch()
   const products = useSelector((state) => state.product.product)
   const fetchUser = useSelector((state) => state.auth.auth)
   const [page, setPage] = useState({
     page: 1,
-    limit: 5
+    limit: 1
   })
   const [totalPage, setTotalPage] = useState([])
   useEffect(() => {
@@ -76,10 +75,10 @@ const CListPrd = (props) => {
       setTotalPage(total)
     }
     getlength()
-  },[])
+  },[page])
   const handlePageClick = (data) => {
           setPage(
-            {
+          {
               page: data.selected+1,
               limit: page.limit
             }
@@ -121,7 +120,7 @@ const CListPrd = (props) => {
             previousLabel={'<<'}
             nextLabel={'>>'}
             breakLabel={'...'}
-            pageCount={totalPage}
+            pageCount={Math.ceil(totalPage)}
             marginPagesDisplayed={2}
             pageRangeDisplayed={3}
             onPageChange={handlePageClick}

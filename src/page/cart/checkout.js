@@ -60,10 +60,7 @@ const Checkout = () => {
             <label className="text-small text-uppercase" htmlFor="phone">Phone number</label>
             <input  {...register('phone', {required: true} )} defaultValue={fetchUser.user.phone} className="form-control form-control-lg" id="phone" type="tel" placeholder="e.g. +02 245354745" />
           </div>
-          {/* <div className="col-lg-6 form-group">
-            <label className="text-small text-uppercase" htmlFor="country">Country</label>
-            <select className="selectpicker country" id="country" data-width="fit" data-style="form-control form-control-lg" data-title="Select your country" />
-          </div> */}
+      
           <div className="col-lg-12 form-group">
             <label className="text-small text-uppercase" htmlFor="address">Address line</label>
             <input  {...register('address', {required: true} )} className="form-control form-control-lg" id="address" type="text" placeholder="House number and street name" />
@@ -175,8 +172,8 @@ const Checkout = () => {
               <div className="col-lg-6 text-lg-right">
                 <nav aria-label="breadcrumb">
                   <ol className="breadcrumb justify-content-lg-end mb-0 px-0">
-                    <li className="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li className="breadcrumb-item"><a href="cart.html">Cart</a></li>
+                    <li className="breadcrumb-item"><a href="/">Home</a></li>
+                    <li className="breadcrumb-item"><a href="/cart">Cart</a></li>
                     <li className="breadcrumb-item active" aria-current="page">Checkout</li>
                   </ol>
                 </nav>

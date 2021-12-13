@@ -127,7 +127,7 @@ const Cart = () => {
               <div className="col-lg-6 text-lg-right">
                 <nav aria-label="breadcrumb">
                   <ol className="breadcrumb justify-content-lg-end mb-0 px-0">
-                    <li className="breadcrumb-item"><Link to="index.html">Home</Link></li>
+                    <li className="breadcrumb-item"><Link to="/">Home</Link></li>
                     <li className="breadcrumb-item active" aria-current="page">Cart</li>
                   </ol>
                 </nav>
@@ -161,7 +161,7 @@ const Cart = () => {
               {/* CART NAV*/}
               <div className="bg-light px-4 py-3">
                 <div className="row align-items-center text-center">
-                  <div className="col-md-6 mb-3 mb-md-0 text-md-left"><Link className="btn btn-link p-0 text-dark btn-sm" to="shop.html"><i className="fas fa-long-arrow-alt-left mr-2"> </i>Continue shopping</Link></div>
+                  <div className="col-md-6 mb-3 mb-md-0 text-md-left"><Link className="btn btn-link p-0 text-dark btn-sm" to="/shop"><i className="fas fa-long-arrow-alt-left mr-2"> </i>Continue shopping</Link></div>
                   <div className="col-md-6 text-md-right"><Link className="btn btn-outline-dark btn-sm" to="/checkout">Procceed to checkout<i className="fas fa-long-arrow-alt-right ml-2" /></Link></div>
                 </div>
               </div>

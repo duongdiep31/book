@@ -19,12 +19,11 @@ const Listproducts = () => {
   useEffect(() => {
     const getlength = async () => {
       const res = await getAllPrd()
-      console.log(res);
       const total = Math.ceil(res.data.length / page.limit)
       setTotalPage(total)
     }
     getlength()
-  },[])
+  },[page])
   const handlePageClick = (data) => {
           setPage(
             {
