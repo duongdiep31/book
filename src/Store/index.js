@@ -15,17 +15,21 @@ import {
 import storage from 'redux-persist/lib/storage'
 import authSlice from "./slice/authSlcie";
 import cartSlice from "./slice/cartSlice";
+import cartSliceApi from "./slice/cartSliceApi";
+import orderSlice from "./slice/orderSlice";
   const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['product', 'category','user']
+    blacklist: ['product', 'category','user','cartApi','order']
   }
   const rootReducer = combineReducers({
     product: productSlice.reducer,
     category: categorySlice.reducer,
     user: userSlice.reducer,
     auth: authSlice.reducer,
-    cart: cartSlice.reducer
+    cart: cartSlice.reducer,
+    cartApi: cartSliceApi.reducer,
+    order: orderSlice.reducer
   })
   const persistedReducer = persistReducer(persistConfig,rootReducer)
 

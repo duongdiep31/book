@@ -3,23 +3,23 @@ import {useForm} from 'react-hook-form'
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { changeUser } from "../../../Store/action/userAction";
-import { getUser } from "../../../api/user";
+import { getOrder } from "../../../api/orderApi";
+import { updateStatusAction } from "../../../Store/action/orderAction";
 
-const Role = () => {
+const Statusorder = () => {
     const {register, handleSubmit, reset} = useForm();
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const {id} = useParams()
     useEffect(() => {
-        getUser(id)
+        getOrder(id)
         .then(response => {
             reset(response.data)
         })
     },[id,reset])
 const onSubmit = (user) => {
-    dispatch(changeUser(user))
-        navigate("/admin/user" , {replace:true})
+    dispatch(updateStatusAction(user))
+        navigate("/admin/orderadmin" , {replace:true})
 };
     return (
         <>
@@ -53,10 +53,11 @@ const onSubmit = (user) => {
                                 <form onSubmit={handleSubmit(onSubmit)} >
                                     <div className="form-group">
                                         <label htmlFor="inputStatus">Categories</label>
-                                        <select  {...register('role', {required:true})} id="inputStatus" className="form-control custom-select">
-                                            <option value='2' >Giám đốc</option>
-                                            <option value='3' >Content</option>
-                                            <option value='4' >Cart</option>
+                                        <select  {...register('status', {required:true})} id="inputStatus" className="form-control custom-select">
+                                              <option value='2' >Huỷ</option>
+                                              <option value='0' >Đã Xác Nhận</option>
+                                            <option value='1' >Đang Vận Chuyển</option>
+                                            <option value='3' >Thành Công</option>
                                         </select>
                                     </div>
                                   
@@ -76,4 +77,4 @@ const onSubmit = (user) => {
     );
 }
 
-export default Role;
+export default Statusorder;

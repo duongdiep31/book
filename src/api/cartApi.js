@@ -2,8 +2,7 @@ import store from "../Store";
 import instance from "./instance";
 export const addToCart = (data) => {
     const url = '/api/addCart'
-    const token = store .getState().auth.auth.token
-
+    const token = store.getState().auth.auth.token
     return instance.post(url, data,
         {
             headers: {
@@ -25,7 +24,7 @@ export const insert = (product) => {
 }
 export const updateCart = (id, product) => {
     const url = `/api/updateCart/${id}`;
-    const token = store .getState().auth.auth.token
+    const token = store.getState().auth.auth.token
     return instance.patch(url, product,
         {
             headers: {

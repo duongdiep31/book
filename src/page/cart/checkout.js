@@ -1,30 +1,64 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-
+import { getAllCartApi, removeCart } from '../../Store/action/cartAction'
+import { addOrderAction } from '../../Store/action/orderAction';
+// const resolver = async (values) => {
+//   return {
+//     values: values.name ? values : {},
+//     errors: !values.name
+//       ? {
+//           name: {
+//             type: "required",
+//             message: "Please enter Name"
+//           }
+//         }
+//       : {}
+//   };
+// };
 const Checkout = () => {
+  const dispatch = useDispatch()
   const fetchItemCart = useSelector((state) => state.cart.cart)
-  const fetchItemCartApi = useSelector((state) => state.cart.cartApi)
-  const subtotalApi = fetchItemCartApi.reduce((a, b) => a + b.price * b.quantity, 0)
+  const fetchItemCartApi = useSelector((state) => state.cartApi.cartApi)
   const fetchUser = useSelector((state) => state.auth.auth)
   const subtotal = fetchItemCart.reduce((a, b) => a + b.price * b.quantity, 0)
   const nf = Intl.NumberFormat();
+  useEffect(() => {
+    dispatch(getAllCartApi())
+  },[dispatch])
+  const {register, handleSubmit} = useForm();
+  const onHandleSubmit = (e) => {
+    if (fetchUser) {
+      const arr = fetchItemCartApi.filter((item) => item.idUser === fetchUser.user._id)
+      const subtotalApi = arr.reduce((a, b) => a + b.idBook.price * b.quantity, 0)
+      const data = {
+        arrOrder : arr,
+        ...e,
+        userId: fetchUser.user._id,
+        totalPrice: subtotalApi
+      }
+      dispatch(addOrderAction(data))
+      
+    }
+  }
   const form = () => {
     if (fetchUser) {
-      console.log(fetchUser);
       return(
-        <form action="#">
+        <form onSubmit={handleSubmit(onHandleSubmit)} className="row">
         <div className="row">
           <div className="col-lg-12 form-group">
             <label className="text-small text-uppercase" htmlFor="name">Name</label>
-            <input defaultValue={fetchUser.user.name} className="form-control form-control-lg" id="name" type="text" placeholder="Enter your first name" />
+            <input {...register('nameKh', {required: true} )} defaultValue={fetchUser.user.name} className="form-control form-control-lg" id="name" type="text" placeholder="Enter your first name" />
+
           </div>
           <div className="col-lg-6 form-group">
             <label className="text-small text-uppercase" htmlFor="email">Email address</label>
-            <input defaultValue ={fetchUser.user.email} className="form-control form-control-lg" id="email" type="email" placeholder="e.g. Jason@example.com" />
+            <input  {...register('email', {required: true} )} defaultValue ={fetchUser.user.email} className="form-control form-control-lg" id="email" type="email" placeholder="e.g. Jason@example.com" />
           </div>
           <div className="col-lg-6 form-group">
             <label className="text-small text-uppercase" htmlFor="phone">Phone number</label>
-            <input defaultValue={fetchUser.user.phone} className="form-control form-control-lg" id="phone" type="tel" placeholder="e.g. +02 245354745" />
+            <input  {...register('phone', {required: true} )} defaultValue={fetchUser.user.phone} className="form-control form-control-lg" id="phone" type="tel" placeholder="e.g. +02 245354745" />
           </div>
           {/* <div className="col-lg-6 form-group">
             <label className="text-small text-uppercase" htmlFor="country">Country</label>
@@ -32,47 +66,45 @@ const Checkout = () => {
           </div> */}
           <div className="col-lg-12 form-group">
             <label className="text-small text-uppercase" htmlFor="address">Address line</label>
-            <input className="form-control form-control-lg" id="address" type="text" placeholder="House number and street name" />
+            <input  {...register('address', {required: true} )} className="form-control form-control-lg" id="address" type="text" placeholder="House number and street name" />
           </div>
-          <div className="col-lg-6 form-group">
+          {/* <div className="col-lg-6 form-group">
             <label className="text-small text-uppercase" htmlFor="city">Town/City</label>
             <input className="form-control form-control-lg" id="city" type="text" />
           </div>
           <div className="col-lg-6 form-group">
             <label className="text-small text-uppercase" htmlFor="state">State/County</label>
             <input className="form-control form-control-lg" id="state" type="text" />
-          </div>
-          <div className="col-lg-6 form-group">
-            <div className="custom-control custom-checkbox">
-              <input className="custom-control-input" id="alternateAddressCheckbox" type="checkbox" />
-              <label className="custom-control-label text-small" htmlFor="alternateAddressCheckbox">Alternate billing address</label>
-            </div>
-          </div>
+          </div> */}
           <div className="col-lg-12 form-group">
-            <button className="btn btn-dark" type="submit">Place order</button>
+            <button onClick={
+              () => {
+                const arr = fetchItemCartApi.filter((item) => item.idUser === fetchUser.user._id)
+               arr.map((zz) => {
+                return   dispatch(removeCart(zz._id))
+                })
+              }
+            } className="btn btn-dark">Place order</button>
           </div>
         </div>
-      </form>
+        </form>
       )
     } else {
       return (
-        <form action="#">
+        <form onSubmit={handleSubmit(onHandleSubmit)}>
           <div className="row">
             <div className="col-lg-6 form-group">
               <label className="text-small text-uppercase" htmlFor="firstName">First name</label>
-              <input className="form-control form-control-lg" id="firstName" type="text" placeholder="Enter your first name" />
+              <input  {...register('nameKh', {required: true} )} className="form-control form-control-lg" id="firstName" type="text" placeholder="Enter your first name" />
             </div>
-            <div className="col-lg-6 form-group">
-              <label className="text-small text-uppercase" htmlFor="lastName">Last name</label>
-              <input className="form-control form-control-lg" id="lastName" type="text" placeholder="Enter your last name" />
-            </div>
+          
             <div className="col-lg-6 form-group">
               <label className="text-small text-uppercase" htmlFor="email">Email address</label>
-              <input className="form-control form-control-lg" id="email" type="email" placeholder="e.g. Jason@example.com" />
+              <input  {...register('email', {required: true} )} className="form-control form-control-lg" id="email" type="email" placeholder="e.g. Jason@example.com" />
             </div>
             <div className="col-lg-6 form-group">
               <label className="text-small text-uppercase" htmlFor="phone">Phone number</label>
-              <input className="form-control form-control-lg" id="phone" type="tel" placeholder="e.g. +02 245354745" />
+              <input  {...register('phone', {required: true} )} className="form-control form-control-lg" id="phone" type="tel" placeholder="e.g. +02 245354745" />
             </div>
             {/* <div className="col-lg-6 form-group">
                       <label className="text-small text-uppercase" htmlFor="country">Country</label>
@@ -80,37 +112,25 @@ const Checkout = () => {
                     </div> */}
             <div className="col-lg-12 form-group">
               <label className="text-small text-uppercase" htmlFor="address">Address line</label>
-              <input className="form-control form-control-lg" id="address" type="text" placeholder="House number and street name" />
+              <input {...register('address', {required: true} )} className="form-control form-control-lg" id="address" type="text" placeholder="House number and street name" />
             </div>
-            <div className="col-lg-6 form-group">
-              <label className="text-small text-uppercase" htmlFor="city">Town/City</label>
-              <input className="form-control form-control-lg" id="city" type="text" />
-            </div>
-            <div className="col-lg-6 form-group">
-              <label className="text-small text-uppercase" htmlFor="state">State/County</label>
-              <input className="form-control form-control-lg" id="state" type="text" />
-            </div>
-            <div className="col-lg-6 form-group">
-              <div className="custom-control custom-checkbox">
-                <input className="custom-control-input" id="alternateAddressCheckbox" type="checkbox" />
-                <label className="custom-control-label text-small" htmlFor="alternateAddressCheckbox">Alternate billing address</label>
-              </div>
-            </div>
+          
             <div className="col-lg-12 form-group">
               <button className="btn btn-dark" type="submit">Place order</button>
             </div>
           </div>
-        </form>
+          </form>
       )
     }
   }
   const total = () => {
     if (fetchUser) {
-      return fetchItemCartApi.map((item, index) => {
-        const total = item.price * item.quantity
+      const fetchItemCartUser = fetchItemCartApi.filter((item) => item.idUser === fetchUser.user._id)
+      return fetchItemCartUser.map((item, index) => {
+        const total = item.idBook.price * item.quantity
         return (
           <React.Fragment key={index} >
-            <li className="d-flex align-items-center justify-content-between"><strong className="small font-weight-bold">{item.name}</strong><span className="text-muted small"> {nf.format(total)} Vnd </span></li>
+            <li className="d-flex align-items-center justify-content-between"><strong className="small font-weight-bold">{item.idBook.name}</strong><span className="text-muted small"> {nf.format(total)} Vnd </span></li>
             <li className="border-bottom my-2" />
           </React.Fragment>
         )
@@ -129,8 +149,11 @@ const Checkout = () => {
   }
   const subTotal = () => {
     if (fetchUser) {
+      const fetchItemCartUser = fetchItemCartApi.filter((item) => item.idUser === fetchUser.user._id)
+      const subtotalApi = fetchItemCartUser.reduce((a, b) => a + b.idBook.price * b.quantity, 0)
+
       return (
-        <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Total</strong><span>{nf.format(subtotalApi)} Vnd</span></li>
+        <li  className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Total</strong><span  >{nf.format(subtotalApi)} Vnd</span></li>
       )
     }else{
       return(
@@ -138,6 +161,7 @@ const Checkout = () => {
       )
     }
   }
+
   return (
     <div>
       <div className="container">
@@ -163,9 +187,12 @@ const Checkout = () => {
         <section className="py-5">
           {/* BILLING ADDRESS*/}
           <h2 className="h5 text-uppercase mb-4">Billing details</h2>
-          <div className="row">
+            <div  className="row">
             <div className="col-lg-8">
+
+
               {form()}
+
             </div>
             {/* ORDER SUMMARY*/}
             <div className="col-lg-4">
@@ -185,6 +212,7 @@ const Checkout = () => {
                 </div>
               </div>
             </div>
+            
           </div>
         </section>
       </div>

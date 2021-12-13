@@ -1,7 +1,7 @@
 import store from "../Store";
 import instance from "./instance";
-export const getAll = () => {
-    const url = '/api/book/list'
+export const getAll = (page) => {
+    const url = `/api/book/list?page=${page.page}&limit=${page.limit}`
     return instance.get(url)
 }
 export const get = (id) => {

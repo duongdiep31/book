@@ -9,10 +9,10 @@ export const signIn = createAsyncThunk(
         return data
     }
 )
-export const signUp = createAsyncThunk(
+export const orderAction = createAsyncThunk(
     'auth/signUp',
-    async (userData) => {
-        const { data } = await signup(userData)
+    async (order) => {
+        const { data } = await signup(order)
         return data
     }
 )

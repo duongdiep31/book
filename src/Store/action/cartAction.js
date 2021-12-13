@@ -1,5 +1,4 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import store from "..";
 import { addToCart, deleteCart, getAllcart, updateCart } from "../../api/cartApi";
 export const getAllCartApi = createAsyncThunk(
     'cartApi//getAllCart',
@@ -11,9 +10,7 @@ export const getAllCartApi = createAsyncThunk(
 export const addtocartApi = createAsyncThunk(
     'cartApi/addtocart',
     async (cartItems) => {
-                console.log('cart',cartItems);
                 const{data} = await getAllcart()
-                console.log(data);
                 const exitsUser = data.filter((item) => item.idUser === cartItems.idUser)
         if (exitsUser) {
             const existProduct = exitsUser.find((item) => item.idBook._id === cartItems.idBook)

@@ -24,10 +24,7 @@ const ClistCategories = (props) => {
     return(
       <ul className="list-unstyled small text-muted pl-lg-4 font-weight-normal">
         <li className="mb-2"><Link className="reset-anchor" to="/shop">All</Link></li>
-
-        {
-            Result
-        }
+        {Result}
       </ul>
       )
 }

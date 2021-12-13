@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect,useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { get } from "../../../api/product"
@@ -7,9 +7,11 @@ import Views from "./prdViews"
 import { toast } from "react-toastify"
 import { addtocart } from "../../../Store/slice/cartSlice"
 import { addtocartApi } from "../../../Store/action/cartAction"
+import { useParams } from "react-router"
 import ReactPaginate from 'react-paginate'
 import axios from "axios"
-const CListPrd = (props) => {
+const CListPrdDetail = (props) => {
+  const {id} = useParams()
   const url = "#productView"
   const dispatch = useDispatch()
   const products = useSelector((state) => state.product.product)
@@ -18,13 +20,31 @@ const CListPrd = (props) => {
     page: 1,
     limit: 5
   })
+  console.log(products);
   const [totalPage, setTotalPage] = useState([])
   useEffect(() => {
     dispatch(itemPrd(page))
   }, [dispatch,page])
+  useEffect(() => {
+    const getlength = async () => {
+      const res = await axios.get('http://192.168.1.10:4040/api/book/list')
+      const total = Math.ceil(res.data.length / page.limit)
+      setTotalPage(total)
+    }
+    getlength()
+  },[])
+  const handlePageClick = (data) => {
+          setPage(
+            {
+              page: data.selected+1,
+              limit: page.limit
+            }
+          )
+  }
   const productsList = () => {
     if (products && Array.isArray(products)) {
-      return products.map(item => {
+      const productsCate = products.filter((item) => item.cateId._id === id)
+      return productsCate.map(item => {
         return (<React.Fragment key={item._id} >
           <div className="col-lg-4 col-sm-6">
             <div className="product text-center">
@@ -69,22 +89,6 @@ const CListPrd = (props) => {
       })
     }
   }
-  useEffect(() => {
-    const getlength = async () => {
-      const res = await axios.get('http://192.168.1.10:4040/api/book/list')
-      const total = Math.ceil(res.data.length / page.limit)
-      setTotalPage(total)
-    }
-    getlength()
-  },[])
-  const handlePageClick = (data) => {
-          setPage(
-            {
-              page: data.selected+1,
-              limit: page.limit
-            }
-          )
-  }
   return (
     <React.Fragment>
       <Views />
@@ -115,9 +119,7 @@ const CListPrd = (props) => {
         </div>
         {/* PAGINATION*/}
         <nav aria-label="Page navigation example">
-
-
-            <ReactPaginate
+        <ReactPaginate
             previousLabel={'<<'}
             nextLabel={'>>'}
             breakLabel={'...'}
@@ -136,16 +138,10 @@ const CListPrd = (props) => {
             breakLinkClassName={'page-link'}
             activeClassName={'active'}
             />
-            {/* <li className="page-item"><Link className="page-link" to="#" aria-label="Previous"><span aria-hidden="true">«</span></Link></li>
-            <li className="page-item active"><Link className="page-link" to="#">1</Link></li>
-            <li className="page-item"><Link className="page-link" to="#">2</Link></li>
-            <li className="page-item"><Link className="page-link" to="#">3</Link></li>
-            <li className="page-item"><Link className="page-link" to="#" aria-label="Next"><span aria-hidden="true">»</span></Link></li> */}
-
         </nav>
       </div>
     </React.Fragment>
   )
 }
 
-export default CListPrd
+export default CListPrdDetail

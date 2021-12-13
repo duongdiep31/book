@@ -31,7 +31,6 @@ const Signin =  () => {
     const [redirectTo, setRedirecTo] = useState(false);
     const dispatch = useDispatch()
     const auth = useSelector((state) => state.auth.auth)
-    const loading = useSelector((state) => state.auth.loading)
     const onSubmit = (data) => {
          dispatch(signIn(data))
         toast.success("Successfully")

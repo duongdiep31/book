@@ -1,24 +1,21 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { getAllcart } from "../../api/cartApi"
-import { removeCart } from '../../Store/action/cartAction'
+import { getAllCartApi, removeCart } from '../../Store/action/cartAction'
 import { decreaseCart, increaseCart, removeItemFromCart } from "../../Store/slice/cartSlice"
 const Cart = () => {
   const dispatch = useDispatch()
   const fetchItemCart = useSelector((state) => state.cart.cart)
-  const [cartApi, setcartApi] = useState([])
-  useEffect( async () => {
-    const {data} = await getAllcart()
-    setcartApi(data)
-},[])
-const fetchUser = useSelector((state) => state.auth.auth)
+  const fetchItemCartApi = useSelector((state) => state.cartApi.cartApi)
+  useEffect(() => {
+    dispatch(getAllCartApi())
+  }, [dispatch])
+  const fetchUser = useSelector((state) => state.auth.auth)
   const subtotal = fetchItemCart.reduce((a, b) => a + b.price * b.quantity, 0)
   const nf = Intl.NumberFormat();
   const listCart = () => {
     if (fetchUser) {
-    const cartUser = cartApi.filter(item => item.idUser === fetchUser.user._id)
-    console.log(cartApi);
+      const cartUser = fetchItemCartApi.filter(item => item.idUser === fetchUser.user._id)
       const Result = cartUser.map((item, index) => {
         return (
           <React.Fragment key={index} >
@@ -92,10 +89,10 @@ const fetchUser = useSelector((state) => state.auth.auth)
   }
   const subTotal = () => {
     if (fetchUser) {
-    const cartUser = cartApi.filter(item => item.idUser === fetchUser.user._id)
-    const subtotalApi = cartUser.reduce((a,b) => {
-      return a+ (b.idBook.price) * b.quantity
-    }, 0)
+      const cartUser = fetchItemCartApi.filter(item => item.idUser === fetchUser.user._id)
+      const subtotalApi = cartUser.reduce((a, b) => {
+        return a + (b.idBook.price) * b.quantity
+      }, 0)
       return (
         <>
           <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Subtotal</strong><span className="text-muted small">{nf.format(subtotalApi)}</span></li>
@@ -105,14 +102,14 @@ const fetchUser = useSelector((state) => state.auth.auth)
           </li>
         </>
       )
-    }else{
-      return(
+    } else {
+      return (
         <>
-        <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Subtotal</strong><span className="text-muted small">{nf.format(subtotal)}</span></li>
-                    <li className="border-bottom my-2" />
-                    <li className="d-flex align-items-center justify-content-between mb-4"><strong className="text-uppercase small font-weight-bold">Total</strong><span>{nf.format(subtotal)}</span></li>
-                    <li>
-                    </li>
+          <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Subtotal</strong><span className="text-muted small">{nf.format(subtotal)}</span></li>
+          <li className="border-bottom my-2" />
+          <li className="d-flex align-items-center justify-content-between mb-4"><strong className="text-uppercase small font-weight-bold">Total</strong><span>{nf.format(subtotal)}</span></li>
+          <li>
+          </li>
         </>
       )
     }
@@ -175,7 +172,7 @@ const fetchUser = useSelector((state) => state.auth.auth)
                 <div className="card-body">
                   <h5 className="text-uppercase mb-4">Cart total</h5>
                   <ul className="list-unstyled mb-0">
-                      {subTotal()}
+                    {subTotal()}
                   </ul>
                 </div>
               </div>

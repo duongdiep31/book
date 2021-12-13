@@ -28,7 +28,16 @@ const resolver = async (values) => {
             description:{
                 type: "required",
                 message: "Please enter Description"
+            },
+            discount: {
+                type: "required",
+                message: "Please enter Discount"
+            },
+            quantity: {
+                type: "required",
+                message: "Please enter Quantity"
             }
+
 
           }
         : {}
@@ -54,10 +63,10 @@ const Addproduct = (props) => {
 }
 const onSubmit = (product) => {
     const zz = {...product,image}
+    console.log(zz);
     dispatch(createPrd(zz))
 navigate("/admin/prdadmin" , {replace:true})
 };
-
     const dispatch = useDispatch()
     const categories = useSelector((state) => state.category.category)
     useEffect(() => {
@@ -67,7 +76,6 @@ navigate("/admin/prdadmin" , {replace:true})
 let categoriess;
 if (categories) {
     categoriess = categories.map((item,index) => {
-        
         return(
             <React.Fragment
                 key={index}
@@ -136,6 +144,17 @@ if (categories) {
                                         <label htmlFor="inputClientCompany">Price</label>
                                         <input   {...register('price', {required:true})} type="text" id="inputClientCompany" className="form-control" />
                                         <p>{errors.price?.message}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="inputClientCompany">Discount</label>
+                                        <input   {...register('discount', {required:true})} type="text" id="inputClientCompany" className="form-control" />
+                                        <p>{errors.discount?.message}</p>
+
+                                    </div>
+                                    <div className="form-group">
+                                        <label htmlFor="inputClientCompany">Quantity</label>
+                                        <input   {...register('quantity', {required:true})} type="text" id="inputClientCompany" className="form-control" />
+                                        <p>{errors.quantity?.message}</p>
 
                                     </div>
                                     <div className="form-group">

@@ -1,13 +1,37 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { deletePrd, itemPrd } from '../../../Store/action/products';
+import ReactPaginate from 'react-paginate'
+import axios from 'axios';
+
 const Listproducts = () => {
   const products = useSelector((state) => state.product.product)
   const dispatch = useDispatch()
-  useEffect(()=>{
-    dispatch(itemPrd())
-  },[dispatch])
+  const [page, setPage] = useState({
+    page: 1,  
+    limit: 5
+  })
+  const [totalPage, setTotalPage] = useState([])
+  useEffect(() => {
+    dispatch(itemPrd(page))
+  }, [dispatch,page])
+  useEffect(() => {
+    const getlength = async () => {
+      const res = await axios.get('http://192.168.1.10:4040/api/book/list')
+      const total = Math.ceil(res.data.length / page.limit)
+      setTotalPage(total)
+    }
+    getlength()
+  },[])
+  const handlePageClick = (data) => {
+          setPage(
+            {
+              page: data.selected+1,
+              limit: page.limit
+            }
+          )
+  }
       let Result;
      if (products && Array.isArray(products)) {
           Result =products.map((item,index)=> {
@@ -52,7 +76,8 @@ const Listproducts = () => {
                   </React.Fragment>
               )
           })
-     }else{console.log('error');}
+     }
+   
     return (
             <>
   <section className="content-header">
@@ -111,6 +136,25 @@ const Listproducts = () => {
                 {Result}
           </tbody>
         </table>
+        <ReactPaginate
+            previousLabel={'<<'}
+            nextLabel={'>>'}
+            breakLabel={'...'}
+            pageCount={totalPage}
+            marginPagesDisplayed={2}
+            pageRangeDisplayed={3}
+            onPageChange={handlePageClick}
+            containerClassName={'pagination justify-content-center justify-content-lg-end'}
+            pageClassName={'page-item'}
+            pageLinkClassName={'page-link'}
+            previousClassName={'page-item'}
+            nextClassName={'page-item'}
+            previousLinkClassName={'page-link'}
+            nextLinkClassName={'page-link'}
+            breakClassName={'page-item'}
+            breakLinkClassName={'page-link'}
+            activeClassName={'active'}
+            />
       </div>
     </div>
   </section>

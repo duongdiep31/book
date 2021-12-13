@@ -6,12 +6,18 @@ import { addtocart } from "../Store/slice/cartSlice";
 
 const Details= () => {
         const {id} = useParams()
-        const [item, setItem] = useState({})
-        useEffect(async () => {
-            const {data} = await get(id)
-            setItem(data)
-        },[])
-        console.log(item);
+        const [item, setItem] = useState([])
+        useEffect(() => {
+           const getItem = async() => {
+             try {
+               const {data} = await get(id)
+               setItem(data)
+             } catch (error) {
+               console.log(error);
+             }
+           }
+           getItem()
+        },[id])
         return(
             <section className="py-5">
   <div className="container">

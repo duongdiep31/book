@@ -60,7 +60,7 @@ const Header = () => {
            
           </li>
           <li className="nav-item">
-            <Link to="#" className="nav-link">
+            <Link to="/admin/orderadmin" className="nav-link">
               <i className="nav-icon fas fa-shopping-cart"></i>
               <p>
                 Orders
@@ -120,7 +120,7 @@ const Header = () => {
       }else{
         return(
           <li className="nav-item">
-          <Link to="#" className="nav-link">
+          <Link to="/admin/orderadmin" className="nav-link">
             <i className="nav-icon fas fa-shopping-cart"></i>
             <p>
               Orders

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { listOrderAction } from '../../Store/action/orderAction';
 import { itemPrd } from '../../Store/action/products';
 import { userList } from '../../Store/action/userAction';
 const Dashboard = () => {
@@ -9,11 +10,15 @@ const Dashboard = () => {
      const lengthPrd = useSelector((state) => state.product.product)
      useEffect(() => {
         dispatch(itemPrd())
-    },dispatch)
+    },[dispatch])
      const lengthUser = useSelector((state) => state.user.user)
      useEffect(() => {
         dispatch(userList())
-    },dispatch)
+    },[dispatch])
+    const lengthOrder = useSelector((state) => state.order.order)
+     useEffect(() => {
+        dispatch(listOrderAction())
+    },[dispatch])
     const statistical = () => {
                 if (auth === '0' || auth === '2') {
                       
@@ -22,13 +27,13 @@ const Dashboard = () => {
                                 <div className="col-lg-3 col-6">
                             <div className="small-box bg-info">
                                 <div className="inner">
-                                    <h3>150</h3>
+                                    <h3>{lengthOrder.length}</h3>
                                     <p>New Orders</p>
                                 </div>
-                                <div className="icon">
-                                    <i className="ion ion-bag" />
-                                </div>
-                                <Link to="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
+                                    <div className="icon">
+                                        <i className="ion ion-bag" />
+                                    </div>
+                                <Link to="/admin/orderadmin" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
                             </div>
                         </div>
                         <div className="col-lg-3 col-6">
@@ -40,7 +45,7 @@ const Dashboard = () => {
                                 <div className="icon">
                                     <i className="ion ion-stats-bars" />
                                 </div>
-                                <Link to="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
+                                <Link to="/admin/prdadmin" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
                             </div>
                         </div>
                         <div className="col-lg-3 col-6">
@@ -52,21 +57,10 @@ const Dashboard = () => {
                                 <div className="icon">
                                     <i className="ion ion-person-add" />
                                 </div>
-                                <Link to="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
+                                <Link to="/admin/user" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
                             </div>
                         </div>
-                        <div className="col-lg-3 col-6">
-                            <div className="small-box bg-danger">
-                                <div className="inner">
-                                    <h3>65</h3>
-                                    <p>Orders</p>
-                                </div>
-                                <div className="icon">
-                                    <i className="ion ion-pie-graph" />
-                                </div>
-                                <Link to="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
-                            </div>
-                        </div>
+                       
                             </>
                         )
                 }else if (auth === '3') {
@@ -81,7 +75,7 @@ const Dashboard = () => {
                                 <div className="icon">
                                     <i className="ion ion-stats-bars" />
                                 </div>
-                                <Link to="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
+                                <Link to="/admin/prdadmin" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
                             </div>
                         </div>
                         </>
@@ -89,16 +83,16 @@ const Dashboard = () => {
                 }else {
                     return(
                         <>
-                    <div className="col-lg-3 col-6">
-                            <div className="small-box bg-danger">
+                     <div className="col-lg-3 col-6">
+                            <div className="small-box bg-info">
                                 <div className="inner">
-                                    <h3>65</h3>
-                                    <p>Orders</p>
+                                    <h3>{lengthOrder.length}</h3>
+                                    <p>New Orders</p>
                                 </div>
-                                <div className="icon">
-                                    <i className="ion ion-pie-graph" />
-                                </div>
-                                <Link to="#" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
+                                    <div className="icon">
+                                        <i className="ion ion-bag" />
+                                    </div>
+                                <Link to="/admin/orderadmin" className="small-box-footer">More info <i className="fas fa-arrow-circle-right" /></Link>
                             </div>
                         </div>
                         </>

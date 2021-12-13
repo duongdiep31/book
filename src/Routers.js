@@ -22,6 +22,13 @@ import ProtectedAuth from "./auth/route/protectedAuth";
 import ProtectedUser from "./auth/route/protectedUser";
 import Checkout from "./page/cart/checkout";
 import Details from "./page/Details";
+import Shopdetail from "./page/productDetail";
+import ListOrder from "./feature/order/component/listOrder";
+import Statusorder from "./feature/order/component/statusOrder";
+import Orderdetail from "./feature/order/component/orderDetail";
+import Indexprofile from "./page/profile";
+import Profile from "./page/profile/component/profile";
+import Orderstatus from "./page/profile/component/orderStatus";
 const Routers = (props) => {
         return (
             <BrowserRouter>
@@ -37,6 +44,11 @@ const Routers = (props) => {
                             <Route  path='/404' element={<Error />}/>
                             <Route path='checkout' element={<Checkout />} />
                             <Route path='/detail/:id' element={<Details />} />
+                            <Route  path='/productCate/:id' element={<Shopdetail />} />
+                            <Route path='/profile/' element={<Indexprofile />} >
+                                <Route  index element={<Profile />}/>
+                                <Route  path='orderStatus' element={<Orderstatus />}/>
+                            </Route>
                             </Route>
                             {/* admin */}
                             <Route path='/admin/*' element={
@@ -51,6 +63,11 @@ const Routers = (props) => {
                                      <Route  path='changecate/:id' element={<Changecate />}  />
                                     <Route path='user' element={ <ProtectedUser> <Listuser/> </ProtectedUser> } />
                                     <Route path='roleuser/:id' element= {  <ProtectedUser> <Role /> </ProtectedUser>} />
+                                    <Route path='orderadmin' element= { <ListOrder />} />
+                                    <Route path='orderdetail/:id' element= { <Orderdetail />} />
+                                    <Route path='statusOrder/:id' element= { <Statusorder />} />
+
+
 
                             </Route>
 

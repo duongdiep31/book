@@ -9,15 +9,20 @@ const Header = () => {
   const navigate = useNavigate()
   const auth = useSelector((state) => state.auth.auth)
   const fetchCart = useSelector((state) => state.cart.cart)
-  const [cartApi, setcartApi] = useState({})
-  useEffect( async() => {
+  const [cartApi, setcartApi] = useState([])
+  useEffect( () => {
+    const getApi = async () => {
       const {data} = await getAllcart()
       setcartApi(data)
-  },{})
+    }
+     getApi()
+  },[])
   const dispatch = useDispatch()
   const lengthCart = () => {
     if (auth) {
-      return cartApi.length
+      const userID = auth.user._id
+        const lengthCartApi = cartApi.filter((item) => item.idUser === userID)
+        return lengthCartApi.length
     }else{
       return fetchCart.length
     }
@@ -58,7 +63,7 @@ const Header = () => {
             {/* Link*/}<NavLink className="nav-link" to="shop">Shop</NavLink>
           </li>
           <li className="nav-item">
-            {/* Link*/}<Link className="nav-link" to="detail.html">Product detail</Link>
+            {/* Link*/}<Link className="nav-link" to="/profile">Profile</Link>
           </li>
           <li className="nav-item">
             {/* Link*/}<Link className="nav-link" to="/admin">Admin</Link>
