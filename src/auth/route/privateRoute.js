@@ -4,7 +4,8 @@ import { Navigate } from 'react-router';
 function PrivateRoute({ children }) {
       const auth = useSelector((state) => state.auth.auth)
       if (auth) {
-        return auth.role !== '1' ? children : <Navigate to="/404" />;
+        const user = auth.user
+        return user.role !== '1' ? children : <Navigate to="/404" />;
       }else{
         return <Navigate to='/' />
 

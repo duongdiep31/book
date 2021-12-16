@@ -142,7 +142,7 @@ const onSubmit = (product) => {
                                     </div>
                                     <div className="form-group">
                                         <label htmlFor="inputProjectLeader">Author</label>
-                                        <input  {...register('author', {required:true})} type="text" id="inputProjectLeader" className="form-control" />
+                                        <input {...register('author', {required:true})} type="text" id="inputProjectLeader" className="form-control" />
                                         <p>{errors.author?.message}</p>
                                                     
                                     </div>

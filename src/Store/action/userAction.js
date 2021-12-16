@@ -17,7 +17,6 @@ export const deleteUser = createAsyncThunk(
 export const changeUser = createAsyncThunk(
     'user/changeUser',
     async (user,token ) => {
-        const {data} = await updateUser(user._id,user,token)
-        return data
+        return updateUser(user._id,user,token).then(response=> response.data)
     }
 )

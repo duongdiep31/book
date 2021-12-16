@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 import { getAllCartApi, removeCart } from '../../Store/action/cartAction'
 import { addOrderAction } from '../../Store/action/orderAction';
 // const resolver = async (values) => {
@@ -26,64 +27,100 @@ const Checkout = () => {
   const nf = Intl.NumberFormat();
   useEffect(() => {
     dispatch(getAllCartApi())
-  },[dispatch])
-  const {register, handleSubmit} = useForm();
+  }, [dispatch])
+  const navigate = useNavigate()
+  const { register, handleSubmit } = useForm();
+  const [checkPay, setCheck] = useState(0)
+  const [status, setStatus] = useState(0)
   const onHandleSubmit = (e) => {
     if (fetchUser) {
       const arr = fetchItemCartApi.filter((item) => item.idUser === fetchUser.user._id)
       const subtotalApi = arr.reduce((a, b) => a + b.idBook.price * b.quantity, 0)
       const data = {
-        arrOrder : arr,
+        arrOrder: arr,
         ...e,
         userId: fetchUser.user._id,
-        totalPrice: subtotalApi
+        status: status,
+        totalPrice: subtotalApi,
+        payment: checkPay
       }
-      dispatch(addOrderAction(data))
-      
+      return new Promise(resolve => {
+        setTimeout(() => {
+          dispatch(addOrderAction(data))
+          const arr = fetchItemCartApi.filter((item) => item.idUser === fetchUser.user._id)
+          arr.map((zz) => {
+            return dispatch(removeCart(zz._id))
+          })
+          navigate('/')
+          resolve(true)
+        }, 2000)
+      })
+    }
+  }
+  const check = (e) => {
+    setCheck(e.target.value)
+    if (e.target.value === '4') {
+      setStatus(e.target.value)
+    } else {
+      setStatus(0)
     }
   }
   const form = () => {
     if (fetchUser) {
-      return(
+      return (
         <form onSubmit={handleSubmit(onHandleSubmit)} className="row">
-        <div className="row">
-          <div className="col-lg-12 form-group">
-            <label className="text-small text-uppercase" htmlFor="name">Name</label>
-            <input {...register('nameKh', {required: true} )} defaultValue={fetchUser.user.name} className="form-control form-control-lg" id="name" type="text" placeholder="Enter your first name" />
+          <div className="row">
+            <div className="col-lg-12 form-group">
+              <label className="text-small text-uppercase" htmlFor="name">Name</label>
+              <input {...register('nameKh', { required: true })} defaultValue={fetchUser.user.name} className="form-control form-control-lg" id="name" type="text" placeholder="Enter your first name" />
 
+            </div>
+            <div className="col-lg-6 form-group">
+              <label className="text-small text-uppercase" htmlFor="email">Email address</label>
+              <input  {...register('email', { required: true })} defaultValue={fetchUser.user.email} className="form-control form-control-lg" id="email" type="email" placeholder="e.g. Jason@example.com" />
+            </div>
+            <div className="col-lg-6 form-group">
+              <label className="text-small text-uppercase" htmlFor="phone">Phone number</label>
+              <input  {...register('phone', { required: true })} defaultValue={fetchUser.user.phone} className="form-control form-control-lg" id="phone" type="tel" placeholder="e.g. +02 245354745" />
+            </div>
+
+            <div className="col-lg-12 form-group">
+              <label className="text-small text-uppercase" htmlFor="address">Address line</label>
+              <input  {...register('address', { required: true })} className="form-control form-control-lg" id="address" type="text" placeholder="House number and street name" />
+            </div>
+            <div>
+              <div className="form-check">
+                <input onChange={check} defaultChecked className="form-check-input"
+                  onClick={() => {
+                    const check = document.getElementById('check')
+                    return check.style.display = 'none'
+                  }} type="radio" name="flexRadioDefault" defaultValue={2} id="trực tiếp" />
+                <label className="form-check-label" htmlFor="flexRadioDefault1">
+                  Thanh toán trực tiếp
+                </label>
+              </div>
+              <div className="form-check">
+                <input onChange={check} defaultValue={4} onClick={() => {
+                  const check = document.getElementById('check')
+                  return check.style.display = 'block'
+                }} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+                <label className="form-check-label" htmlFor="flexRadioDefault2">
+                  Chuyển Khoản
+                </label>
+                <div id='check' style={{ display: 'none' }}   >
+                  <h3>
+                    TechComBank<br />
+                    Dương Văn Điệp<br />
+                    19037121604010
+                  </h3>
+                </div>
+              </div>
+            </div>
+
+            <div className="col-lg-12 form-group">
+              <button className="btn btn-dark">Place order</button>
+            </div>
           </div>
-          <div className="col-lg-6 form-group">
-            <label className="text-small text-uppercase" htmlFor="email">Email address</label>
-            <input  {...register('email', {required: true} )} defaultValue ={fetchUser.user.email} className="form-control form-control-lg" id="email" type="email" placeholder="e.g. Jason@example.com" />
-          </div>
-          <div className="col-lg-6 form-group">
-            <label className="text-small text-uppercase" htmlFor="phone">Phone number</label>
-            <input  {...register('phone', {required: true} )} defaultValue={fetchUser.user.phone} className="form-control form-control-lg" id="phone" type="tel" placeholder="e.g. +02 245354745" />
-          </div>
-      
-          <div className="col-lg-12 form-group">
-            <label className="text-small text-uppercase" htmlFor="address">Address line</label>
-            <input  {...register('address', {required: true} )} className="form-control form-control-lg" id="address" type="text" placeholder="House number and street name" />
-          </div>
-          {/* <div className="col-lg-6 form-group">
-            <label className="text-small text-uppercase" htmlFor="city">Town/City</label>
-            <input className="form-control form-control-lg" id="city" type="text" />
-          </div>
-          <div className="col-lg-6 form-group">
-            <label className="text-small text-uppercase" htmlFor="state">State/County</label>
-            <input className="form-control form-control-lg" id="state" type="text" />
-          </div> */}
-          <div className="col-lg-12 form-group">
-            <button onClick={
-              () => {
-                const arr = fetchItemCartApi.filter((item) => item.idUser === fetchUser.user._id)
-               arr.map((zz) => {
-                return   dispatch(removeCart(zz._id))
-                })
-              }
-            } className="btn btn-dark">Place order</button>
-          </div>
-        </div>
         </form>
       )
     } else {
@@ -92,16 +129,16 @@ const Checkout = () => {
           <div className="row">
             <div className="col-lg-6 form-group">
               <label className="text-small text-uppercase" htmlFor="firstName">First name</label>
-              <input  {...register('nameKh', {required: true} )} className="form-control form-control-lg" id="firstName" type="text" placeholder="Enter your first name" />
+              <input  {...register('nameKh', { required: true })} className="form-control form-control-lg" id="firstName" type="text" placeholder="Enter your first name" />
             </div>
-          
+
             <div className="col-lg-6 form-group">
               <label className="text-small text-uppercase" htmlFor="email">Email address</label>
-              <input  {...register('email', {required: true} )} className="form-control form-control-lg" id="email" type="email" placeholder="e.g. Jason@example.com" />
+              <input  {...register('email', { required: true })} className="form-control form-control-lg" id="email" type="email" placeholder="e.g. Jason@example.com" />
             </div>
             <div className="col-lg-6 form-group">
               <label className="text-small text-uppercase" htmlFor="phone">Phone number</label>
-              <input  {...register('phone', {required: true} )} className="form-control form-control-lg" id="phone" type="tel" placeholder="e.g. +02 245354745" />
+              <input  {...register('phone', { required: true })} className="form-control form-control-lg" id="phone" type="tel" placeholder="e.g. +02 245354745" />
             </div>
             {/* <div className="col-lg-6 form-group">
                       <label className="text-small text-uppercase" htmlFor="country">Country</label>
@@ -109,14 +146,40 @@ const Checkout = () => {
                     </div> */}
             <div className="col-lg-12 form-group">
               <label className="text-small text-uppercase" htmlFor="address">Address line</label>
-              <input {...register('address', {required: true} )} className="form-control form-control-lg" id="address" type="text" placeholder="House number and street name" />
+              <input {...register('address', { required: true })} className="form-control form-control-lg" id="address" type="text" placeholder="House number and street name" />
             </div>
-          
+            <div>
+              <div className="form-check">
+                <input onChange={check} defaultChecked className="form-check-input" onClick={() => {
+                  const check = document.getElementById('check')
+                  return check.style.display = 'none'
+                }} type="radio" name="flexRadioDefault" defaultValue={2} id="trực tiếp" />
+                <label className="form-check-label" htmlFor="flexRadioDefault1">
+                  Thanh toán trực tiếp
+                </label>
+              </div>
+              <div className="form-check">
+                <input onChange={check} defaultValue={1} onClick={() => {
+                  const check = document.getElementById('check')
+                  return check.style.display = 'block'
+                }} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+                <label className="form-check-label" htmlFor="flexRadioDefault2">
+                  Chuyển Khoản
+                </label>
+                <div id='check' defaultValue={4} style={{ display: 'none' }}   >
+                  <h3>
+                    TechComBank<br />
+                    Dương Văn Điệp<br />
+                    19037121604010
+                  </h3>
+                </div>
+              </div>
+            </div>
             <div className="col-lg-12 form-group">
               <button className="btn btn-dark" type="submit">Place order</button>
             </div>
           </div>
-          </form>
+        </form>
       )
     }
   }
@@ -132,7 +195,7 @@ const Checkout = () => {
           </React.Fragment>
         )
       })
-    }else{
+    } else {
       return fetchItemCart.map((item, index) => {
         const total = item.price * item.quantity
         return (
@@ -150,10 +213,10 @@ const Checkout = () => {
       const subtotalApi = fetchItemCartUser.reduce((a, b) => a + b.idBook.price * b.quantity, 0)
 
       return (
-        <li  className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Total</strong><span  >{nf.format(subtotalApi)} Vnd</span></li>
+        <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Total</strong><span  >{nf.format(subtotalApi)} Vnd</span></li>
       )
-    }else{
-      return(
+    } else {
+      return (
         <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Total</strong><span>{nf.format(subtotal)} Vnd</span></li>
       )
     }
@@ -184,7 +247,7 @@ const Checkout = () => {
         <section className="py-5">
           {/* BILLING ADDRESS*/}
           <h2 className="h5 text-uppercase mb-4">Billing details</h2>
-            <div  className="row">
+          <div className="row">
             <div className="col-lg-8">
 
 
@@ -198,18 +261,18 @@ const Checkout = () => {
                   <h5 className="text-uppercase mb-4">Your order</h5>
                   <ul className="list-unstyled mb-0">
                     {
-                        total()
+                      total()
                     }
 
 
-                  {
-                    subTotal()
-                  }
+                    {
+                      subTotal()
+                    }
                   </ul>
                 </div>
               </div>
             </div>
-            
+
           </div>
         </section>
       </div>

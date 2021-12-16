@@ -10,10 +10,10 @@ const Cart = () => {
   useEffect(() => {
     dispatch(getAllCartApi())
   }, [dispatch])
-  const fetchUser = useSelector((state) => state.auth.auth)
+  const fetchUser = useSelector((state) => state.auth.auth) 
   const subtotal = fetchItemCart.reduce((a, b) => a + b.price * b.quantity, 0)
   const nf = Intl.NumberFormat();
-  const listCart = () => {
+    const listCart = () => {
     if (fetchUser) {
       const cartUser = fetchItemCartApi.filter(item => item.idUser === fetchUser.user._id)
       const Result = cartUser.map((item, index) => {
@@ -31,13 +31,13 @@ const Cart = () => {
               <td className="align-middle border-0">
                 <div className="border d-flex align-items-center justify-content-between px-3"><span className="small text-uppercase text-gray headings-font-family">Quantity</span>
                   <div className="quantity">
-                    <button
-                      onClick={() => dispatch(decreaseCart(item.idBook._id))}
-                      className="dec-btn p-0"><i className="fas fa-caret-left"></i></button>
+                    {/* <button
+                      // onClick={() => dispatch(decreaseCart(item.idBook._id))}
+                      className="dec-btn p-0"><i className="fas fa-caret-left"></i></button> */}
                     <input className="form-control form-control-sm border-0 shadow-0 p-0" type="text" defaultValue={item.quantity} />
-                    <button
-                      onClick={() => dispatch(increaseCart(item.idBook._id))}
-                      className="inc-btn p-0"><i className="fas fa-caret-right"></i></button>
+                    {/* <button
+                      onClick={() => dispatch(increaseCartApi(item.idBook._id))}
+                      className="inc-btn p-0"><i className="fas fa-caret-right"></i></button> */}
                   </div>
                 </div>
               </td>
@@ -70,7 +70,9 @@ const Cart = () => {
                     <button
                       onClick={() => dispatch(decreaseCart(item._id))}
                       className="dec-btn p-0"><i className="fas fa-caret-left"></i></button>
-                    <input className="form-control form-control-sm border-0 shadow-0 p-0" type="text" defaultValue={item.quantity} />
+                    <input className="form-control form-control-sm border-0 shadow-0 p-0" type="text" onChange={(event) =>{
+                      console.log(event);
+                    }} value={item.quantity} />
                     <button
                       onClick={() => dispatch(increaseCart(item._id))}
                       className="inc-btn p-0"><i className="fas fa-caret-right"></i></button>

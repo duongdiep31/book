@@ -24,10 +24,5 @@ export const insert = (product) => {
 }
 export const updateCart = (id, product) => {
     const url = `/api/updateCart/${id}`;
-    const token = store.getState().auth.auth.token
-    return instance.patch(url, product,
-        {
-            headers: {
-                "Authorization": "Bearer " + token}
-        })
+    return instance.patch(url, product)
 }

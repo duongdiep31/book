@@ -5,12 +5,14 @@ import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../Store/action/authAction";
 import { getAllcart } from "../../../api/cartApi";
-import ReactSearchBox from "react-search-box";
+import Search from "../../../feature/Search";
+import { search } from "../../../api/product";
 const Header = () => {
   const navigate = useNavigate()
   const auth = useSelector((state) => state.auth.auth)
   const fetchCart = useSelector((state) => state.cart.cart)
   const [cartApi, setcartApi] = useState([])
+  const [value, setValue] = useState('')
   useEffect(() => {
     const getApi = async () => {
       const { data } = await getAllcart()
@@ -21,9 +23,11 @@ const Header = () => {
   const dispatch = useDispatch()
   const lengthCart = () => {
     if (auth) {
-      const userID = auth.user._id
-      const lengthCartApi = cartApi.filter((item) => item.idUser === userID)
-      return lengthCartApi.length
+      const userID = auth.user
+      if (userID) {
+        const lengthCartApi = cartApi.filter((item) => item.idUser === userID._id)
+        return lengthCartApi.length
+      }
     } else {
       return fetchCart.length
     }
@@ -49,8 +53,10 @@ const Header = () => {
       return (<Link className="nav-link" to="/signin"><i className="fas fa-user-alt mr-1 text-gray" />Login</Link>)
     }
   }
-
-
+  const handleFiltesChange = async (newFilter) => {
+    const value = newFilter.searchItem
+    setValue(value)
+  }
   return (
     <React.Fragment>
       <header className="header bg-white">
@@ -71,7 +77,17 @@ const Header = () => {
                 <li className="nav-item">
                   {/* Link*/}<Link className="nav-link" to="/profile">Profile</Link>
                 </li>
-                <ReactSearchBox
+                <li className="nav-item">
+                  {/* Link*/}<Link className="nav-link" to="/admin">Admin</Link>
+                </li>
+                <Search
+                  onSubmit={handleFiltesChange}
+                  data={value}
+                />
+
+
+
+                {/* <ReactSearchBox
                   placeholder={'Search...'}
                   leftIcon={<>
                     <i style={{
@@ -86,7 +102,7 @@ const Header = () => {
                   ]}
                   onSelect={() => {
                         navigate('/admin')                  }}
-                />
+                /> */}
               </ul>
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item"><Link className="nav-link" to="cart"> <i className="fas fa-dolly-flatbed mr-1 text-gray" />Cart<small className="text-gray">({lengthCart()})</small></Link></li>

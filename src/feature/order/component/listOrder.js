@@ -6,11 +6,21 @@ const ListOrder = () => {
     const order = useSelector((state) => state.order.order)
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(listOrderAction())
+        const list = async () => {
+       await dispatch(listOrderAction())
+        }
+        list()
     }, [dispatch])
     let Result
     if (order && Array.isArray(order)) {
         Result = order.map((item, index) => {
+            const payMent = () => {
+                if (item.payment === '0') {
+                    return 'Thanh Toán Trực Tiếp'
+                }else{
+                    return 'Chuyển Khoản'
+                }
+            }
             const status = () => {
                 if (item.status === '0') {
                     return 'Đã Xác Nhận'
@@ -18,6 +28,8 @@ const ListOrder = () => {
                     return 'Đang Vận Chuyển'
                 } else if (item.status === '2') {
                     return 'Huỷ'
+                }else if(item.status === '4'){
+                    return 'Chờ Xác Nhận'
                 }
                  else {
                     return 'Thành Công'
@@ -37,6 +49,9 @@ const ListOrder = () => {
                         </td>
                         <td>
                             {item.address}
+                        </td>
+                        <td>
+                            {payMent()}
                         </td>
                         <td>
                             {status()}
@@ -109,6 +124,9 @@ const ListOrder = () => {
                                     </th>
                                     <th>
                                         Address
+                                    </th>
+                                    <th>
+                                        Payment
                                     </th>
                                     <th>
                                         Status

@@ -109,8 +109,17 @@ const Listcate =  () => {
           <tbody>
             {Result}
           </tbody>
+       
         </table>
-
+        <div style={{
+                display: 'grid',
+                gridTemplateColumns:'1fr 1fr'
+            }}   >
+        <Link to="/admin/addcate" style={{
+              width:'15%'
+            }} className="btn btn-sm btn-primary mt-3 mb-3 ml-3">
+                  Create
+                </Link></div>
       </div>
       {/* /.card-body */}
     </div>

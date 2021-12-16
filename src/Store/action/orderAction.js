@@ -14,13 +14,10 @@ export const addOrderAction = createAsyncThunk(
         return data
     }
 )
-
 export const updateStatusAction = createAsyncThunk(
     'orderSlice/updateStatus',
     async (status ) => {
-        console.log('status' ,status);
-        const {data} = await updateOrder(status._id,status)
-        console.log('daa',data)
-        return data
+       return updateOrder(status._id,status)
+       .then(response=> response.data)
     }
 )

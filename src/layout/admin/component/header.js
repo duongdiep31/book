@@ -9,46 +9,21 @@ const Header = () => {
           return(
             <>
           <li className="nav-item">
-            <Link to="#" className="nav-link">
+            <Link to="/admin/cateadmin" className="nav-link">
               <i className="nav-icon fab fa-cuttlefish"></i>
               <p>
                 Categories
-                <i className="fas fa-angle-left right"></i>
               </p>
             </Link>
-            <ul className="nav nav-treeview">
-              <li className="nav-item">
-                <Link to="/admin/cateadmin" className="nav-link">
-                  <p>List Categories</p>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/admin/addcate" className="nav-link">
-                  <p>Create Category</p>
-                </Link>
-              </li>
-            </ul>
           </li>
           <li className="nav-item">
-            <Link to="#" className="nav-link">
+            <Link to="/admin/prdadmin" className="nav-link">
               <i className="nav-icon fab fa-product-hunt"></i>
               <p>
                 Products
-                <i className="fas fa-angle-left right"></i>
               </p>
             </Link>
-            <ul className="nav nav-treeview">
-              <li className="nav-item">
-                <Link to="/admin/prdadmin" className="nav-link">
-                  <p>List Products</p>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/admin/addprd" className="nav-link">
-                  <p>Create Products</p>
-                </Link>
-              </li>
-            </ul>
+           
           </li>
           <li className="nav-item">
             <Link to="/admin/user" className="nav-link">
@@ -74,46 +49,23 @@ const Header = () => {
           return(
             <>
               <li className="nav-item">
-            <Link to="#" className="nav-link">
+            <Link to="/admin/cateadmin" className="nav-link">
               <i className="nav-icon fab fa-cuttlefish"></i>
               <p>
                 Categories
                 <i className="fas fa-angle-left right"></i>
               </p>
             </Link>
-            <ul className="nav nav-treeview">
-              <li className="nav-item">
-                <Link to="/admin/cateadmin" className="nav-link">
-                  <p>List Categories</p>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/admin/addcate" className="nav-link">
-                  <p>Create Category</p>
-                </Link>
-              </li>
-            </ul>
+           
           </li>
           <li className="nav-item">
-            <Link to="#" className="nav-link">
+            <Link to="/admin/prdadmin" className="nav-link">
               <i className="nav-icon fab fa-product-hunt"></i>
               <p>
                 Products
                 <i className="fas fa-angle-left right"></i>
               </p>
             </Link>
-            <ul className="nav nav-treeview">
-              <li className="nav-item">
-                <Link to="/admin/prdadmin" className="nav-link">
-                  <p>List Products</p>
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/admin/addprd" className="nav-link">
-                  <p>Create Products</p>
-                </Link>
-              </li>
-            </ul>
           </li>
             </>
           )
@@ -271,7 +223,7 @@ const Header = () => {
               {/* Main Sidebar Container */}
               <aside className="main-sidebar sidebar-dark-primary elevation-4">
                 {/* Brand Logo */}
-                <Link to="/admin" className="brand-link">
+                <Link to="/" className="brand-link">
                   <img src="/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{opacity: '.8'}} />
                   <span className="brand-text font-weight-light">AdminLTE 3</span>
                 </Link>

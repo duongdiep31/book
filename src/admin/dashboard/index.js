@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { listOrderAction } from '../../Store/action/orderAction';
@@ -8,9 +8,13 @@ const Dashboard = () => {
     const dispatch = useDispatch()
      const auth = useSelector((state) =>state.auth.auth.user.role)
      const lengthPrd = useSelector((state) => state.product.product)
+     const [page] = useState({
+        page: 1,
+        limit: 5
+      })
      useEffect(() => {
-        dispatch(itemPrd())
-    },[dispatch])
+        dispatch(itemPrd(page))
+    },[dispatch, page])
      const lengthUser = useSelector((state) => state.user.user)
      useEffect(() => {
         dispatch(userList())
@@ -39,7 +43,7 @@ const Dashboard = () => {
                         <div className="col-lg-3 col-6">
                             <div className="small-box bg-success">
                                 <div className="inner">
-                                    <h3>{lengthPrd.length}<sup style={{ fontSize: 20 }}></sup></h3>
+                                    <h3>{lengthPrd.totalBook}<sup style={{ fontSize: 20 }}></sup></h3>
                                     <p>Products</p>
                                 </div>
                                 <div className="icon">

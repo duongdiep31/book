@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { get, getAllPrd } from "../../../api/product"
+import { get } from "../../../api/product"
 import { itemPrd } from "../../../Store/action/products"
 import Views from "./prdViews"
 import { toast } from "react-toastify"
@@ -13,17 +13,15 @@ const CListPrd = () => {
   const dispatch = useDispatch()
   const products = useSelector((state) => state.product.product)
   const fetchUser = useSelector((state) => state.auth.auth)
-  const [page, setPage] = useState({
-    page: 1,
-    limit: 1
-  })
-  const [totalPage, setTotalPage] = useState([])
-  useEffect(() => {
+  const [page, setPage] = useState(1)
+    useEffect(() => {
     dispatch(itemPrd(page))
-  }, [dispatch,page])
+  }, [dispatch, page])
+  const nf = Intl.NumberFormat();
   const productsList = () => {
-    if (products && Array.isArray(products)) {
-      return products.map(item => {
+    const listBook = products.listBook
+    if (listBook && Array.isArray(listBook)) {
+      return listBook.map(item => {
         return (<React.Fragment key={item._id} >
           <div className="col-lg-4 col-sm-6">
             <div className="product text-center">
@@ -61,28 +59,17 @@ const CListPrd = () => {
                 </div>
               </div>
               <h6> <Link className="reset-anchor" to="detail.html">{item.name}</Link></h6>
-              <p className="small text-muted">$250</p>
+              <p className="small text-muted">{nf.format(item.price)} Vnd</p>
             </div>
           </div>
         </React.Fragment>)
       })
     }
   }
-  useEffect(() => {
-    const getlength = async () => {
-      const res = await getAllPrd()
-      const total = Math.ceil(res.data.length / page.limit)
-      setTotalPage(total)
-    }
-    getlength()
-  },[page])
   const handlePageClick = (data) => {
-          setPage(
-          {
-              page: data.selected+1,
-              limit: page.limit
-            }
-          )
+    setPage(
+       data.selected + 1,
+    )
   }
   return (
     <React.Fragment>
@@ -110,17 +97,14 @@ const CListPrd = () => {
         <div className="row">
           {/* PRODUCT*/}
           {productsList()}
-
         </div>
         {/* PAGINATION*/}
         <nav aria-label="Page navigation example">
-
-
-            <ReactPaginate
+          <ReactPaginate
             previousLabel={'<<'}
             nextLabel={'>>'}
             breakLabel={'...'}
-            pageCount={Math.ceil(totalPage)}
+            pageCount={products.totalPage}
             marginPagesDisplayed={2}
             pageRangeDisplayed={3}
             onPageChange={handlePageClick}
@@ -134,8 +118,8 @@ const CListPrd = () => {
             breakClassName={'page-item'}
             breakLinkClassName={'page-link'}
             activeClassName={'active'}
-            />
-            {/* <li className="page-item"><Link className="page-link" to="#" aria-label="Previous"><span aria-hidden="true">«</span></Link></li>
+          />
+          {/* <li className="page-item"><Link className="page-link" to="#" aria-label="Previous"><span aria-hidden="true">«</span></Link></li>
             <li className="page-item active"><Link className="page-link" to="#">1</Link></li>
             <li className="page-item"><Link className="page-link" to="#">2</Link></li>
             <li className="page-item"><Link className="page-link" to="#">3</Link></li>

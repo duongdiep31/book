@@ -9,8 +9,11 @@ import { addOrderAction, listOrderAction, updateStatusAction } from "../action/o
             builder.addCase(listOrderAction.fulfilled, (state, action) => {
                 state.order = action.payload
             })
-            builder.addCase(addOrderAction.fulfilled, (state, action) => {
+            builder.addCase(addOrderAction, (state, action) => {
                 state.order += action.payload
+            })
+            builder.addCase(updateStatusAction.pending, (state) => {
+                state.loading = true
             })
             builder.addCase(updateStatusAction.fulfilled, (state, action) => {
                 state.order += action.payload

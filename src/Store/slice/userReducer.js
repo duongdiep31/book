@@ -20,8 +20,8 @@ import { getAllUser, removeUser, updateUser } from "../../api/user";
     'user/changeUser',
     async (user,token ) => {
         console.log('user',user);
-        const {data} = await updateUser(user._id,user,token)
-        return data
+        return updateUser(user._id,user,token).then(response => response.data)
+        
     }
 )
 
