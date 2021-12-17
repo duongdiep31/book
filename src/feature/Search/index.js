@@ -1,71 +1,30 @@
-import React, { useRef, useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-
+import '../../App.css'
+import { useNavigate } from 'react-router';
+import { useForm } from 'react-hook-form';
+import styles from './search.module.css'
 const Search = (props) => {
-    const [searchItem, setSeatchItem]=useState('')
-    const typing = useRef(null)
-    const handleSearchItemChange =(e) => {
-        const value = e.target.value
-        setSeatchItem(value)
-        if (!props.onSubmit) return
-        if (typing.current) {
-            clearTimeout(typing.current)
-        }
-        typing.current = setTimeout(()=>{
-            const formValues = {
-                searchItem: value
-            }
-            props.onSubmit(formValues)
-        },700)
-        }
-        const search = document.getElementById('search')
-        const handleFocus = () => {
-            return search.style.display='block'
-        }
-        const handleBlur = () => {
-            return search.style.display='none'
-        }
+    const navigate = useNavigate()
+    const { register, handleSubmit } = useForm()
+    const onsubmit = (e) => {
+        const input = document.getElementById("search-input");
+            input.value =''
+        navigate(`/shop/productSearch/${e.key}`)
+    }
+    const clearInput = () => {
+        const input = document.getElementById("search-input");
+        input.value = "";
+    }
     return (
-        <div>
-            <form>
-                <input type='text'
-                value={searchItem || ''}
-                onChange={handleSearchItemChange}
-                onFocus={handleFocus}
-                onBlur ={handleBlur}
-                />
+        <div className='search' >
+            <form className={styles.formSearch} onSubmit={handleSubmit(onsubmit)}
+            >
+                <input {...register('key', {required:true})} className={styles.inputSearch} id='search-input' type="text" required />
+                <i id={styles.icon} className="fa fa-search" />
+                <Link onClick={clearInput} className={styles.clearBtn} to="#" id="clear-btn">X</Link>
             </form>
-            {/* <ul className='navbar-nav mr-auto'>
-                <li style={{
-                    position: 'absolute',
-                    border:'1px solid black',
-                    width: '100px'  
-                    
-                }} className='nav-item'><Link  to={`/shop/productSearch/${props.data}`}>{props.data}</Link></li>
-            </ul> */}
-            <table className="table table-striped projects " style={{
-                position: 'absolute',
-                width: '200px',
-                backgroundColor: 'white',
-            }}>
-                <tbody>
-                    <tr>
-                        <td  id='search' style={{
-                            backgroundColor: 'white',
-                            display: 'none'
-                        }} className="project_progress" >
-                            <Link  style={{
-                                color:'black'
-                            }}  to='#' >
-                                Search "
-                                {props.data}"
-                            </Link>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
         </div>
     );
 }
-
 export default Search;

@@ -40,7 +40,6 @@ const Listproducts = () => {
               <span className="badge badge-success">{item.status}</span>
             </td>
             <td className="project-actions text-right">
-
               <Link className="btn btn-primary btn-sm" to="#">
                 <i className="fas fa-folder">
                 </i>

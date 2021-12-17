@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
-import { searchItem } from '../../../Store/action/products';
 import Views from './prdViews';
 import { Link } from 'react-router-dom';
 import { search } from '../../../api/product';
@@ -11,22 +10,24 @@ import { toast } from "react-toastify"
 import { addtocart } from "../../../Store/slice/cartSlice"
 import { addtocartApi } from "../../../Store/action/cartAction"
 const Productsearch = () => {
-    const {value} = useParams()
-    const dispatch = useDispatch()
+  const { value } = useParams()
+  const dispatch = useDispatch()
   const fetchUser = useSelector((state) => state.auth.auth)
   const url = "#productView"
   const nf = Intl.NumberFormat();
-    // const itemSearch = useSelector((state) => state.product.product)
-    const [item, setItem] = useState([])
-    const slice = item.slice(0, 12)
-    useEffect(() => {
-        const getItemSearch = async () => {
-          const {data} = await search(value)
-          setItem(data)
-        }
-        getItemSearch()
-    },[dispatch, value ])
-    const productsList = () => {
+  const [item, setItem] = useState([])
+  const slice = item.slice(0, 12)
+  useEffect(() => {
+    const getItemSearch = async () => {
+      const { data } = await search(value)
+      setItem(data)
+    }
+    getItemSearch()
+  }, [dispatch, value])
+  const productsList = () => {
+    if (item.length === 0) {
+      return (<h1 style={{color: 'gray'}} >No results found</h1  >)
+    } else {
       if (slice && Array.isArray(slice)) {
         return slice.map(item => {
           return (<React.Fragment key={item._id} >
@@ -59,7 +60,7 @@ const Productsearch = () => {
                         } else {
                           dispatch(addtocart(cartItems))
                         }
-  
+
                       }} className="btn btn-sm btn-dark">Add to cart</button></li>
                       <li className="list-inline-item mr-0"><a className="btn btn-sm btn-outline-dark" href={url} data-toggle="modal"><i className="fas fa-expand" /></a></li>
                     </ul>
@@ -73,13 +74,9 @@ const Productsearch = () => {
         })
       }
     }
-    // const handlePageClick = (data) => {
-    //     setPage(
-    //        data.selected + 1,
-    //     )
-    //   }
-    return (
-        <React.Fragment>
+  }
+  return (
+    <React.Fragment>
       <Views />
       <div className="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
         <div className="row mb-3 align-items-center">
@@ -111,7 +108,7 @@ const Productsearch = () => {
             previousLabel={'<<'}
             nextLabel={'>>'}
             breakLabel={'...'}
-            pageCount={Math.ceil(item.length /12)}
+            pageCount={Math.ceil(item.length / 12)}
             marginPagesDisplayed={2}
             pageRangeDisplayed={3}
             // onPageChange={handlePageClick}
@@ -135,7 +132,7 @@ const Productsearch = () => {
         </nav>
       </div>
     </React.Fragment>
-    );
+  );
 }
 
 export default Productsearch;

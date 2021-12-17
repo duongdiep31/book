@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../Store/action/authAction";
 import { getAllcart } from "../../../api/cartApi";
 import Search from "../../../feature/Search";
-import { search } from "../../../api/product";
 const Header = () => {
   const navigate = useNavigate()
   const auth = useSelector((state) => state.auth.auth)
@@ -84,25 +83,6 @@ const Header = () => {
                   onSubmit={handleFiltesChange}
                   data={value}
                 />
-
-
-
-                {/* <ReactSearchBox
-                  placeholder={'Search...'}
-                  leftIcon={<>
-                    <i style={{
-                      paddingLeft: '10px'
-                    }} className="fas fa-search"></i>
-                  </>}
-                  data={[
-                    {
-                      key: 'dsd',
-                      value: 'dsds'
-                    }
-                  ]}
-                  onSelect={() => {
-                        navigate('/admin')                  }}
-                /> */}
               </ul>
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item"><Link className="nav-link" to="cart"> <i className="fas fa-dolly-flatbed mr-1 text-gray" />Cart<small className="text-gray">({lengthCart()})</small></Link></li>
