@@ -4,7 +4,6 @@ import FacebookLogin from "react-facebook-login"
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
-import { authenticate } from "../../ultis";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../Store/action/authAction";
 const resolver = async (values) => {

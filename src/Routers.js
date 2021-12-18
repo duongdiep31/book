@@ -31,6 +31,8 @@ import SigninUser from "./feature/login/Signin";
 import CListPrd from "./page/product/component/listproducts";
 import CListPrdDetail from "./page/product/component/listPrdDetail";
 import Productsearch from "./page/product/component/productSearch";
+import OrderdetailUser from "./page/profile/component/detailsOrderUser";
+import Editorderuser from "./page/profile/component/editOrderUser";
 const Routers = (props) => {
     return (
         <BrowserRouter>
@@ -53,6 +55,8 @@ const Routers = (props) => {
                         <Route path='/profile/' element={<Indexprofile />} >
                             <Route index element={<Profile />} />
                             <Route path='orderStatus' element={<Orderstatus />} />
+                            <Route path='orderdetailUser/:id' element={<OrderdetailUser />} />
+                            <Route  path='editOrderUser/:id' element={<Editorderuser />} />
                         </Route>
                     </Route>
                     {/* admin */}
@@ -71,19 +75,10 @@ const Routers = (props) => {
                         <Route path='orderadmin' element={<ListOrder />} />
                         <Route path='orderdetail/:id' element={<Orderdetail />} />
                         <Route path='statusOrder/:id' element={<Statusorder />} />
-
-
-
                     </Route>
-
-
-
                 </Routes>
             </Suspense>
-
         </BrowserRouter>
     )
-
-
 }
 export default Routers

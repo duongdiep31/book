@@ -62,7 +62,7 @@ const Header = () => {
         <div className="container px-0 px-lg-3">
           <nav className="navbar navbar-expand-lg navbar-light py-3 px-lg-0">
             <Link className="navbar-brand" to="/">
-              <span className="font-weight-bold text-uppercase text-dark">Boutique</span>
+              <span className="font-weight-bold text-uppercase text-dark"><i className="fas fa-book">Book Store</i></span>
             </Link>
             <button className="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon" /></button>
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -79,10 +79,7 @@ const Header = () => {
                 <li className="nav-item">
                   {/* Link*/}<Link className="nav-link" to="/admin">Admin</Link>
                 </li>
-                <Search
-                  onSubmit={handleFiltesChange}
-                  data={value}
-                />
+                <Search onSubmit={handleFiltesChange} data={value} />
               </ul>
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item"><Link className="nav-link" to="cart"> <i className="fas fa-dolly-flatbed mr-1 text-gray" />Cart<small className="text-gray">({lengthCart()})</small></Link></li>

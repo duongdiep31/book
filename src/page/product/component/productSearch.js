@@ -4,32 +4,36 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import Views from './prdViews';
 import { Link } from 'react-router-dom';
-import { search } from '../../../api/product';
 import { get } from "../../../api/product"
 import { toast } from "react-toastify"
 import { addtocart } from "../../../Store/slice/cartSlice"
 import { addtocartApi } from "../../../Store/action/cartAction"
+import { searchItem } from '../../../Store/action/products';
 const Productsearch = () => {
   const { value } = useParams()
   const dispatch = useDispatch()
   const fetchUser = useSelector((state) => state.auth.auth)
+  const products = useSelector((state) => state.product.product)
+  const [page, setPage] = useState(1)
+  useEffect(()=>{
+    const getPrdSearch = async () => {
+       await dispatch(searchItem(value, page))
+    }
+    getPrdSearch()
+  },[dispatch,value, page])
   const url = "#productView"
   const nf = Intl.NumberFormat();
-  const [item, setItem] = useState([])
-  const slice = item.slice(0, 12)
-  useEffect(() => {
-    const getItemSearch = async () => {
-      const { data } = await search(value)
-      setItem(data)
-    }
-    getItemSearch()
-  }, [dispatch, value])
+  const handlePageClick = (data) => {
+    setPage(
+       data.selected + 1,
+    )
+  }
   const productsList = () => {
-    if (item.length === 0) {
+    if (products.length === 0) {
       return (<h1 style={{color: 'gray'}} >No results found</h1  >)
     } else {
-      if (slice && Array.isArray(slice)) {
-        return slice.map(item => {
+      if (products && Array.isArray(products)) {
+        return products.map(item => {
           return (<React.Fragment key={item._id} >
             <div className="col-lg-4 col-sm-6">
               <div className="product text-center">
@@ -108,10 +112,10 @@ const Productsearch = () => {
             previousLabel={'<<'}
             nextLabel={'>>'}
             breakLabel={'...'}
-            pageCount={Math.ceil(item.length / 12)}
+            pageCount={Math.ceil(products.length / 12)}
             marginPagesDisplayed={2}
             pageRangeDisplayed={3}
-            // onPageChange={handlePageClick}
+            onPageChange={handlePageClick}
             containerClassName={'pagination justify-content-center justify-content-lg-end'}
             pageClassName={'page-item'}
             pageLinkClassName={'page-link'}

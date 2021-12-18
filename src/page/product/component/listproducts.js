@@ -14,7 +14,7 @@ const CListPrd = () => {
   const products = useSelector((state) => state.product.product)
   const fetchUser = useSelector((state) => state.auth.auth)
   const [page, setPage] = useState(1)
-    useEffect(() => {
+  useEffect(() => {
     dispatch(itemPrd(page))
   }, [dispatch, page])
   const nf = Intl.NumberFormat();
@@ -68,7 +68,7 @@ const CListPrd = () => {
   }
   const handlePageClick = (data) => {
     setPage(
-       data.selected + 1,
+      data.selected + 1,
     )
   }
   return (
