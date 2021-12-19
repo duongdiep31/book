@@ -56,7 +56,6 @@ const SigninUser = () => {
     }
     const logingg = () => {
         const responseGoogle = (response) => {
-            console.log(response);
             // authenticate(response.profileObj)
             // navigate('/', { replace: true })
         }
