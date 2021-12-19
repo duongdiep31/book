@@ -1,6 +1,6 @@
 import axios from "axios";
 const instance = axios.create({
-    baseURL: 'http://192.168.1.32:4040',
+    baseURL: 'https://book-nodejs-demo.herokuapp.com',
     headers: {
         "Content-Type": "application/json",
     }

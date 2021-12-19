@@ -56,15 +56,14 @@ const SigninUser = () => {
     }
     const logingg = () => {
         const responseGoogle = (response) => {
-            // console.log(response)
+            console.log(response);
             // authenticate(response.profileObj)
             // navigate('/', { replace: true })
         }
         return (
             <GoogleLogin
-                clientId='1067928155142-p5bbhemla2u56m72vtelfvmgk5qhm4a9.apps.googleusercontent.com'
+                clientId='410874282576-2b8g1jq98r2m9056gl5ukq9j54303tq4.apps.googleusercontent.com'
                 onSuccess={responseGoogle}
-                autoLoad={false}
                 onFailure={responseGoogle}
                 cookiePolicy={'single_host_origin'}
             />
