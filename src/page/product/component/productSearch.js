@@ -15,68 +15,70 @@ const Productsearch = () => {
   const fetchUser = useSelector((state) => state.auth.auth)
   const products = useSelector((state) => state.product.product)
   const [page, setPage] = useState(1)
-  useEffect(()=>{
+  useEffect(() => {
     const getPrdSearch = async () => {
-       await dispatch(searchItem(value, page))
+      await dispatch(searchItem(value, page))
     }
     getPrdSearch()
-  },[dispatch,value, page])
+  }, [dispatch, value, page])
   const url = "#productView"
   const nf = Intl.NumberFormat();
   const handlePageClick = (data) => {
     setPage(
-       data.selected + 1,
+      data.selected + 1,
     )
   }
   const productsList = () => {
-    if (products.length === 0) {
-      return (<h1 style={{color: 'gray'}} >No results found</h1  >)
-    } else {
-      if (products && Array.isArray(products)) {
-        return products.map(item => {
-          return (<React.Fragment key={item._id} >
-            <div className="col-lg-4 col-sm-6">
-              <div className="product text-center">
-                <div className="mb-3 position-relative">
-                  <div className="badge text-white badge-" /><Link className="d-block" to={`/detail/${item._id}`}><img style={{ width: '255px', height: '350px' }} className="img-fluid w-100" src={item.image} alt="..." /></Link>
-                  <div className="product-overlay">
-                    <ul className="mb-0 list-inline">
-                      <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
-                      <li className="list-inline-item m-0 p-0"><button onClick={async () => {
-                        const { data } = await get(item._id)
-                        const cartItems = {
-                          ...data,
-                          quantity: 1
-                        }
-                        if (fetchUser) {
-                          const idUser = fetchUser.user._id
-                          try {
-                            const dataApi = {
-                              idUser: idUser,
-                              idBook: data._id,
-                              quantity: 1
-                            }
-                            dispatch(addtocartApi(dataApi))
-                            toast.success("SuccessFully")
-                          } catch (error) {
-                            toast.error("Failed")
+    const list = products.searchProduct
+    if (list && Array.isArray(list)) {
+      return list.map((item, index) => {
+     return(   <React.Fragment key={index}>
+          <div className="col-lg-4 col-sm-6">
+            <div className="product text-center">
+              <div className="mb-3 position-relative">
+                <div className="badge text-white badge-" />
+                <Link className="d-block" to={`/detail/${item._id}`}>
+                  <img style={{ width: '255px', height: '350px' }} className="img-fluid w-100" src={item.image} alt="..." />
+                </Link>
+                <div className="product-overlay">
+                  <ul className="mb-0 list-inline">
+                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
+                    <li className="list-inline-item m-0 p-0"><button onClick={async () => {
+                      const { data } = await get(item._id)
+                      const cartItems = {
+                        ...data,
+                        quantity: 1
+                      }
+                      if (fetchUser) {
+                        const idUser = fetchUser.user._id
+                        try {
+                          const dataApi = {
+                            idUser: idUser,
+                            idBook: data._id,
+                            quantity: 1
                           }
-                        } else {
-                          dispatch(addtocart(cartItems))
+                          dispatch(addtocartApi(dataApi))
+                          toast.success("SuccessFully")
+                        } catch (error) {
+                          toast.error("Failed")
                         }
+                      } else {
+                        dispatch(addtocart(cartItems))
+                      }
 
-                      }} className="btn btn-sm btn-dark">Add to cart</button></li>
-                      <li className="list-inline-item mr-0"><a className="btn btn-sm btn-outline-dark" href={url} data-toggle="modal"><i className="fas fa-expand" /></a></li>
-                    </ul>
-                  </div>
+                    }} className="btn btn-sm btn-dark">Add to cart</button></li>
+                    <li className="list-inline-item mr-0"><a className="btn btn-sm btn-outline-dark" href={url} data-toggle="modal"><i className="fas fa-expand" /></a></li>
+                  </ul>
                 </div>
-                <h6> <Link className="reset-anchor" to="detail.html">{item.name}</Link></h6>
-                <p className="small text-muted">{nf.format(item.price)} Vnd</p>
               </div>
+              <h6> <Link className="reset-anchor" to="detail.html">{item.name}</Link></h6>
+              <p className="small text-muted">{nf.format(item.price)} Vnd</p>
             </div>
-          </React.Fragment>)
-        })
-      }
+          </div>
+        </React.Fragment>)
+      })
+    }else{
+      return(<h1>Not Found</h1>)
     }
   }
   return (
@@ -112,7 +114,7 @@ const Productsearch = () => {
             previousLabel={'<<'}
             nextLabel={'>>'}
             breakLabel={'...'}
-            pageCount={Math.ceil(products.length / 12)}
+            pageCount={products.totalPage}
             marginPagesDisplayed={2}
             pageRangeDisplayed={3}
             onPageChange={handlePageClick}

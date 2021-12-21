@@ -1,7 +1,7 @@
 import store from "../Store";
 import instance from "./instance";
 export const getAll = (page) => {
-    const url = `/api/book/list?page=${page}`
+    const url = `/api/book/list?page=${page.page}&limit=${page.limit}`
     return instance.get(url)
 }
 
@@ -37,7 +37,7 @@ export const update = (id, product) => {
         }
     })
 }
-export const search = (value) => {
-    const url = `/api/book/search?name=${value}`;
+export const search = (value, page) => {
+    const url = `/api/book/search?page=${page}&name=${value}`;
     return instance.post(url)
 }

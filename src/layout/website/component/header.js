@@ -83,7 +83,7 @@ const Header = () => {
               </ul>
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item"><Link className="nav-link" to="cart"> <i className="fas fa-dolly-flatbed mr-1 text-gray" />Cart<small className="text-gray">({lengthCart()})</small></Link></li>
-                <li className="nav-item"><Link className="nav-link" to="#"> <i className="far fa-heart mr-1" /><small className="text-gray"> (0)</small></Link></li>
+                <li className="nav-item"><Link className="nav-link" to="wishlist"> <i className="far fa-heart mr-1" /><small className="text-gray"> (0)</small></Link></li>
                 <li className="nav-item">{button()}</li>
               </ul>
             </div>

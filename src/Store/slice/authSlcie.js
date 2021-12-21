@@ -14,7 +14,6 @@ const authSlice = createSlice({
             state.loading = true
         })
         builder.addCase(signIn.fulfilled, (state, action) => {
-            console.log(action.payload);
             state.auth = action.payload
             state.loading = false
         })

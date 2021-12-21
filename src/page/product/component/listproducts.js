@@ -8,6 +8,8 @@ import { toast } from "react-toastify"
 import { addtocart } from "../../../Store/slice/cartSlice"
 import { addtocartApi } from "../../../Store/action/cartAction"
 import ReactPaginate from 'react-paginate'
+import { addtoWishlist } from "../../../Store/action/wishlistAction"
+import { useNavigate } from "react-router"
 const CListPrd = () => {
   const url = "#productView"
   const dispatch = useDispatch()
@@ -17,6 +19,7 @@ const CListPrd = () => {
   useEffect(() => {
     dispatch(itemPrd(page))
   }, [dispatch, page])
+  const navigate = useNavigate()
   const nf = Intl.NumberFormat();
   const productsList = () => {
     const listBook = products.listBook
@@ -29,7 +32,23 @@ const CListPrd = () => {
                 <div className="badge text-white badge-" /><Link className="d-block" to={`/detail/${item._id}`}><img style={{ width: '255px', height: '350px' }} className="img-fluid w-100" src={item.image} alt="..." /></Link>
                 <div className="product-overlay">
                   <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
+                    <li className="list-inline-item m-0 p-0"><button className="btn btn-sm btn-outline-dark" onClick={ async () => {
+                      if (fetchUser) {
+                        const idUser = fetchUser.user._id
+                          try {
+                            const data = {
+                              idUser: idUser,
+                              idBook: item._id
+                            }
+                            await dispatch(addtoWishlist(data))
+                          toast.success("SuccessFully")
+                          } catch (error) {
+                            toast.error('Failed')
+                          }
+                      }else{
+                          navigate('/signin')
+                      }
+                    }} ><i className="far fa-heart" /></button></li>
                     <li className="list-inline-item m-0 p-0"><button onClick={async () => {
                       const { data } = await get(item._id)
                       const cartItems = {

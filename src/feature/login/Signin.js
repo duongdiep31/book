@@ -51,6 +51,7 @@ const SigninUser = () => {
     const dispatch = useDispatch()
     const auth = useSelector((state) => state.auth.auth)
     const onSubmit = async (data) => {
+        console.log(data)
         dispatch(signIn(data))
         setRedirecTo(true)
     }

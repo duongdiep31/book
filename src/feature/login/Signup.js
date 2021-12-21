@@ -4,10 +4,6 @@ import { useNavigate } from "react-router";
 import { toast} from "react-toastify";
 import { signup } from "../../api/auth";
 import "react-toastify/dist/ReactToastify.css";
-
-
-
-
 const Signup = () => {
     const {register, handleSubmit} = useForm();
     const navigate = useNavigate();

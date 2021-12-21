@@ -4,6 +4,7 @@ export const itemPrd = createAsyncThunk(
     'product/itemPrd',
     async (page) => {
         const {data} = await getAll(page)
+        console.log(data)
         return data
     }
   )
@@ -30,8 +31,8 @@ export const changePrd = createAsyncThunk(
 )
 export const searchItem = createAsyncThunk(
     'product/searchItem',
-    async (value) => {
-        const {data} = await search(value)
+    async (value, page) => {
+        const {data} = await search(value, page)
         return data
     }
 )

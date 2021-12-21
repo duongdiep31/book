@@ -33,6 +33,7 @@ import CListPrdDetail from "./page/product/component/listPrdDetail";
 import Productsearch from "./page/product/component/productSearch";
 import OrderdetailUser from "./page/profile/component/detailsOrderUser";
 import Editorderuser from "./page/profile/component/editOrderUser";
+import Wishlist from "./page/wishlist";
 const Routers = (props) => {
     return (
         <BrowserRouter>
@@ -58,6 +59,7 @@ const Routers = (props) => {
                             <Route path='orderdetailUser/:id' element={<OrderdetailUser />} />
                             <Route  path='editOrderUser/:id' element={<Editorderuser />} />
                         </Route>
+                        <Route path='wishlist' element={<Wishlist />} />
                     </Route>
                     {/* admin */}
                     <Route path='/admin/*' element={

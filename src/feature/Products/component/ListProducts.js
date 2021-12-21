@@ -7,17 +7,22 @@ import ReactPaginate from 'react-paginate'
 const Listproducts = () => {
   const products = useSelector((state) => state.product.product)
   const dispatch = useDispatch()
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState({
+    page :1,
+    limit: 9
+  })
   useEffect(() => {
     dispatch(itemPrd(page))
   }, [dispatch, page])
 
   const handlePageClick = (data) => {
-    console.log(data);
-    setPage(data.selected+1)
+    setPage({
+      page: data.selected+1,
+      limit: 9
+    })
   }
   let Result;
-  const listBook = products.listBook
+  const listBook = products.list
   if (listBook && Array.isArray(listBook)) {
     Result = listBook.map((item, index) => {
       return (
@@ -32,6 +37,9 @@ const Listproducts = () => {
             </td>
             <td>
               <img alt="Avatar" className="table-avatar" src={item.image} />
+            </td>
+            <td className="project_progress">
+              {item.price}
             </td>
             <td className="project_progress">
               {item.author}
@@ -98,16 +106,19 @@ const Listproducts = () => {
                   <th style={{ width: '1%' }}>
                     #
                   </th>
-                  <th style={{ width: '20%' }}>
+                  <th style={{ width: '15%' }}>
                     Name
                   </th>
-                  <th style={{ width: '30%' }}>
+                  <th style={{ width: '10%' }}>
+                    Image
+                  </th>
+                  <th style={{ width: '15%' }}>
                     Price
                   </th>
-                  <th>
+                  <th style={{ width: '15%' }} >
                     Author
                   </th>
-                  <th style={{ width: '8%' }} className="text-center">
+                  <th style={{ width: '15%' }} className="text-center">
                     Status
                   </th>
                   <th style={{ width: '20%' }}>
@@ -117,11 +128,8 @@ const Listproducts = () => {
               </thead>
               <tbody>
                 {Result}
-              
               </tbody>
-            
             </table>
-
             <div style={{
                 display: 'grid',
                 gridTemplateColumns:'1fr 1fr'
@@ -136,7 +144,7 @@ const Listproducts = () => {
               previousLabel={'<<'}
               nextLabel={'>>'}
               breakLabel={'...'}
-              pageCount={products.totalPage}
+              pageCount={Math.ceil(products.total/ page.limit)}
               marginPagesDisplayed={2}
               pageRangeDisplayed={3}
               onPageChange={handlePageClick}

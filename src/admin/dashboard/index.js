@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { listOrderAction } from '../../Store/action/orderAction';
@@ -8,13 +8,9 @@ const Dashboard = () => {
     const dispatch = useDispatch()
      const auth = useSelector((state) =>state.auth.auth.user.role)
      const lengthPrd = useSelector((state) => state.product.product)
-     const [page] = useState({
-        page: 1,
-        limit: 5
-      })
      useEffect(() => {
-        dispatch(itemPrd(page))
-    },[dispatch, page])
+        dispatch(itemPrd(1))
+    },[dispatch])
      const lengthUser = useSelector((state) => state.user.user)
      useEffect(() => {
         dispatch(userList())
@@ -25,7 +21,6 @@ const Dashboard = () => {
     },[dispatch])
     const statistical = () => {
                 if (auth === '0' || auth === '2') {
-                      
                         return(
                             <>
                                 <div className="col-lg-3 col-6">

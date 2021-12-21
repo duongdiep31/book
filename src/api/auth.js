@@ -1,5 +1,6 @@
 import instance from "./instance";
 export const signup = (user) => {
+  console.log(user)
   const url = "/api/register";
   return instance.post(url, user)
 };
