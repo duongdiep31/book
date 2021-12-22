@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 const Header = () => {
 
-  const auth = useSelector((state) =>state.auth.auth.user.role)
+  const auth = useSelector((state) =>state.auth.auth.users.role)
     const decentralization = () => {
       if (auth === '0' || auth === '2' ) {
           return(

@@ -7,6 +7,7 @@ export const signIn = createAsyncThunk(
     async (user) => {
         try {
         const  {data}  = await signin(user)
+        console.log(data)
         toast.success('SuccessFully')
         return data
         } catch (error) {

@@ -15,14 +15,23 @@ const CListPrd = () => {
   const dispatch = useDispatch()
   const products = useSelector((state) => state.product.product)
   const fetchUser = useSelector((state) => state.auth.auth)
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState({
+    page :1,
+    limit: 9
+  })
   useEffect(() => {
     dispatch(itemPrd(page))
   }, [dispatch, page])
   const navigate = useNavigate()
+  const handlePageClick = (data) => {
+    setPage({
+      page: data.selected+1,
+      limit: 9
+    })
+  }
   const nf = Intl.NumberFormat();
   const productsList = () => {
-    const listBook = products.listBook
+    const listBook = products.list
     if (listBook && Array.isArray(listBook)) {
       return listBook.map(item => {
         return (<React.Fragment key={item._id} >
@@ -32,21 +41,21 @@ const CListPrd = () => {
                 <div className="badge text-white badge-" /><Link className="d-block" to={`/detail/${item._id}`}><img style={{ width: '255px', height: '350px' }} className="img-fluid w-100" src={item.image} alt="..." /></Link>
                 <div className="product-overlay">
                   <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><button className="btn btn-sm btn-outline-dark" onClick={ async () => {
+                    <li className="list-inline-item m-0 p-0"><button className="btn btn-sm btn-outline-dark" onClick={async () => {
                       if (fetchUser) {
                         const idUser = fetchUser.user._id
-                          try {
-                            const data = {
-                              idUser: idUser,
-                              idBook: item._id
-                            }
-                            await dispatch(addtoWishlist(data))
-                          toast.success("SuccessFully")
-                          } catch (error) {
-                            toast.error('Failed')
+                        try {
+                          const data = {
+                            idUser: idUser,
+                            idBook: item._id
                           }
-                      }else{
-                          navigate('/signin')
+                          await dispatch(addtoWishlist(data))
+                          toast.success("SuccessFully")
+                        } catch (error) {
+                          toast.error('Failed')
+                        }
+                      } else {
+                        navigate('/signin')
                       }
                     }} ><i className="far fa-heart" /></button></li>
                     <li className="list-inline-item m-0 p-0"><button onClick={async () => {
@@ -85,11 +94,7 @@ const CListPrd = () => {
       })
     }
   }
-  const handlePageClick = (data) => {
-    setPage(
-      data.selected + 1,
-    )
-  }
+
   return (
     <React.Fragment>
       <Views />
@@ -123,7 +128,7 @@ const CListPrd = () => {
             previousLabel={'<<'}
             nextLabel={'>>'}
             breakLabel={'...'}
-            pageCount={products.totalPage}
+            pageCount={Math.ceil(products.total/ page.limit)}
             marginPagesDisplayed={2}
             pageRangeDisplayed={3}
             onPageChange={handlePageClick}

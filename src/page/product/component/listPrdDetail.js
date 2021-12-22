@@ -9,20 +9,19 @@ import { addtocart } from "../../../Store/slice/cartSlice"
 import { addtocartApi } from "../../../Store/action/cartAction"
 import { useParams } from "react-router"
 import ReactPaginate from 'react-paginate'
-const CListPrdDetail = (props) => {
+const CListPrdDetail = () => {
   const { id } = useParams()
   const url = "#productView"
   const dispatch = useDispatch()
   const products = useSelector((state) => state.product.product)
   const fetchUser = useSelector((state) => state.auth.auth)
   const [page, setPage] = useState(1)
-  useEffect(() => {
-    dispatch(itemPrd(page))
-  }, [dispatch, page])
+  // useEffect(() => {
+  //   dispatch(itemPrd(page))
+  // }, [dispatch, page])
   const handlePageClick = (data) => {
     setPage(data.selected + 1,)
   }
-  console.log(products);
   const listBook = products.listBook
   const productsList = () => {
     if (listBook && Array.isArray(listBook)) {

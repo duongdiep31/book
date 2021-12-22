@@ -1,8 +1,8 @@
 import store from "../Store";
 import instance from "./instance";
-export const getAllUser = () => {
+export const getAllUser = (page) => {
     const token = store.getState().auth.auth.token
-    const url = '/api/users'
+    const url = `/api/users?page=${page.page}&limit=${page.limit}`
     return instance.get(url, {
         headers: {
             "Authorization": "Bearer " + token}

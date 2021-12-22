@@ -6,27 +6,35 @@ import { itemPrd } from '../../Store/action/products';
 import { userList } from '../../Store/action/userAction';
 const Dashboard = () => {
     const dispatch = useDispatch()
-     const auth = useSelector((state) =>state.auth.auth.user.role)
+     const auth = useSelector((state) =>state.auth.auth.users.role)
      const lengthPrd = useSelector((state) => state.product.product)
      useEffect(() => {
-        dispatch(itemPrd(1))
+        dispatch(itemPrd(
+            {
+                page: 1,
+                limit: 9
+            }
+        ))
     },[dispatch])
      const lengthUser = useSelector((state) => state.user.user)
      useEffect(() => {
-        dispatch(userList())
+        dispatch(userList({
+            page: 1,
+            limit: 9
+        }))
     },[dispatch])
     const lengthOrder = useSelector((state) => state.order.order)
      useEffect(() => {
         dispatch(listOrderAction())
     },[dispatch])
     const statistical = () => {
-                if (auth === '0' || auth === '2') {
+                if (auth === 0 || auth === 2) {
                         return(
                             <>
                                 <div className="col-lg-3 col-6">
                             <div className="small-box bg-info">
                                 <div className="inner">
-                                    <h3>{lengthOrder.length}</h3>
+                                    {/* <h3>{lengthOrder.length}</h3> */}
                                     <p>New Orders</p>
                                 </div>
                                     <div className="icon">
@@ -38,7 +46,7 @@ const Dashboard = () => {
                         <div className="col-lg-3 col-6">
                             <div className="small-box bg-success">
                                 <div className="inner">
-                                    <h3>{lengthPrd.totalBook}<sup style={{ fontSize: 20 }}></sup></h3>
+                                    <h3>{lengthPrd.total}<sup style={{ fontSize: 20 }}></sup></h3>
                                     <p>Products</p>
                                 </div>
                                 <div className="icon">
@@ -50,7 +58,7 @@ const Dashboard = () => {
                         <div className="col-lg-3 col-6">
                             <div className="small-box bg-warning">
                                 <div className="inner">
-                                    <h3>{lengthUser.length}</h3>
+                                    <h3>{lengthUser.total}</h3>
                                     <p>User Registrations</p>
                                 </div>
                                 <div className="icon">
@@ -62,7 +70,7 @@ const Dashboard = () => {
                        
                             </>
                         )
-                }else if (auth === '3') {
+                }else if (auth === 3) {
                     return(
                         <>
                         <div className="col-lg-3 col-6">

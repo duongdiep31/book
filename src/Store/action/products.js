@@ -4,7 +4,6 @@ export const itemPrd = createAsyncThunk(
     'product/itemPrd',
     async (page) => {
         const {data} = await getAll(page)
-        console.log(data)
         return data
     }
   )

@@ -2,8 +2,8 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getAllUser, removeUser, updateUser } from "../../api/user";
 export const userList = createAsyncThunk(
     'user/userList',
-    async (token) => {
-        const {data} = await getAllUser(token)
+    async (token, page) => {
+        const {data} = await getAllUser(token,page)
         return data
     }
 )

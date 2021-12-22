@@ -36,9 +36,6 @@ const resolver = async (values) => {
     else {
         errors = {}
     }
-
-
-
     return {
         values: values,
         errors: errors
@@ -51,7 +48,6 @@ const SigninUser = () => {
     const dispatch = useDispatch()
     const auth = useSelector((state) => state.auth.auth)
     const onSubmit = async (data) => {
-        console.log(data)
         dispatch(signIn(data))
         setRedirecTo(true)
     }
@@ -72,7 +68,7 @@ const SigninUser = () => {
     const userRedirect = () => {
         if (redirectTo) {
             if (auth) {
-                if (auth.user.role !== '1') {
+                if (auth.users.role !== 1) {
                     navigate("/admin");
                 } else {
                     navigate("/");

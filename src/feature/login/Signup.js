@@ -17,9 +17,6 @@ const Signup = () => {
                                 }
                                  ).catch((error) => toast.error(error.response))
                     }
-
-
-                  
     return (
         <div className='container' >
             <div className="card mb-4" id="forms">
@@ -28,21 +25,21 @@ const Signup = () => {
                     <div className='container'>
                     <form onSubmit={handleSubmit(onSubmit)} >
                     <div className="form-group row">
-                            <label className="col-sm-2 col-form-label" htmlFor="inputEmail3">Name</label>
+                            <label className="col-sm-2 col-form-label" htmlFor="name">Name</label>
                             <div className="col-sm-10">
-                                <input {...register('name', {required: true})} className="form-control" id="inputEmail3" type="text" placeholder="Email" />
+                                <input {...register('name', {required: true})} className="form-control" id="name" type="text" placeholder="Email" />
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-2 col-form-label" htmlFor="inputEmail3">Email</label>
+                            <label className="col-sm-2 col-form-label" htmlFor="email">Email</label>
                             <div className="col-sm-10">
-                                <input {...register('email', {required: true})} className="form-control" id="inputEmail3" type="email" placeholder="Email" />
+                                <input {...register('email', {required: true})} className="form-control" id="email" type="email" placeholder="Email" />
                             </div>
                         </div>
                         <div className="form-group row">
-                            <label className="col-sm-2 col-form-label" htmlFor="inputEmail3">Phone</label>
+                            <label className="col-sm-2 col-form-label" htmlFor="phone">Phone</label>
                             <div className="col-sm-10">
-                                <input {...register('phone', {required: true})} className="form-control" id="inputEmail3" type="name" placeholder="Email" />
+                                <input {...register('phone', {required: true})} className="form-control" id="phone" type="name" placeholder="Email" />
                             </div>
                         </div>
                         <div className="form-group row">

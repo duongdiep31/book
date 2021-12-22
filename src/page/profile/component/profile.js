@@ -2,10 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 const Profile = () => {
         const user = useSelector((state) => state.auth.auth)
-        console.log(user);
         const profileUser = () => {
             if (user) {
-                const userProfile = user.user
+                const userProfile = user.users
                 return (
                     <React.Fragment>
             <li className="list-group-item">
@@ -21,7 +20,6 @@ const Profile = () => {
                 )
             }
         }
-
     return (
         <React.Fragment>
             <div className="container">
