@@ -96,7 +96,7 @@ const Orderdetail = () => {
                                         {/* /.col */}
                                         <div className="col-sm-4 invoice-col">
 
-                                            <b>Order ID:</b> {item._id}<br />
+                                            <b>Serial:</b> {item._id}<br />
                                             <small style={{
                                                 marginRight: '69px',
                                                 paddingTop: '20px'
@@ -113,7 +113,7 @@ const Orderdetail = () => {
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Name</th>
-                                                        <th>Serial #</th>
+                                                        <th>Price</th>
                                                         <th>Description</th>
                                                         <th>Subtotal</th>
                                                     </tr>

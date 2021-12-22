@@ -6,7 +6,6 @@ const Wishlist = () => {
   const dispatch = useDispatch()
   const wishlist = useSelector((state) => state.wishlist.wishlist)
   const fetchUser = useSelector((state) => state.auth.auth)
-  console.log(fetchUser);
   useEffect(() => {
     const list = async () => {
       await dispatch(getAllWishlist())
@@ -15,9 +14,9 @@ const Wishlist = () => {
   }, [dispatch])
   const listItem = () => {
     if (fetchUser) {
-      const idUser = fetchUser.user._id
+      const idUser = fetchUser.users._id
       if (wishlist && Array.isArray(wishlist)) {
-        const wishlistUser = wishlist.filter(item => item.idUser === idUser)
+        const wishlistUser = wishlist.filter(item => item.idUser._id === idUser)
         return wishlistUser.map((item, index) => {
           return (
             <React.Fragment key={index} >
@@ -30,7 +29,7 @@ const Wishlist = () => {
                     <div className="media-body ml-3"><strong className="h6"><Link className="reset-anchor animsition-link" to="detail.html">{item.idBook.name}dsds</Link></strong></div>
                   </div>
                 </th>
-                <td className="align-middle border-0"><Link onClick={() => dispatch(removeWishlist(item.idBook._id))} className="reset-anchor" to="#"><i className="fas fa-trash-alt small text-muted"></i></Link></td>
+                <td className="align-middle border-0"><Link onClick={() => dispatch(removeWishlist(item._id))} className="reset-anchor" to="#"><i className="fas fa-trash-alt small text-muted"></i></Link></td>
               </tr>
             </React.Fragment>
           )

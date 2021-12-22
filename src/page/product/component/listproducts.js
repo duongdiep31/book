@@ -8,15 +8,22 @@ import { toast } from "react-toastify"
 import { addtocart } from "../../../Store/slice/cartSlice"
 import { addtocartApi } from "../../../Store/action/cartAction"
 import ReactPaginate from 'react-paginate'
-import { addtoWishlist } from "../../../Store/action/wishlistAction"
+import { addtoWishlist, getAllWishlist } from "../../../Store/action/wishlistAction"
 import { useNavigate } from "react-router"
 const CListPrd = () => {
   const url = "#productView"
   const dispatch = useDispatch()
   const products = useSelector((state) => state.product.product)
+  const wishlist = useSelector((state) => state.wishlist.wishlist)
+  useEffect(() => {
+    const getWish = async () => {
+      dispatch(getAllWishlist())
+    }
+    getWish()
+  }, [dispatch])
   const fetchUser = useSelector((state) => state.auth.auth)
   const [page, setPage] = useState({
-    page :1,
+    page: 1,
     limit: 9
   })
   useEffect(() => {
@@ -25,7 +32,7 @@ const CListPrd = () => {
   const navigate = useNavigate()
   const handlePageClick = (data) => {
     setPage({
-      page: data.selected+1,
+      page: data.selected + 1,
       limit: 9
     })
   }
@@ -43,17 +50,24 @@ const CListPrd = () => {
                   <ul className="mb-0 list-inline">
                     <li className="list-inline-item m-0 p-0"><button className="btn btn-sm btn-outline-dark" onClick={async () => {
                       if (fetchUser) {
-                        const idUser = fetchUser.user._id
-                        try {
-                          const data = {
-                            idUser: idUser,
-                            idBook: item._id
+                        const idUser = fetchUser.users._id
+                          if (wishlist && Array.isArray(wishlist)) {
+                            const existWishlist = wishlist.filter((item) => item.idUser._id === idUser)
+                            if (existWishlist) {
+                              console.log('exit', existWishlist);
+                              const existItems = existWishlist.find((data) => data.idBook._id === item._id)
+                              if (existItems) {
+                                toast.error("Books already exist")
+                              } else {
+                                const data = {
+                                  idUser: idUser,
+                                  idBook: item._id
+                                }
+                                dispatch(addtoWishlist(data))
+                                toast.success("SuccessFully")
+                              } 
+                            }
                           }
-                          await dispatch(addtoWishlist(data))
-                          toast.success("SuccessFully")
-                        } catch (error) {
-                          toast.error('Failed')
-                        }
                       } else {
                         navigate('/signin')
                       }
@@ -65,7 +79,7 @@ const CListPrd = () => {
                         quantity: 1
                       }
                       if (fetchUser) {
-                        const idUser = fetchUser.user._id
+                        const idUser = fetchUser.users._id
                         try {
                           const dataApi = {
                             idUser: idUser,
@@ -94,14 +108,21 @@ const CListPrd = () => {
       })
     }
   }
+  const showing = () => {
+    const end = page.limit * page.page
+    const start = (page.page - 1) * page.limit + 1
+    return (
+      <p className="text-small text-muted mb-0">Showing {start}–{end} of {products.total} results</p>
 
+    )
+  }
   return (
     <React.Fragment>
       <Views />
       <div className="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
         <div className="row mb-3 align-items-center">
           <div className="col-lg-6 mb-2 mb-lg-0">
-            <p className="text-small text-muted mb-0">Showing 1–12 of 53 results</p>
+            {showing()}
           </div>
           <div className="col-lg-6">
             <ul className="list-inline d-flex align-items-center justify-content-lg-end mb-0">
@@ -128,7 +149,7 @@ const CListPrd = () => {
             previousLabel={'<<'}
             nextLabel={'>>'}
             breakLabel={'...'}
-            pageCount={Math.ceil(products.total/ page.limit)}
+            pageCount={Math.ceil(products.total / page.limit)}
             marginPagesDisplayed={2}
             pageRangeDisplayed={3}
             onPageChange={handlePageClick}

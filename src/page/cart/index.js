@@ -15,7 +15,7 @@ const Cart = () => {
   const nf = Intl.NumberFormat();
     const listCart = () => {
     if (fetchUser) {
-      const cartUser = fetchItemCartApi.filter(item => item.idUser === fetchUser.user._id)
+      const cartUser = fetchItemCartApi.filter(item => item.idUser._id === fetchUser.users._id)
       const Result = cartUser.map((item, index) => {
         return (
           <React.Fragment key={index} >
@@ -91,7 +91,7 @@ const Cart = () => {
   }
   const subTotal = () => {
     if (fetchUser) {
-      const cartUser = fetchItemCartApi.filter(item => item.idUser === fetchUser.user._id)
+      const cartUser = fetchItemCartApi.filter(item => item.idUser === fetchUser.users._id)
       const subtotalApi = cartUser.reduce((a, b) => {
         return a + (b.idBook.price) * b.quantity
       }, 0)

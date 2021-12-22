@@ -10,9 +10,9 @@ export const getAllWishlist = createAsyncThunk(
 export const addtoWishlist = createAsyncThunk(
     'wishlist/addtoWishlist',
     async (item) => {
-        const {data} = await insertWishlistApi(item)
+        const { data } = await insertWishlistApi(item)
         return data
-        }
+    }
 )
 export const removeWishlist = createAsyncThunk(
     'wishlist/removeWishlist',

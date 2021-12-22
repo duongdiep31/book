@@ -22,9 +22,9 @@ const Header = () => {
   const dispatch = useDispatch()
   const lengthCart = () => {
     if (auth) {
-      const userID = auth.user
+      const userID = auth.users
       if (userID) {
-        const lengthCartApi = cartApi.filter((item) => item.idUser === userID._id)
+        const lengthCartApi = cartApi.filter((item) => item.idUser._id === userID._id)
         return lengthCartApi.length
       }
     } else {

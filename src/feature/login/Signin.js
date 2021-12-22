@@ -41,14 +41,14 @@ const resolver = async (values) => {
         errors: errors
     };
 };
-const SigninUser = () => {
+const Signin = () => {
     const { register, handleSubmit, formState: { errors } } = useForm({ resolver })
     const navigate = useNavigate();
     const [redirectTo, setRedirecTo] = useState(false);
     const dispatch = useDispatch()
     const auth = useSelector((state) => state.auth.auth)
     const onSubmit = async (data) => {
-        dispatch(signIn(data))
+      await  dispatch(signIn(data))
         setRedirecTo(true)
     }
     const logingg = () => {
@@ -135,4 +135,4 @@ const SigninUser = () => {
         </div>
     </div>)
 }
-export default SigninUser
+export default Signin

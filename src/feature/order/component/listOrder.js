@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import {  listOrderAction } from '../../../Store/action/orderAction';
 const ListOrder = () => {
     const order = useSelector((state) => state.order.order)
+    console.log(order)
     const dispatch = useDispatch()
     useEffect(() => {
         const list = async () => {
@@ -12,8 +13,9 @@ const ListOrder = () => {
         list()
     }, [dispatch])
     let Result
-    if (order && Array.isArray(order)) {
-        Result = order.map((item, index) => {
+    const list = order.list
+    if (list && Array.isArray(list)) {
+        Result = list.map((item, index) => {
             const payMent = () => {
                 if (item.payment === '0') {
                     return 'Thanh Toán Trực Tiếp'

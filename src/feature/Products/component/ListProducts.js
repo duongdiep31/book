@@ -12,9 +12,8 @@ const Listproducts = () => {
     limit: 9
   })
   useEffect(() => {
-    // dispatch(itemPrd(page))
+    dispatch(itemPrd(page))
   }, [dispatch, page])
-
   const handlePageClick = (data) => {
     setPage({
       page: data.selected+1,

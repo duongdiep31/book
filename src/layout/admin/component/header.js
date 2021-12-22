@@ -5,7 +5,7 @@ const Header = () => {
 
   const auth = useSelector((state) =>state.auth.auth.users.role)
     const decentralization = () => {
-      if (auth === '0' || auth === '2' ) {
+      if (auth === 0 || auth === 2 ) {
           return(
             <>
           <li className="nav-item">
@@ -45,7 +45,7 @@ const Header = () => {
           </li>
             </>
           )
-      }else if (auth === '3') {
+      }else if (auth === 3) {
           return(
             <>
               <li className="nav-item">

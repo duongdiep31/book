@@ -1,31 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {  deleteUser, userList } from '../../../Store/action/userAction';
-// import { userList } from '../../../Store/slice/userReducer';
+import ReactPaginate from 'react-paginate'
+
 const Listuser = () => {
   const user = useSelector((state) => state.user.user)
+  const [page, setPage] = useState({
+    page :1,
+    limit: 9
+  })
+  const handlePageClick = (data) => {
+    setPage({
+      page: data.selected+1,
+      limit: 9
+    })
+  }
   const dispatch = useDispatch()
   useEffect(()=> {
-    dispatch(userList())
-  },[dispatch])
+    dispatch(userList(page))
+  },[dispatch, page])
   let Result
-  if (user && Array.isArray(user)) {
-      const filter = user.filter(item => item.role !== "0")
+  const listUser = user.list
+  if (listUser && Array.isArray(listUser)) {
+      const filter = listUser.filter(item => item.role !== 0)
       Result = filter.map((item,index) => {
         const role = () => {
-          if (item.role === '0') {
+          if (item.role === 0) {
               return 'Hoàng thượng'
-          }else if(item.role === '2'){
+          }else if(item.role === 2){
             return 'Giám đốc'
-          }else if (item.role === '3') {
+          }else if (item.role === 3) {
             return 'Content'
-          }else if (item.role === '4') {
+          }else if (item.role === 4) {
             return 'Giỏ Hàng'
           }else{
             return 'Khách hàng'
           }
         }
+   
         return (
           <React.Fragment key={index} >
                  <tr>
@@ -124,6 +137,27 @@ const Listuser = () => {
           
           </tbody>
         </table>
+
+        <ReactPaginate
+              previousLabel={'<<'}
+              nextLabel={'>>'}
+              breakLabel={'...'}
+              marginPagesDisplayed={2}
+              pageCount={Math.ceil(user.total / page.limit)}
+              pageRangeDisplayed={3}
+              onPageChange={handlePageClick}
+              containerClassName={'pagination justify-content-center justify-content-lg-end'}
+              pageClassName={'page-item'}
+              pageLinkClassName={'page-link'}
+              previousClassName={'page-item'}
+              nextClassName={'page-item'}
+              previousLinkClassName={'page-link'}
+              nextLinkClassName={'page-link'}
+              breakClassName={'page-item'}
+              breakLinkClassName={'page-link'}
+              activeClassName={'active'}
+            />
+
 
       </div>
       {/* /.card-body */}

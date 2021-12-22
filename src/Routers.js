@@ -27,7 +27,7 @@ import Orderdetail from "./feature/order/component/orderDetail";
 import Indexprofile from "./page/profile";
 import Profile from "./page/profile/component/profile";
 import Orderstatus from "./page/profile/component/orderStatus";
-import SigninUser from "./feature/login/Signin";
+import Signin from "./feature/login/Signin";
 import CListPrd from "./page/product/component/listproducts";
 import CListPrdDetail from "./page/product/component/listPrdDetail";
 import Productsearch from "./page/product/component/productSearch";
@@ -49,7 +49,7 @@ const Routers = (props) => {
                                 <Route path='productSearch/:value' element={<Productsearch />} />
                         </Route> 
                         <Route path='signup' element={<ProtectedAuth><Signup /></ProtectedAuth>} />
-                        <Route path='signin' element={<ProtectedAuth><SigninUser /> </ProtectedAuth>} />
+                        <Route path='signin' element={<ProtectedAuth><Signin /></ProtectedAuth>} />
                         <Route path='/404' element={<Error />} />
                         <Route path='checkout' element={<Checkout />} />
                         <Route path='/detail/:id' element={<Details />} />

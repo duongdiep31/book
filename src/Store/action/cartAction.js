@@ -11,7 +11,7 @@ export const addtocartApi = createAsyncThunk(
     'cartApi/addtocart',
     async (cartItems) => {
         const { data } = await getAllcart()
-        const exitsUser = data.filter((item) => item.idUser === cartItems.idUser)
+        const exitsUser = data.filter((item) => item.idUser._id === cartItems.idUser)
         if (exitsUser) {
             const existProduct = exitsUser.find((item) => item.idBook._id === cartItems.idBook)
             if (existProduct) {

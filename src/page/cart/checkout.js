@@ -34,12 +34,12 @@ const Checkout = () => {
   const [status, setStatus] = useState(0)
   const onHandleSubmit = (e) => {
     if (fetchUser) {
-      const arr = fetchItemCartApi.filter((item) => item.idUser === fetchUser.user._id)
+      const arr = fetchItemCartApi.filter((item) => item.idUser._id === fetchUser.users._id)
       const subtotalApi = arr.reduce((a, b) => a + b.idBook.price * b.quantity, 0)
       const data = {
         arrOrder: arr,
         ...e,
-        userId: fetchUser.user._id,
+        userId: fetchUser.users._id,
         status: status,
         totalPrice: subtotalApi,
         payment: checkPay
@@ -47,7 +47,7 @@ const Checkout = () => {
       return new Promise(resolve => {
         setTimeout(() => {
           dispatch(addOrderAction(data))
-          const arr = fetchItemCartApi.filter((item) => item.idUser === fetchUser.user._id)
+          const arr = fetchItemCartApi.filter((item) => item.idUser._id === fetchUser.users._id)
           arr.map((zz) => {
             return dispatch(removeCart(zz._id))
           })
@@ -72,16 +72,16 @@ const Checkout = () => {
           <div className="row">
             <div className="col-lg-12 form-group">
               <label className="text-small text-uppercase" htmlFor="name">Name</label>
-              <input {...register('nameKh', { required: true })} defaultValue={fetchUser.user.name} className="form-control form-control-lg" id="name" type="text" placeholder="Enter your first name" />
+              <input {...register('nameKh', { required: true })} defaultValue={fetchUser.users.name} className="form-control form-control-lg" id="name" type="text" placeholder="Enter your first name" />
 
             </div>
             <div className="col-lg-6 form-group">
               <label className="text-small text-uppercase" htmlFor="email">Email address</label>
-              <input  {...register('email', { required: true })} defaultValue={fetchUser.user.email} className="form-control form-control-lg" id="email" type="email" placeholder="e.g. Jason@example.com" />
+              <input  {...register('email', { required: true })} defaultValue={fetchUser.users.email} className="form-control form-control-lg" id="email" type="email" placeholder="e.g. Jason@example.com" />
             </div>
             <div className="col-lg-6 form-group">
               <label className="text-small text-uppercase" htmlFor="phone">Phone number</label>
-              <input  {...register('phone', { required: true })} defaultValue={fetchUser.user.phone} className="form-control form-control-lg" id="phone" type="tel" placeholder="e.g. +02 245354745" />
+              <input  {...register('phone', { required: true })} defaultValue={fetchUser.users.phone} className="form-control form-control-lg" id="phone" type="tel" placeholder="e.g. +02 245354745" />
             </div>
 
             <div className="col-lg-12 form-group">
@@ -185,7 +185,7 @@ const Checkout = () => {
   }
   const total = () => {
     if (fetchUser) {
-      const fetchItemCartUser = fetchItemCartApi.filter((item) => item.idUser === fetchUser.user._id)
+      const fetchItemCartUser = fetchItemCartApi.filter((item) => item.idUser._id === fetchUser.users._id)
       return fetchItemCartUser.map((item, index) => {
         const total = item.idBook.price * item.quantity
         return (
@@ -209,7 +209,7 @@ const Checkout = () => {
   }
   const subTotal = () => {
     if (fetchUser) {
-      const fetchItemCartUser = fetchItemCartApi.filter((item) => item.idUser === fetchUser.user._id)
+      const fetchItemCartUser = fetchItemCartApi.filter((item) => item.idUser._id === fetchUser.users._id)
       const subtotalApi = fetchItemCartUser.reduce((a, b) => a + b.idBook.price * b.quantity, 0)
 
       return (
