@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getAll, insert, remove, search, update } from "../../api/product";
+import { getAll, insert, remove,related, search, update } from "../../api/product";
 export const itemPrd = createAsyncThunk(
     'product/itemPrd',
     async (page) => {
@@ -30,8 +30,15 @@ export const changePrd = createAsyncThunk(
 )
 export const searchItem = createAsyncThunk(
     'product/searchItem',
-    async (value, page) => {
-        const {data} = await search(value, page)
+    async (page) => {
+        const {data} = await search(page)
+        return data
+    }
+)
+export const relatedProductAction = createAsyncThunk(
+    'product/relatedProductAction',
+    async(id) => {
+        const {data} = await related(id)
         return data
     }
 )

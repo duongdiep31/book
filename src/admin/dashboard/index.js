@@ -34,7 +34,7 @@ const Dashboard = () => {
                                 <div className="col-lg-3 col-6">
                             <div className="small-box bg-info">
                                 <div className="inner">
-                                    {/* <h3>{lengthOrder.length}</h3> */}
+                                    <h3>{lengthOrder.total}</h3>
                                     <p>New Orders</p>
                                 </div>
                                     <div className="icon">

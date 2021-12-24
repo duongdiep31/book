@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { getAllCartApi, removeCart } from '../../Store/action/cartAction'
 import { addOrderAction } from '../../Store/action/orderAction';
+import {useTranslation} from 'react-i18next'
 // const resolver = async (values) => {
 //   return {
 //     values: values.name ? values : {},
@@ -19,6 +20,7 @@ import { addOrderAction } from '../../Store/action/orderAction';
 //   };
 // };
 const Checkout = () => {
+  const {t} = useTranslation()
   const dispatch = useDispatch()
   const fetchItemCart = useSelector((state) => state.cart.cart)
   const fetchItemCartApi = useSelector((state) => state.cartApi.cartApi)
@@ -71,21 +73,21 @@ const Checkout = () => {
         <form onSubmit={handleSubmit(onHandleSubmit)} className="row">
           <div className="row">
             <div className="col-lg-12 form-group">
-              <label className="text-small text-uppercase" htmlFor="name">Name</label>
+              <label className="text-small text-uppercase" htmlFor="name">{t('checkout.name')}</label>
               <input {...register('nameKh', { required: true })} defaultValue={fetchUser.users.name} className="form-control form-control-lg" id="name" type="text" placeholder="Enter your first name" />
 
             </div>
             <div className="col-lg-6 form-group">
-              <label className="text-small text-uppercase" htmlFor="email">Email address</label>
+              <label className="text-small text-uppercase" htmlFor="email">{t('checkout.email')}</label>
               <input  {...register('email', { required: true })} defaultValue={fetchUser.users.email} className="form-control form-control-lg" id="email" type="email" placeholder="e.g. Jason@example.com" />
             </div>
             <div className="col-lg-6 form-group">
-              <label className="text-small text-uppercase" htmlFor="phone">Phone number</label>
+              <label className="text-small text-uppercase" htmlFor="phone">{t('checkout.phone')}</label>
               <input  {...register('phone', { required: true })} defaultValue={fetchUser.users.phone} className="form-control form-control-lg" id="phone" type="tel" placeholder="e.g. +02 245354745" />
             </div>
 
             <div className="col-lg-12 form-group">
-              <label className="text-small text-uppercase" htmlFor="address">Address line</label>
+              <label className="text-small text-uppercase" htmlFor="address">{t('checkout.address')}</label>
               <input  {...register('address', { required: true })} className="form-control form-control-lg" id="address" type="text" placeholder="House number and street name" />
             </div>
             <div>
@@ -96,7 +98,7 @@ const Checkout = () => {
                     return check.style.display = 'none'
                   }} type="radio" name="flexRadioDefault" defaultValue={2} id="trực tiếp" />
                 <label className="form-check-label" htmlFor="flexRadioDefault1">
-                  Thanh toán trực tiếp
+                {t('checkout.payment')}
                 </label>
               </div>
               <div className="form-check">
@@ -105,12 +107,12 @@ const Checkout = () => {
                   return check.style.display = 'block'
                 }} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
                 <label className="form-check-label" htmlFor="flexRadioDefault2">
-                  Chuyển Khoản
+                {t('checkout.bank')}
                 </label>
                 <div id='check' style={{ display: 'none' }}   >
                   <h3>
                     TechComBank<br />
-                    Dương Văn Điệp<br />
+                   DUONG VAN DIEP<br />
                     19037121604010
                   </h3>
                 </div>
@@ -118,7 +120,7 @@ const Checkout = () => {
             </div>
 
             <div className="col-lg-12 form-group">
-              <button className="btn btn-dark">Place order</button>
+              <button className="btn btn-dark">{t('checkout.confirm')}</button>
             </div>
           </div>
         </form>
@@ -213,11 +215,11 @@ const Checkout = () => {
       const subtotalApi = fetchItemCartUser.reduce((a, b) => a + b.idBook.price * b.quantity, 0)
 
       return (
-        <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Total</strong><span  >{nf.format(subtotalApi)} Vnd</span></li>
+        <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">{t('checkout.total')}</strong><span  >{nf.format(subtotalApi)} Vnd</span></li>
       )
     } else {
       return (
-        <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Total</strong><span>{nf.format(subtotal)} Vnd</span></li>
+        <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">{t('checkout.total')}</strong><span>{nf.format(subtotal)} Vnd</span></li>
       )
     }
   }
@@ -230,14 +232,14 @@ const Checkout = () => {
           <div className="container">
             <div className="row px-4 px-lg-5 py-lg-4 align-items-center">
               <div className="col-lg-6">
-                <h1 className="h2 text-uppercase mb-0">Checkout</h1>
+                <h1 className="h2 text-uppercase mb-0">{t('titlePage.checkout')}</h1>
               </div>
               <div className="col-lg-6 text-lg-right">
                 <nav aria-label="breadcrumb">
                   <ol className="breadcrumb justify-content-lg-end mb-0 px-0">
-                    <li className="breadcrumb-item"><a href="/">Home</a></li>
-                    <li className="breadcrumb-item"><a href="/cart">Cart</a></li>
-                    <li className="breadcrumb-item active" aria-current="page">Checkout</li>
+                    <li className="breadcrumb-item"><a href="/">{t('titlePage.home')}</a></li>
+                    <li className="breadcrumb-item"><a href="/cart">{t('titlePage.cart')}</a></li>
+                    <li className="breadcrumb-item active" aria-current="page">{t('titlePage.checkout')}</li>
                   </ol>
                 </nav>
               </div>
@@ -246,7 +248,7 @@ const Checkout = () => {
         </section>
         <section className="py-5">
           {/* BILLING ADDRESS*/}
-          <h2 className="h5 text-uppercase mb-4">Billing details</h2>
+          <h2 className="h5 text-uppercase mb-4">{t('checkout.bill')}</h2>
           <div className="row">
             <div className="col-lg-8">
 
@@ -258,7 +260,7 @@ const Checkout = () => {
             <div className="col-lg-4">
               <div className="card border-0 rounded-0 p-lg-4 bg-light">
                 <div className="card-body">
-                  <h5 className="text-uppercase mb-4">Your order</h5>
+                  <h5 className="text-uppercase mb-4">{t('checkout.yourOrder')}</h5>
                   <ul className="list-unstyled mb-0">
                     {
                       total()

@@ -1,0 +1,128 @@
+{
+    "content": {
+        "functional": "hafm",
+        "class": "Class",
+        "text": "This is text"
+    },
+    "headers": {
+        "Home": "Trang Chủ",
+        "Shop": "Cửa Hàng",
+        "Cart": "Giỏ Hàng",
+        "Logout": "Đăng Xuất",
+        "Login": "Đăng Nhập",
+        "Search": "Tìm Kiếm..."
+    },
+    "banner": {
+        "new": "Sách Mới 2022",
+        "title": "Chào Mừng Tới Book Store",
+        "button": "Mua Ngay"
+    },
+    "trending": {
+        "top": "Yêu thích nhất"
+    },
+    "ship": {
+        "title": "Miễn Phí Vận Chuyển",
+        "content": "Miễn Phí Vận Chuyển"
+    },
+    "service": {
+        "title": "DỊCH VỤ 24 X 7",
+        "content": "Phục Vụ Mọi Lúc"
+    },
+    "offer": {
+        "title": "Ưu Đãi",
+        "content": "Ưu đãi hấp dẫn"
+    },
+    "contact": {
+        "email": "Nhập Địa Chỉ Email",
+        "button": "Theo Dõi"
+    },
+    "customerService":{
+        "title":"DỊCH VỤ KHÁCH HÀNG",
+        "help": "Trợ giúp & Liên hệ với chúng tôi",
+        "return": "Trả hàng & hoàn lại tiền",
+        "online":"Cửa hàng trực tuyến",
+        "term": "Điều khoản và điều kiện"
+    },
+    "company":{
+        "title": "CÔNG TY",
+        "what": "Chúng ta làm gì",
+        "available": "Các dịch vụ có sẵn",
+        "latest": "Latest Post",
+        "faq":"FAQs"
+    },
+    "social":{
+        "title": "TRUYỀN THÔNG XÃ HỘI"
+    },
+    "buttonCart":{
+        "button": "Thêm Giỏ Hàng"
+    },
+    "shop":{
+        "all": "Tất Cả",
+        "show": "Hiển Thị {{start}} Đến {{end}} Của {{total}} Tổng "
+    },
+    "titlePage": {
+        "shop": "Cửa Hàng",
+        "home": "Trang Chủ",
+        "cart": "Giỏ Hàng",
+        "checkout": "Thanh Toán",
+        "wishlist": "Yêu Thích"
+
+    },
+    "detailPrd": {
+        "quantity": "Số Lượng",
+        "addtowishlist": "Thêm vào yêu thích",
+        "description": "Miêu Tả",
+        "reviews": "Đánh Giá",
+        "related": "Sản phầm liên quan",
+        "content": "Miêu Tả Sản Phẩm    "
+
+    },
+    "profile": {
+        "profile": "Trang Cá Nhân",
+        "orderStatus": "Trạng Thái Đơn Hàng",
+        "name": "Tên",
+        "phone": "Số ĐiệnThoại",
+        "code": "Mã Đơn",
+        "pay": "Phương thức thanh toán",
+        "status": "Trạng thái",
+        "action": "Hành Động",
+        "view": "Xem",
+        "user": "Thông tin người dùng",
+        "edit": "Sửa",
+        "email": "Địa Chỉ Email",
+        "address": "Địa Chỉ",
+        "place": "Đặt Hàng",
+        "comfirm": "Xác Nhận",
+        "date": "Ngày",
+        "price": "Giá",
+        "subtotal": "Tổng",
+        "tax": "Thuế",
+        "ship": "Vận Chuyển",
+        "total": "Tổng Thanh Toán",
+        "cartTotal": "Thanh Toán",
+        "product": "Sản Phẩm"
+    },
+    "cart":{
+        "cartTotal": "Thanh Toán",
+        "product": "Sản Phẩm",
+        "continue": "Tiếp Tục Mua Hàng",
+        "checkout": "Thanh toán"
+    },
+    "checkout": {
+        "bill": "Chi tiết đơn hàng",
+        "name": "Tên",
+        "email":"Địa Chỉ Email",
+        "phone":"Số ĐiệnThoại",
+        "address": "Địa Chỉ",
+        "payment": "Thanh Toán Trực Tiếp",
+        "bank": "Chuyển Khoản",
+        "confirm": "Xác Nhận",
+        "yourOrder":"ĐƠN HÀNG CỦA BẠN",
+        "total":"Tổng"
+
+    },
+    "wishlist": {
+        "item": "Sản Ohẩm",
+        "action":"Hành Động"
+    }
+}

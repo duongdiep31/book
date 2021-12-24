@@ -4,8 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import { getOrder } from '../../../api/orderApi';
 import { updateStatusAction } from '../../../Store/action/orderAction';
-
+import {useTranslation} from 'react-i18next'
 const Editorderuser = () => {
+  const {t} = useTranslation()
     const {id} = useParams()
   const { register, handleSubmit, reset } = useForm();
   const dispatch = useDispatch()
@@ -26,21 +27,21 @@ const Editorderuser = () => {
               <form onSubmit={handleSubmit(onHandleSubmit)} className="row">
           <div className="row">
             <div className="col-lg-12 form-group">
-              <label className="text-small text-uppercase" htmlFor="name">Name</label>
-              <input disabled {...register('nameKh', { required: true })} defaultValue={fetchUser.user.name} className="form-control form-control-lg" id="name" type="text" placeholder="Enter your first name" />
+              <label className="text-small text-uppercase" htmlFor="name">{t('profile.name')}</label>
+              <input disabled {...register('nameKh', { required: true })} defaultValue={fetchUser.users.name} className="form-control form-control-lg" id="name" type="text" placeholder="Enter your first name" />
 
             </div>
             <div className="col-lg-6 form-group">
-              <label className="text-small text-uppercase" htmlFor="email">Email address</label>
-              <input disabled  {...register('email', { required: true })} defaultValue={fetchUser.user.email} className="form-control form-control-lg" id="email" type="email" placeholder="e.g. Jason@example.com" />
+              <label className="text-small text-uppercase" htmlFor="email">{t('profile.email')}</label>
+              <input disabled  {...register('email', { required: true })} defaultValue={fetchUser.users.email} className="form-control form-control-lg" id="email" type="email" placeholder="e.g. Jason@example.com" />
             </div>
             <div className="col-lg-6 form-group">
-              <label className="text-small text-uppercase" htmlFor="phone">Phone number</label>
-              <input  {...register('phone', { required: true })} defaultValue={fetchUser.user.phone} className="form-control form-control-lg" id="phone" type="tel" placeholder="e.g. +02 245354745" />
+              <label className="text-small text-uppercase" htmlFor="phone">{t('profile.phone')}</label>
+              <input  {...register('phone', { required: true })} defaultValue={fetchUser.users.phone} className="form-control form-control-lg" id="phone" type="tel" placeholder="e.g. +02 245354745" />
             </div>
 
             <div className="col-lg-12 form-group">
-              <label className="text-small text-uppercase" htmlFor="address">Address line</label>
+              <label className="text-small text-uppercase" htmlFor="address">{t('profile.address')}</label>
               <input  {...register('address', { required: true })} className="form-control form-control-lg" id="address" type="text" placeholder="House number and street name" />
             </div>
             {/* <div>
@@ -71,9 +72,8 @@ const Editorderuser = () => {
                 </div>
               </div>
             </div> */}
-
             <div className="col-lg-12 form-group">
-              <button className="btn btn-dark">Place order</button>
+              <button className="btn btn-dark">{t('profile.comfirm')}</button>
             </div>
           </div>
         </form>

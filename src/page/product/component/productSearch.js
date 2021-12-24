@@ -14,22 +14,30 @@ const Productsearch = () => {
   const dispatch = useDispatch()
   const fetchUser = useSelector((state) => state.auth.auth)
   const products = useSelector((state) => state.product.product)
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState({
+    page: 1,
+    limit: 9,
+    value: value
+  })
   useEffect(() => {
     const getPrdSearch = async () => {
-      await dispatch(searchItem(value, page))
+      await dispatch(searchItem(page))
     }
     getPrdSearch()
-  }, [dispatch, value, page])
+  }, [dispatch,page])
   const url = "#productView"
   const nf = Intl.NumberFormat();
   const handlePageClick = (data) => {
-    setPage(
-      data.selected + 1,
+    setPage({
+     page: data.selected + 1,
+     limit: 9,
+     value: value
+    }
     )
   }
+  
   const productsList = () => {
-    const list = products.searchProduct
+    const list = products.list
     if (list && Array.isArray(list)) {
       return list.map((item, index) => {
      return(   <React.Fragment key={index}>
@@ -77,8 +85,12 @@ const Productsearch = () => {
           </div>
         </React.Fragment>)
       })
-    }else{
-      return(<h1>Not Found</h1>)
+    } else{
+      return(
+        <React.Fragment>
+          <h1>Not Found</h1>
+        </React.Fragment>
+      )
     }
   }
   return (
@@ -114,7 +126,7 @@ const Productsearch = () => {
             previousLabel={'<<'}
             nextLabel={'>>'}
             breakLabel={'...'}
-            pageCount={products.totalPage}
+            pageCount={Math.ceil(products.total / page.limit)}
             marginPagesDisplayed={2}
             pageRangeDisplayed={3}
             onPageChange={handlePageClick}

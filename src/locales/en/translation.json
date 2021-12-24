@@ -1,0 +1,126 @@
+{
+    "content": {
+        "functional": "Functional",
+        "class": "Class",
+        "text": "This is text"
+    },
+    "headers":{
+        "Home": "Home",
+        "Shop": "Shop",
+        "Cart": "Giỏ Hàng",
+        "Logout": "Logout",
+        "Login": "Login",
+        "Search": "Search..."
+    },
+    "banner": {
+        "new": "New Book 2022",
+        "title": "Welcome to Book Store",
+        "button": "Shop Now"
+    },
+    "trending": {
+        "top": "Top Trending"
+    },
+    "ship": {
+        "title": "Free Shipping",
+        "content": "Free shipping"
+    },
+    "service": {
+        "title": "24 X 7 SERVICE",
+        "content": "Free shipping worlwide"
+    },
+    "offer": {
+        "title": "FESTIVAL OFFER",
+        "content": "Free shipping worlwide"
+    },
+    "contact": {
+        "email": "Enter your mail address",
+        "button": "Subscribe"
+    },
+    "customerService":{
+        "title":"CUSTOMER SERVICE",
+        "help": "Help & Contact Us",
+        "return": "Returns & Refunds",
+        "online":"Online Stores",
+        "term": "Terms & Conditions"
+    },
+    "company":{
+        "title": "COMPANY",
+        "what": "What We Do",
+        "available": "Available Services",
+        "latest": "Latest Post",
+        "faq":"FAQs"
+    },
+    "social":{
+        "title": "SOCIAL MEDIA"
+    },
+    "buttonCart":{
+        "button": "Add To Cart"
+    },
+    "shop":{
+        "all": "All",
+        "show": "Showing {{start}} to {{end}} of {{total}} Result "
+    },
+    "titlePage": {
+        "shop": "Shop",
+        "home": "Home",
+        "cart": "Cart",
+        "checkout": "Checkout",
+        "wishlist": "Wish List"
+
+    },
+    "detailPrd": {
+        "quantity": "Quantity",
+        "addtowishlist": "Add to wish list",
+        "description": "Description",
+        "reviews": "Reviews",
+        "related": "Related",
+        "content": "PRODUCT DESCRIPTION"
+    },
+    "profile": {
+        "profile": "Profile",
+        "orderStatus": "Order Status",
+        "name": "Name",
+        "phone": "Phone",
+        "code": "Order Code",
+        "pay": "Pay Ment",
+        "status": "Status",
+        "action": "Action",
+        "view": "View",
+        "user": "User Information",
+        "edit": "Edit",
+        "email":"Email address",
+        "address":"Address Line",
+        "place": "Place Order",
+        "comfirm": "Comfirm",
+        "date":"Date",
+        "price": "Price",
+        "subtotal": "Subtotal",
+        "tax": "Tax",
+        "ship": "Shipping",
+        "total": "Total"
+    
+    },
+    "cart":{
+        "cartTotal": "Cart Total",
+        "product": "Product",
+        "continue": "Continue Shopping",
+        "checkout": "Procceed To Checkout"
+    },
+    "checkout": {
+        "bill": "BILLING DETAILS",
+        "name": "Name",
+        "email":"Email address",
+        "phone": "Phone",
+        "address": "Address Line",
+        "payment": "Direct payment",
+        "bank": "Banking",
+        "confirm" : "confirm",
+        "yourOrder":"Your Order",
+        "total":"Total"
+
+    },
+    "wishlist": {
+        "item": "Product",
+        "action":"Action"
+    }
+}

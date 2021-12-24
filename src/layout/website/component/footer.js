@@ -1,30 +1,32 @@
 import React from "react"
 import { Link } from "react-router-dom"
+import { useTranslation } from 'react-i18next'
 const Footer = () => {
+  const {t} = useTranslation()
         return (
           <footer className="bg-dark text-white">
           <div className="container py-4">
             <div className="row py-5">
               <div className="col-md-4 mb-3 mb-md-0">
-                <h6 className="text-uppercase mb-3">Customer services</h6>
+                <h6 className="text-uppercase mb-3">{t('customerService.title')}</h6>
                 <ul className="list-unstyled mb-0">
-                  <li><Link className="footer-link" to="#">Help &amp; Contact Us</Link></li>
-                  <li><Link className="footer-link" to="#">Returns &amp; Refunds</Link></li>  
-                  <li><Link className="footer-link" to="#">Online Stores</Link></li>
-                  <li><Link className="footer-link" to="#">Terms &amp; Conditions</Link></li>
+                  <li><Link className="footer-link" to="#">{t('customerService.help')}</Link></li>
+                  <li><Link className="footer-link" to="#">{t('customerService.return')}</Link></li>  
+                  <li><Link className="footer-link" to="#">{t('customerService.online')}</Link></li>
+                  <li><Link className="footer-link" to="#">{t('customerService.term')}</Link></li>
                 </ul>
               </div>
               <div className="col-md-4 mb-3 mb-md-0">
-                <h6 className="text-uppercase mb-3">Company</h6>
+                <h6 className="text-uppercase mb-3">{t('company.title')}</h6>
                 <ul className="list-unstyled mb-0">
-                  <li><Link className="footer-link" to="#">What We Do</Link></li>
-                  <li><Link className="footer-link" to="#">Available Services</Link></li>
-                  <li><Link className="footer-link" to="#">Latest Posts</Link></li>
-                  <li><Link className="footer-link" to="#">FAQs</Link></li>
+                  <li><Link className="footer-link" to="#">{t('company.what')}</Link></li>
+                  <li><Link className="footer-link" to="#">{t('company.available')}</Link></li>
+                  <li><Link className="footer-link" to="#">{t('company.latest')}</Link></li>
+                  <li><Link className="footer-link" to="#">{t('company.faq')}</Link></li>
                 </ul>
               </div>
               <div className="col-md-4">
-                <h6 className="text-uppercase mb-3">Social media</h6>
+                <h6 className="text-uppercase mb-3">{t('social.title')}</h6>
                 <ul className="list-unstyled mb-0">
                   <li><Link className="footer-link" to="#">Twitter</Link></li>
                   <li><Link className="footer-link" to="#">Instagram</Link></li>

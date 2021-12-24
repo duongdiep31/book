@@ -17,20 +17,20 @@ const ListOrder = () => {
     if (list && Array.isArray(list)) {
         Result = list.map((item, index) => {
             const payMent = () => {
-                if (item.payment === '0') {
+                if (item.payment === 0) {
                     return 'Thanh Toán Trực Tiếp'
                 }else{
                     return 'Chuyển Khoản'
                 }
             }
             const status = () => {
-                if (item.status === '0') {
+                if (item.status === 0) {
                     return 'Đã Xác Nhận'
-                } else if (item.status === '1') {
+                } else if (item.status === 1) {
                     return 'Đang Vận Chuyển'
-                } else if (item.status === '2') {
+                } else if (item.status === 2) {
                     return 'Huỷ'
-                }else if(item.status === '4'){
+                }else if(item.status === 4){
                     return 'Chờ Xác Nhận'
                 }
                  else {

@@ -10,7 +10,9 @@ import { addtocartApi } from "../../../Store/action/cartAction"
 import ReactPaginate from 'react-paginate'
 import { addtoWishlist, getAllWishlist } from "../../../Store/action/wishlistAction"
 import { useNavigate } from "react-router"
+import {useTranslation} from 'react-i18next'
 const CListPrd = () => {
+  const {t} = useTranslation()
   const url = "#productView"
   const dispatch = useDispatch()
   const products = useSelector((state) => state.product.product)
@@ -95,7 +97,7 @@ const CListPrd = () => {
                         dispatch(addtocart(cartItems))
                       }
 
-                    }} className="btn btn-sm btn-dark">Add to cart</button></li>
+                    }} className="btn btn-sm btn-dark">{t('buttonCart.button')}</button></li>
                     <li className="list-inline-item mr-0"><a className="btn btn-sm btn-outline-dark" href={url} data-toggle="modal"><i className="fas fa-expand" /></a></li>
                   </ul>
                 </div>
@@ -112,7 +114,7 @@ const CListPrd = () => {
     const end = page.limit * page.page
     const start = (page.page - 1) * page.limit + 1
     return (
-      <p className="text-small text-muted mb-0">Showing {start}–{end} of {products.total} results</p>
+      <p className="text-small text-muted mb-0"> {t('shop.show', {start: start, end: end, total: products.total})}</p>
 
     )
   }

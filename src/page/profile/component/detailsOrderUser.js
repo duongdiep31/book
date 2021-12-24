@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router"
 import { getOrder } from "../../../api/orderApi";
+import {useTranslation} from 'react-i18next'
 const OrderdetailUser = () => {
+    const {t} = useTranslation()
     const { id } = useParams();
     const [item, setItem] = useState([])
     const nf = Intl.NumberFormat();
@@ -67,8 +69,9 @@ const OrderdetailUser = () => {
                                         <div className="col-sm-4 invoice-col">
                                             <address>
                                                 <strong>{item.nameKh}</strong><br />
+                                                {t('profile.address')}:
                                                 {item.address}<br />
-                                                Phone: {item.phone}<br />
+                                                {t('profile.name')}: {item.phone}<br />
                                                 Email: {item.email}
                                             </address>
                                         </div>
@@ -79,11 +82,11 @@ const OrderdetailUser = () => {
                                         {/* /.col */}
                                         <div className="col-sm-4 invoice-col">
 
-                                            <b>Order ID:</b> {item._id}<br />
+                                            <b> {t('profile.code')}:</b> {item._id}<br />
                                             <small style={{
                                                 marginRight: '69px',
                                                 paddingTop: '20px'
-                                            }} className="float-right">Date: {item.createdAt}</small>
+                                            }} className="float-right"> {t('profile.date')}: {item.createdAt}</small>
                                         </div>
                                         {/* /.col */}
                                     </div>
@@ -95,10 +98,10 @@ const OrderdetailUser = () => {
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Name</th>
-                                                        <th>Serial #</th>
-                                                        <th>Description</th>
-                                                        <th>Subtotal</th>
+                                                        <th>{t('profile.name')}</th>
+                                                        <th>{t('profile.price')}</th>
+                                                        <th>{t('detailPrd.quantity')}</th>
+                                                        <th>{t('profile.subtotal')}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -125,23 +128,22 @@ const OrderdetailUser = () => {
                                         </div>
                                         {/* /.col */}
                                         <div className="col-6">
-                                            <p className="lead">Amount Due 2/22/2014</p>
                                             <div className="table-responsive">
                                                 <table className="table">
                                                     <tbody><tr>
-                                                        <th style={{ width: '50%' }}>Subtotal:</th>
+                                                        <th style={{ width: '50%' }}>{t('profile.subtotal')}:</th>
                                                         <td>{nf.format(subTotal())} Vnd </td>
                                                     </tr>
                                                         <tr>
-                                                            <th>Tax (9.3%)</th>
+                                                            <th>{t('profile.tax')} (9.3%)</th>
                                                             <td>{nf.format(parseInt(vat))} Vnd</td>
                                                         </tr>
                                                         <tr>
-                                                            <th>Shipping:</th>
+                                                            <th>{t('profile.ship')}:</th>
                                                             <td>$5.80</td>
                                                         </tr>
                                                         <tr>
-                                                            <th>Total:</th>
+                                                            <th>{t('profile.total')}:</th>
                                                             <td>{nf.format(subTotal() + vat)} Vnd</td>
                                                         </tr>
                                                     </tbody></table>

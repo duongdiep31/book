@@ -2,7 +2,9 @@ import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import {  itemcate } from "../../../Store/action/categories"
+import {useTranslation} from 'react-i18next'
 const ClistCategories = () => {
+  const {t} = useTranslation()
   const dispatch = useDispatch()
   const categories = useSelector((state) => state.category.category)
     useEffect(()=>{
@@ -23,7 +25,7 @@ const ClistCategories = () => {
 
     return(
       <ul className="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-        <li className="mb-2"><Link className="reset-anchor" to="/shop">All</Link></li>
+        <li className="mb-2"><Link className="reset-anchor" to="/shop">{t('shop.all')}</Link></li>
 
         {
             Result

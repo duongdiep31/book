@@ -6,6 +6,7 @@ import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { signIn } from "../../Store/action/authAction";
+// import { authenticate } from "../../ultis";
 const resolver = async (values) => {
     let errors = {}
     if (!values.email && !values.password) {
@@ -48,7 +49,7 @@ const Signin = () => {
     const dispatch = useDispatch()
     const auth = useSelector((state) => state.auth.auth)
     const onSubmit = async (data) => {
-      await  dispatch(signIn(data))
+        dispatch(signIn(data))
         setRedirecTo(true)
     }
     const logingg = () => {
@@ -56,11 +57,14 @@ const Signin = () => {
             // authenticate(response.profileObj)
             // navigate('/', { replace: true })
         }
+        const responseFailedGoogle = (response) => {
+            console.log('failed',response);
+        }
         return (
             <GoogleLogin
                 clientId='410874282576-2b8g1jq98r2m9056gl5ukq9j54303tq4.apps.googleusercontent.com'
                 onSuccess={responseGoogle}
-                onFailure={responseGoogle}
+                onFailure={responseFailedGoogle}
                 cookiePolicy={'single_host_origin'}
             />
         )

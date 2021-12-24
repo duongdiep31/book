@@ -2,7 +2,9 @@ import React, { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { getAllWishlist, removeWishlist } from "../../Store/action/wishlistAction"
+import {useTranslation} from 'react-i18next'
 const Wishlist = () => {
+  const {t} = useTranslation()
   const dispatch = useDispatch()
   const wishlist = useSelector((state) => state.wishlist.wishlist)
   const fetchUser = useSelector((state) => state.auth.auth)
@@ -46,13 +48,13 @@ const Wishlist = () => {
           <div className="container">
             <div className="row px-4 px-lg-5 py-lg-4 align-items-center">
               <div className="col-lg-6">
-                <h1 className="h2 text-uppercase mb-0">Wish List</h1>
+                <h1 className="h2 text-uppercase mb-0">{t('titlePage.wishlist')}</h1>
               </div>
               <div className="col-lg-6 text-lg-right">
                 <nav aria-label="breadcrumb">
                   <ol className="breadcrumb justify-content-lg-end mb-0 px-0">
-                    <li className="breadcrumb-item"><Link to="/">Home</Link></li>
-                    <li className="breadcrumb-item active" aria-current="page">Wish List</li>
+                    <li className="breadcrumb-item"><Link to="/">{t('titlePage.home')}</Link></li>
+                    <li className="breadcrumb-item active" aria-current="page">{t('titlePage.wishlist')}</li>
                   </ol>
                 </nav>
               </div>
@@ -60,7 +62,7 @@ const Wishlist = () => {
           </div>
         </section>
         <section className="py-5">
-          <h2 className="h5 text-uppercase mb-4">Wish List</h2>
+          <h2 className="h5 text-uppercase mb-4">{t('titlePage.wishlist')}</h2>
           <div className="row">
             <div className="col-lg-12 mb-4 mb-lg-0">
               {/* CART TABLE*/}
@@ -69,8 +71,8 @@ const Wishlist = () => {
                   <thead className="bg-light">
                     <tr>
                       <th className="border-0" scope="col"> <strong className="text-small text-uppercase">#</strong></th>
-                      <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Item</strong></th>
-                      <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Action</strong></th>
+                      <th className="border-0" scope="col"> <strong className="text-small text-uppercase">{t('wishlist.item')}</strong></th>
+                      <th className="border-0" scope="col"> <strong className="text-small text-uppercase">{t('wishlist.action')}</strong></th>
                     </tr>
                   </thead>
                   <tbody>

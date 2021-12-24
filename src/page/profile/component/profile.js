@@ -1,6 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import {useTranslation} from 'react-i18next'
 const Profile = () => {
+    const {t} = useTranslation()
         const user = useSelector((state) => state.auth.auth)
         const profileUser = () => {
             if (user) {
@@ -8,13 +10,13 @@ const Profile = () => {
                 return (
                     <React.Fragment>
             <li className="list-group-item">
-                 Name:               {userProfile.name}
+                 {t('profile.name')}:               {userProfile.name}
             </li>
             <li className="list-group-item">
                 Email: {userProfile.email}
             </li>
             <li className="list-group-item">
-               Phone:  {userProfile.phone}
+            {t('profile.phone')}:  {userProfile.phone}
             </li>
                     </React.Fragment>
                 )
@@ -24,7 +26,7 @@ const Profile = () => {
         <React.Fragment>
             <div className="container">
             <div className="card mb-5">
-        <h3 className="card-header">User Information</h3>
+        <h3 className="card-header"> {t('profile.user')}</h3>
         <ul className="list-group">
             {profileUser()}
         </ul>

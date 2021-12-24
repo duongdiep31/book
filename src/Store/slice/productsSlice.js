@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { changePrd, createPrd, deletePrd, itemPrd, searchItem } from "../action/products";
+import { changePrd, createPrd, deletePrd, itemPrd, relatedProductAction, searchItem } from "../action/products";
  const productSlice = createSlice({
     name: 'product',
     initialState: {
@@ -23,6 +23,9 @@ import { changePrd, createPrd, deletePrd, itemPrd, searchItem } from "../action/
             builder.addCase(searchItem.fulfilled, (state,action) => {
                 state.product = action.payload
             })
+            builder.addCase(relatedProductAction.fulfilled, (state,action) => {
+                state.product = action.payload
+            } )
         }
   })
 export default productSlice

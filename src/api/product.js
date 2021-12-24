@@ -37,7 +37,16 @@ export const update = (id, product) => {
         }
     })
 }
-export const search = (value, page) => {
-    const url = `/api/book/search?page=${page}&name=${value}`;
+export const search = (page) => {
+    const url = `/api/book/search?page=${page.page}&limit=${page.limit}&name=${page.value}`;
     return instance.post(url)
 }
+export const related = (id) => {
+    const token = store.getState().auth.auth.token
+    const url = `/api/related/${id}`
+    return instance.post(url, {
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    })
+}   

@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { get } from "../../../api/product"
-import { itemPrd } from "../../../Store/action/products"
+// import { itemPrd } from "../../../Store/action/products"
 import Views from "./prdViews"
 import { toast } from "react-toastify"
 import { addtocart } from "../../../Store/slice/cartSlice"
@@ -15,12 +15,12 @@ const CListPrdDetail = () => {
   const dispatch = useDispatch()
   const products = useSelector((state) => state.product.product)
   const fetchUser = useSelector((state) => state.auth.auth)
-  const [page, setPage] = useState(1)
+  // const [page, setPage] = useState(1)
   // useEffect(() => {
   //   dispatch(itemPrd(page))
   // }, [dispatch, page])
   const handlePageClick = (data) => {
-    setPage(data.selected + 1,)
+    // setPage(data.selected + 1,)
   }
   const listBook = products.listBook
   const productsList = () => {

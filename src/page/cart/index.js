@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { getAllCartApi, removeCart } from '../../Store/action/cartAction'
 import { decreaseCart, increaseCart, removeItemFromCart } from "../../Store/slice/cartSlice"
+import {useTranslation} from 'react-i18next'
 const Cart = () => {
+  const {t} =  useTranslation()
   const dispatch = useDispatch()
   const fetchItemCart = useSelector((state) => state.cart.cart)
   const fetchItemCartApi = useSelector((state) => state.cartApi.cartApi)
@@ -97,9 +99,9 @@ const Cart = () => {
       }, 0)
       return (
         <>
-          <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Subtotal</strong><span className="text-muted small">{nf.format(subtotalApi)}</span></li>
+          <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">{t('profile.subtotal')}</strong><span className="text-muted small">{nf.format(subtotalApi)}</span></li>
           <li className="border-bottom my-2" />
-          <li className="d-flex align-items-center justify-content-between mb-4"><strong className="text-uppercase small font-weight-bold">Total</strong><span>{nf.format(subtotalApi)}</span></li>
+          <li className="d-flex align-items-center justify-content-between mb-4"><strong className="text-uppercase small font-weight-bold">{t('profile.total')}</strong><span>{nf.format(subtotalApi)}</span></li>
           <li>
           </li>
         </>
@@ -107,9 +109,9 @@ const Cart = () => {
     } else {
       return (
         <>
-          <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">Subtotal</strong><span className="text-muted small">{nf.format(subtotal)}</span></li>
+          <li className="d-flex align-items-center justify-content-between"><strong className="text-uppercase small font-weight-bold">{t('profile.subtotal')}</strong><span className="text-muted small">{nf.format(subtotal)}</span></li>
           <li className="border-bottom my-2" />
-          <li className="d-flex align-items-center justify-content-between mb-4"><strong className="text-uppercase small font-weight-bold">Total</strong><span>{nf.format(subtotal)}</span></li>
+          <li className="d-flex align-items-center justify-content-between mb-4"><strong className="text-uppercase small font-weight-bold">{t('profile.total')}</strong><span>{nf.format(subtotal)}</span></li>
           <li>
           </li>
         </>
@@ -124,13 +126,13 @@ const Cart = () => {
           <div className="container">
             <div className="row px-4 px-lg-5 py-lg-4 align-items-center">
               <div className="col-lg-6">
-                <h1 className="h2 text-uppercase mb-0">Cart</h1>
+                <h1 className="h2 text-uppercase mb-0">{t('titlePage.cart')}</h1>
               </div>
               <div className="col-lg-6 text-lg-right">
                 <nav aria-label="breadcrumb">
                   <ol className="breadcrumb justify-content-lg-end mb-0 px-0">
-                    <li className="breadcrumb-item"><Link to="/">Home</Link></li>
-                    <li className="breadcrumb-item active" aria-current="page">Cart</li>
+                    <li className="breadcrumb-item"><Link to="/">{t('titlePage.home')}</Link></li>
+                    <li className="breadcrumb-item active" aria-current="page">{t('titlePage.cart')}</li>
                   </ol>
                 </nav>
               </div>
@@ -138,7 +140,7 @@ const Cart = () => {
           </div>
         </section>
         <section className="py-5">
-          <h2 className="h5 text-uppercase mb-4">Shopping cart</h2>
+          <h2 className="h5 text-uppercase mb-4">{t('titlePage.cart')}</h2>
           <div className="row">
             <div className="col-lg-8 mb-4 mb-lg-0">
               {/* CART TABLE*/}
@@ -146,10 +148,10 @@ const Cart = () => {
                 <table className="table">
                   <thead className="bg-light">
                     <tr>
-                      <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Product</strong></th>
-                      <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Price</strong></th>
-                      <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Quantity</strong></th>
-                      <th className="border-0" scope="col"> <strong className="text-small text-uppercase">Total</strong></th>
+                      <th className="border-0" scope="col"> <strong className="text-small text-uppercase">{t('cart.product')}</strong></th>
+                      <th className="border-0" scope="col"> <strong className="text-small text-uppercase">{t('profile.price')}</strong></th>
+                      <th className="border-0" scope="col"> <strong className="text-small text-uppercase">{t('detailPrd.quantity')}</strong></th>
+                      <th className="border-0" scope="col"> <strong className="text-small text-uppercase">{t('profile.total')}</strong></th>
                       <th className="border-0" scope="col"> </th>
                     </tr>
                   </thead>
@@ -163,8 +165,8 @@ const Cart = () => {
               {/* CART NAV*/}
               <div className="bg-light px-4 py-3">
                 <div className="row align-items-center text-center">
-                  <div className="col-md-6 mb-3 mb-md-0 text-md-left"><Link className="btn btn-link p-0 text-dark btn-sm" to="/shop"><i className="fas fa-long-arrow-alt-left mr-2"> </i>Continue shopping</Link></div>
-                  <div className="col-md-6 text-md-right"><Link className="btn btn-outline-dark btn-sm" to="/checkout">Procceed to checkout<i className="fas fa-long-arrow-alt-right ml-2" /></Link></div>
+                  <div className="col-md-6 mb-3 mb-md-0 text-md-left"><Link className="btn btn-link p-0 text-dark btn-sm" to="/shop"><i className="fas fa-long-arrow-alt-left mr-2"> </i>{t('cart.continue')}</Link></div>
+                  <div className="col-md-6 text-md-right"><Link className="btn btn-outline-dark btn-sm" to="/checkout">{t('cart.checkout')}<i className="fas fa-long-arrow-alt-right ml-2" /></Link></div>
                 </div>
               </div>
             </div>
@@ -172,7 +174,7 @@ const Cart = () => {
             <div className="col-lg-4">
               <div className="card border-0 rounded-0 p-lg-4 bg-light">
                 <div className="card-body">
-                  <h5 className="text-uppercase mb-4">Cart total</h5>
+                  <h5 className="text-uppercase mb-4">{t('profile.cartTotal')}</h5>
                   <ul className="list-unstyled mb-0">
                     {subTotal()}
                   </ul>
