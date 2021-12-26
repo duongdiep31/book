@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { deletecate, itemcate } from '../../../Store/action/categories';
+import {useTranslation} from 'react-i18next'
 const Listcate =  () => {
+  const {t} = useTranslation()
   const dispatch = useDispatch()
   const categories = useSelector((state) => state.category.category)
           useEffect(()=>{
@@ -32,8 +34,9 @@ const Listcate =  () => {
                             
                             <Link className="btn btn-info btn-sm" to={`/admin/changecate/${item._id}`}>
                               <i className="fas fa-pencil-alt">
+                                {t('CRUD.edit')}
                               </i>
-                              Edit
+                              
                             </Link>
                             <button
                               onClick={()=> {
@@ -41,7 +44,7 @@ const Listcate =  () => {
                             className="btn btn-danger btn-sm"  >
                               <i className="fas fa-trash">
                               </i>
-                              Delete
+                              {t('CRUD.delete')}
                             </button>
                           </td>
                         </tr>
@@ -61,12 +64,12 @@ const Listcate =  () => {
     <div className="container-fluid">
       <div className="row mb-2">
         <div className="col-sm-6">
-          <h1>Projects</h1>
+          <h1>{t('titlePage.cate')}</h1>
         </div>
         <div className="col-sm-6">
           <ol className="breadcrumb float-sm-right">
-            <li className="breadcrumb-item"><Link to="#">Home</Link></li>
-            <li className="breadcrumb-item active">Projects</li>
+            <li className="breadcrumb-item"><Link to="#">{t('admin.dash')}</Link></li>
+            <li className="breadcrumb-item active">{t('admin.cate')}</li>
           </ol>
         </div>
       </div>
@@ -77,7 +80,7 @@ const Listcate =  () => {
     {/* Default box */}
     <div className="card">
       <div className="card-header">
-        <h3 className="card-title">Projects</h3>
+        <h3 className="card-title">{t('admin.cate')}</h3>
         <div className="card-tools">
           <button type="button" className="btn btn-tool" data-card-widget="collapse" title="Collapse">
             <i className="fas fa-minus" />
@@ -95,14 +98,14 @@ const Listcate =  () => {
                 #
               </th>
               <th style={{width: '20%'}}>
-                 Name
+              {t('CRUD.name')}
               </th>
               <th>
-                Image
+              {t('CRUD.img')}
               </th>
            
               <th style={{width: '20%'}}>
-                  Action
+              {t('CRUD.action')}
               </th>
             </tr>
           </thead>
@@ -118,7 +121,8 @@ const Listcate =  () => {
         <Link to="/admin/addcate" style={{
               width:'15%'
             }} className="btn btn-sm btn-primary mt-3 mb-3 ml-3">
-                  Create
+                                {t('CRUD.create')}
+
                 </Link></div>
       </div>
       {/* /.card-body */}

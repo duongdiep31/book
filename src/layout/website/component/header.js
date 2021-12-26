@@ -9,6 +9,9 @@ import Search from "../../../feature/Search";
 import i18n from 'i18next'
 import { useTranslation } from 'react-i18next'
 import cookie from 'js-cookie'
+import { Menu, Dropdown, Button } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+import 'antd/dist/antd.css';
 const Header = () => {
   const languages = [
     {
@@ -49,22 +52,18 @@ const Header = () => {
   }
   const button = () => {
     if (auth) {
-      return <button
-        onClick={() => {
-          if (typeof window != "undefined") {
-            dispatch(logout())
-            localStorage.removeItem('persist:root')
-            navigate('/', { replace: true })
-          }
-        }
-        }
-        style={{
-          background: '#f8f9fa',
-          border: 'none'
-        }} className="nav-link"   >  <i className="   mr-1 text-gray   fas fa-power-off" />{t('headers.Logout')}</button>
+      return (<Dropdown overlay={dropdown1}>
+        <Link to='#' className="ant-dropdown-link">
+          <i className="fas fa-user-alt mr-1 text-gray" />
+        </Link>
+      </Dropdown>)
     }
     else {
-      return (<Link className="nav-link" to="/signin"><i className="fas fa-user-alt mr-1 text-gray" />{t('headers.Login')}</Link>)
+      return (<Dropdown overlay={dropdown2}>
+        <Link to='#' className="ant-dropdown-link">
+          <i className="fas fa-user-alt mr-1 text-gray" />
+        </Link>
+      </Dropdown>)
     }
   }
   const handleFiltesChange = async (newFilter) => {
@@ -75,6 +74,43 @@ const Header = () => {
     i18n.changeLanguage(e.target.value);
   }
   const code = cookie.get('i18next')
+  const dropdown1 = (
+    <Menu  >
+      <Menu.Item>
+        <Link rel="noopener noreferrer" to="#">
+          <span style={{
+            paddingLeft: "13x"
+          }}>{t('profile.profile')}</span>  
+        </Link>
+      </Menu.Item>
+      <Menu.Item >
+        <Button danger type='text' onClick={() => {
+          if (typeof window != "undefined") {
+            dispatch(logout())
+            localStorage.removeItem('persist:root')
+            navigate('/', { replace: true })
+          }
+        }
+        } rel="noopener noreferrer">
+          {t('headers.Logout')}
+        </Button>
+      </Menu.Item>
+    </Menu>
+  );
+  const dropdown2 = (
+    <Menu >
+      <Menu.Item>
+        <Link rel="noopener noreferrer" to="/signin">
+          {t('headers.Login')}
+        </Link>
+      </Menu.Item>
+      <Menu.Item>
+        <Link rel="noopener noreferrer" to="/signup">
+          {t('headers.register')}
+        </Link>
+      </Menu.Item>
+    </Menu>
+  )
   return (
     <React.Fragment>
       <header className="header bg-white">
@@ -113,18 +149,15 @@ const Header = () => {
                 <li className="nav-item">
                   {/* Link*/}<NavLink className="nav-link" to="shop">{t('headers.Shop')}</NavLink>
                 </li>
-                <li className="nav-item">
-                  {/* Link*/}<Link className="nav-link" to="/profile">Profile</Link>
-                </li>
-                <li className="nav-item">
-                  {/* Link*/}<Link className="nav-link" to="/admin">Admin</Link>
-                </li>
                 <Search onSubmit={handleFiltesChange} data={value} />
               </ul>
               <ul className="navbar-nav ml-auto">
-                <li className="nav-item"><Link className="nav-link" to="cart"> <i className="fas fa-dolly-flatbed mr-1 text-gray" />{t('headers.Cart')}<small className="text-gray">({lengthCart()})</small></Link></li>
+                <li className="nav-item"><Link className="nav-link" to="cart"> <i className="fas fa-dolly-flatbed mr-1 text-gray" /><small className="text-gray">({lengthCart()})</small></Link></li>
                 <li className="nav-item"><Link className="nav-link" to="wishlist"> <i className="far fa-heart mr-1" /><small className="text-gray"> (0)</small></Link></li>
-                <li className="nav-item">{button()}</li>
+                <li style={{
+                  marginTop: '10px'
+                }} className="nav-item">{button()}</li>
+
               </ul>
             </div>
           </nav>

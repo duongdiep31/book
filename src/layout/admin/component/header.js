@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import {useTranslation} from 'react-i18next'
 const Header = () => {
-
+const {t} = useTranslation()
   const auth = useSelector((state) =>state.auth.auth.users.role)
     const decentralization = () => {
       if (auth === 0 || auth === 2 ) {
@@ -12,7 +13,7 @@ const Header = () => {
             <Link to="/admin/cateadmin" className="nav-link">
               <i className="nav-icon fab fa-cuttlefish"></i>
               <p>
-                Categories
+                {t('admin.cate')}
               </p>
             </Link>
           </li>
@@ -20,7 +21,8 @@ const Header = () => {
             <Link to="/admin/prdadmin" className="nav-link">
               <i className="nav-icon fab fa-product-hunt"></i>
               <p>
-                Products
+              {t('admin.prd')}
+
               </p>
             </Link>
            
@@ -29,7 +31,8 @@ const Header = () => {
             <Link to="/admin/user" className="nav-link">
             <i className=" nav-icon fas fa-user"></i>
               <p>
-                Users
+              {t('admin.user')}
+
               </p>
             </Link>
            
@@ -38,7 +41,8 @@ const Header = () => {
             <Link to="/admin/orderadmin" className="nav-link">
               <i className="nav-icon fas fa-shopping-cart"></i>
               <p>
-                Orders
+              {t('admin.order')}
+
               </p>
             </Link>
            
@@ -52,7 +56,8 @@ const Header = () => {
             <Link to="/admin/cateadmin" className="nav-link">
               <i className="nav-icon fab fa-cuttlefish"></i>
               <p>
-                Categories
+              {t('admin.cate')}
+
                 <i className="fas fa-angle-left right"></i>
               </p>
             </Link>
@@ -62,7 +67,8 @@ const Header = () => {
             <Link to="/admin/prdadmin" className="nav-link">
               <i className="nav-icon fab fa-product-hunt"></i>
               <p>
-                Products
+              {t('admin.prd')}
+
                 <i className="fas fa-angle-left right"></i>
               </p>
             </Link>
@@ -75,7 +81,8 @@ const Header = () => {
           <Link to="/admin/orderadmin" className="nav-link">
             <i className="nav-icon fas fa-shopping-cart"></i>
             <p>
-              Orders
+            {t('admin.order')}
+
             </p>
           </Link>
          
@@ -92,12 +99,7 @@ const Header = () => {
                   <li className="nav-item">
                     <Link className="nav-link" data-widget="pushmenu" to="#" role="button"><i className="fas fa-bars" /></Link>
                   </li>
-                  <li className="nav-item d-none d-sm-inline-block">
-                    <Link to="index3.html" className="nav-link">Home</Link>
-                  </li>
-                  <li className="nav-item d-none d-sm-inline-block">
-                    <Link to="#" className="nav-link">Contact</Link>
-                  </li>
+
                 </ul>
                 {/* Right navbar links */}
                 <ul className="navbar-nav ml-auto">
@@ -230,14 +232,6 @@ const Header = () => {
                 {/* Sidebar */}
                 <div className="sidebar">
                   {/* Sidebar user panel (optional) */}
-                  <div className="user-panel mt-3 pb-3 mb-3 d-flex">
-                    <div className="image">
-                      <img src="/dist/img/user2-160x160.jpg" className="img-circle elevation-2" alt={'...'} />
-                    </div>
-                    <div className="info">
-                      <Link to="#" className="d-block">Alexander Pierce</Link>
-                    </div>
-                  </div>
                   {/* SidebarSearch Form */}
                   <div className="form-inline">
                     <div className="input-group" data-widget="sidebar-search">
@@ -258,7 +252,7 @@ const Header = () => {
             <Link to="/admin" className="nav-link ">
               <i className="nav-icon fas fa-tachometer-alt" />
               <p>
-                Dashboard
+              {t('admin.dash')}
               </p>
             </Link>
           </li>

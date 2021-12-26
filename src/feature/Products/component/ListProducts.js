@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { deletePrd, itemPrd } from '../../../Store/action/products';
 import ReactPaginate from 'react-paginate'
-
+import {useTranslation} from 'react-i18next'
 const Listproducts = () => {
+  const {t} = useTranslation()
   const products = useSelector((state) => state.product.product)
   const dispatch = useDispatch()
   const [page, setPage] = useState({
@@ -50,17 +51,17 @@ const Listproducts = () => {
               <Link className="btn btn-primary btn-sm" to="#">
                 <i className="fas fa-folder">
                 </i>
-                View
+              {t('CRUD.view')}
               </Link>
               <Link className="btn btn-info btn-sm" to={`/admin/changeprd/${item._id}`}>
                 <i className="fas fa-pencil-alt">
                 </i>
-                Edit
+                {t('CRUD.edit')}
               </Link>
               <button onClick={() => dispatch(deletePrd(item._id))} className="btn btn-danger btn-sm" to="#">
                 <i className="fas fa-trash">
                 </i>
-                Delete
+                {t('CRUD.delete')}
               </button>
             </td>
           </tr>
@@ -74,12 +75,11 @@ const Listproducts = () => {
         <div className="container-fluid">
           <div className="row mb-2">
             <div className="col-sm-6">
-              <h1>Projects</h1>
             </div>
             <div className="col-sm-6">
               <ol className="breadcrumb float-sm-right">
-                <li className="breadcrumb-item"><Link to="#">Home</Link></li>
-                <li className="breadcrumb-item active">Projects</li>
+                <li className="breadcrumb-item"><Link to="/admin">{t('admin.dash')}</Link></li>
+                <li className="breadcrumb-item active">{t('admin.prd')}</li>
               </ol>
             </div>
           </div>
@@ -88,7 +88,6 @@ const Listproducts = () => {
       <section className="content">
         <div className="card">
           <div className="card-header">
-            <h3 className="card-title">Projects</h3>
             <div className="card-tools">
               <button type="button" className="btn btn-tool" data-card-widget="collapse" title="Collapse">
                 <i className="fas fa-minus" />
@@ -106,22 +105,22 @@ const Listproducts = () => {
                     #
                   </th>
                   <th style={{ width: '15%' }}>
-                    Name
+                    {t('CRUD.name')}
                   </th>
                   <th style={{ width: '10%' }}>
-                    Image
+                  {t('CRUD.img')}
                   </th>
                   <th style={{ width: '15%' }}>
-                    Price
+                  {t('CRUD.price')}
                   </th>
                   <th style={{ width: '15%' }} >
-                    Author
+                  {t('CRUD.author')}
                   </th>
                   <th style={{ width: '15%' }} className="text-center">
-                    Status
+                  {t('CRUD.status')}
                   </th>
                   <th style={{ width: '20%' }}>
-                    Action
+                  {t('CRUD.action')}
                   </th>
                 </tr>
               </thead>
@@ -136,7 +135,7 @@ const Listproducts = () => {
             <Link  to="/admin/addprd" style={{
               width:'15%'
             }} className="btn btn-sm btn-primary mt-3 mb-3 ml-3">
-              Create
+              {t('CRUD.create')}
             </Link>
          
             <ReactPaginate

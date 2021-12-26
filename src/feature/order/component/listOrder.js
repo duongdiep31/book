@@ -1,10 +1,10 @@
+import { t } from 'i18next';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {  listOrderAction } from '../../../Store/action/orderAction';
 const ListOrder = () => {
     const order = useSelector((state) => state.order.order)
-    console.log(order)
     const dispatch = useDispatch()
     useEffect(() => {
         const list = async () => {
@@ -18,23 +18,25 @@ const ListOrder = () => {
         Result = list.map((item, index) => {
             const payMent = () => {
                 if (item.payment === 0) {
-                    return 'Thanh Toán Trực Tiếp'
+                    return t('listOrder.payment')
+
                 }else{
-                    return 'Chuyển Khoản'
+                    return t('listOrder.bank')
+
                 }
             }
             const status = () => {
                 if (item.status === 0) {
-                    return 'Đã Xác Nhận'
+                    return t('listOrder.confirm')
                 } else if (item.status === 1) {
-                    return 'Đang Vận Chuyển'
+                    return t('listOrder.shipping')
                 } else if (item.status === 2) {
-                    return 'Huỷ'
+                    return t('listOrder.cancel')
                 }else if(item.status === 4){
-                    return 'Chờ Xác Nhận'
+                    return t('listOrder.wait')
                 }
                  else {
-                    return 'Thành Công'
+                    return t('listOrder.success')
                 }
             }
             return (
@@ -62,12 +64,12 @@ const ListOrder = () => {
                         <Link className="btn btn-primary btn-sm" to={`/admin/orderdetail/${item._id}`}>
                                 <i className="fas fa-folder">
                                 </i>
-                                View
+                                {t('CRUD.view')}
                             </Link>
                             <Link className="btn btn-info btn-sm" to={`/admin/statusOrder/${item._id}`}>
                                 <i className="fas fa-pencil-alt">
                                 </i>
-                                Edit
+                                {t('CRUD.edit')}
                             </Link>
                         </td>
                     </tr>
@@ -81,12 +83,11 @@ const ListOrder = () => {
                 <div className="container-fluid">
                     <div className="row mb-2">
                         <div className="col-sm-6">
-                            <h1>Projects</h1>
                         </div>
                         <div className="col-sm-6">
                             <ol className="breadcrumb float-sm-right">
-                                <li className="breadcrumb-item"><Link to="#">Home</Link></li>
-                                <li className="breadcrumb-item active">Projects</li>
+                                <li className="breadcrumb-item"><Link to="/admin">{t('admin.dash')}</Link></li>
+                                <li className="breadcrumb-item active">{t('admin.order')}</li>
                             </ol>
                         </div>
                     </div>
@@ -97,10 +98,7 @@ const ListOrder = () => {
                 {/* Default box */}
                 <div className="card">
                     <div className="card-header">
-                        <h3 className="card-title">Projects</h3>
                         <div className="card-tools">
-                        
-
                             <button type="button" className="btn btn-tool" data-card-widget="collapse" title="Collapse">
                                 <i className="fas fa-minus" />
                             </button>
@@ -117,22 +115,22 @@ const ListOrder = () => {
                                         #
                                     </th>
                                     <th style={{ width: '20%' }}>
-                                        Name
+                                        {t('CRUD.name')}
                                     </th>
                                     <th>
-                                        Phone
+                                    {t('CRUD.phone')}
                                     </th>
                                     <th>
-                                        Address
+                                    {t('CRUD.address')}
                                     </th>
                                     <th>
-                                        Payment
+                                    {t('CRUD.pay')}
                                     </th>
                                     <th>
-                                        Status
+                                    {t('CRUD.status')}
                                     </th>
                                     <th style={{ width: '20%' }}>
-                                        Action
+                                    {t('CRUD.action')}
                                     </th>
                                 </tr>
                             </thead>
@@ -150,5 +148,4 @@ const ListOrder = () => {
         </>
     );
 }
-
 export default ListOrder;

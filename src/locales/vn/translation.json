@@ -10,7 +10,8 @@
         "Cart": "Giỏ Hàng",
         "Logout": "Đăng Xuất",
         "Login": "Đăng Nhập",
-        "Search": "Tìm Kiếm..."
+        "Search": "Tìm Kiếm...",
+        "register": "Đăng kí"
     },
     "banner": {
         "new": "Sách Mới 2022",
@@ -124,5 +125,47 @@
     "wishlist": {
         "item": "Sản Ohẩm",
         "action":"Hành Động"
+    },
+    "admin": {
+        "dash": "Trang Chủ",
+        "cate": "Danh Mục",
+        "prd": "Sản Phẩm",
+        "user": "Người dùng",
+        "order": " Đặt hàng",
+        "new": "Đơn đặt hàng",
+        "register": "Số lượng người dùng",
+        "more": "Xem Thêm"
+    },
+    "CRUD": {
+            "name":"Tên",
+            "img": "Ảnh",
+            "edit":"Sửa",
+            "delete": "Xoá",
+            "create": "Thêm",
+            "cancel": "Thoát",
+            "submit": "Xác nhận",
+            "price":"Giá",
+            "author": "Tác giả",
+            "status":"Trạng thái",
+            "action":"Hành động",
+            "quantity":"Số lượng",
+            "description":"Miêu Tả",
+            "discount": "Giảm giá",
+            "role": "Chức vụ",
+            "phone":"Số Điện Thoại",
+            "address":"Địa Chỉ",
+            "pay":"Phương thức thanh toán",
+            "add": "Thêm",
+            "view":"Xem",
+            "detail": "Chi Tiết"
+    },
+    "listOrder": {
+        "confirm": "Đã Xác Nhận",
+        "shipping": "Đang Vận Chuyển",
+        "cancel": "Huỷ",
+        "success" : "Thành Công",
+        "bank":"Chuyển Khoản",
+        "payment": "Thanh Toán Trực Tiếp",
+        "wait":"Chờ Xác Nhận"
     }
 }

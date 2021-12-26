@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getOrder } from "../../../api/orderApi";
 import { updateStatusAction } from "../../../Store/action/orderAction";
+import { t } from "i18next";
 
 const Statusorder = () => {
     const { register, handleSubmit, reset } = useForm();
@@ -31,8 +32,9 @@ const Statusorder = () => {
                         </div>
                         <div className="col-sm-6">
                             <ol className="breadcrumb float-sm-right">
-                                <li className="breadcrumb-item"><Link to="#">Home</Link></li>
-                                <li className="breadcrumb-item active">Category Add</li>
+                                <li className="breadcrumb-item"><Link to="/admin">{t('admin.dash')}</Link></li>
+                                <li className="breadcrumb-item"><Link to="/admin">{t('admin.order')}</Link></li>
+                                <li className="breadcrumb-item active">{t('CRUD.role')}</li>
                             </ol>
                         </div>
                     </div>
@@ -52,19 +54,18 @@ const Statusorder = () => {
                             <div className="card-body">
                                 <form onSubmit={handleSubmit(onSubmit)} >
                                     <div className="form-group">
-                                        <label htmlFor="inputStatus">Categories</label>
                                         <select  {...register('status', { required: true })} id="inputStatus" className="form-control custom-select">
-                                            <option value='2' >Huỷ</option>
-                                            <option value='4' >Chờ Xác Nhận</option>
-                                            <option value='0' >Đã Xác Nhận</option>
-                                            <option value='1' >Đang Vận Chuyển</option>
-                                            <option value='3' >Thành Công</option>
+                                            <option value='2' >{t('listOrder.cancel')}</option>
+                                            <option value='4' >{t('listOrder.wait')}</option>
+                                            <option value='0' >{t('listOrder.confirm')}</option>
+                                            <option value='1' >{t('listOrder.shipping')}</option>
+                                            <option value='3' >{t('listOrder.success')}</option>
                                         </select>
                                     </div>
 
                                     <div className="col-12">
-                                        <Link to="#" className="btn btn-secondary">Cancel</Link>
-                                        <button className="btn btn-success float-right" >Submit</button>
+                                        <Link to="#" className="btn btn-secondary">{t('CRUD.cancel')}</Link>
+                                        <button className="btn btn-success float-right" >{t('CRUD.submit')}</button>
                                     </div>
                                 </form>
                             </div>

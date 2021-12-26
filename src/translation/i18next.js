@@ -24,7 +24,7 @@ const resources = {
     .init({
         resources,
         fallbackLng: 'vi',
-        debug: true,
+        debug: false,
         interpolation: {
             escapeValue: false 
         },

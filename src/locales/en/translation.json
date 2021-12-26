@@ -10,6 +10,7 @@
         "Cart": "Giỏ Hàng",
         "Logout": "Logout",
         "Login": "Login",
+        "register": "Register",
         "Search": "Search..."
     },
     "banner": {
@@ -122,5 +123,49 @@
     "wishlist": {
         "item": "Product",
         "action":"Action"
+    },
+    "admin": {
+        "dash": "Dashboard",
+        "cate": "Categories",
+        "prd": "Product",
+        "user": "User",
+        "order": "Order",
+        "new": "New Order",
+        "register": "User Registrations",
+        "more": "More Info"
+    },
+    "CRUD": {
+            "name":"Name",
+            "img": "Image",
+            "edit":"Edit",
+            "delete": "Delete",
+            "create": "Create",
+            "cancel": "Cancel",
+            "submit": "Submit",
+            "price":"Price",
+            "author": "Author",
+            "status":"Status",
+            "action":"Action",
+            "quantity":"Quantity",
+            "description":"Description",
+            "discount": "Discount",
+            "role": "Role",
+            "phone":"Phone",
+            "address":"Address",
+            "pay":"PayMent",
+            "add": "Create",
+            "view":"View",
+            "detail": "Detail"
+
+    },
+    "listOrder": {
+        "confirm": "Confirm",
+        "shipping": "Shipping",
+        "cancel": "Cancel",
+        "success" : "Success",
+        "bank":"Banking",
+        "payment": "Direct",
+        "wait":"Chờ Xác Nhận"
+
     }
 }

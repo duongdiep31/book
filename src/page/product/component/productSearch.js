@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import Views from './prdViews';
 import { Link } from 'react-router-dom';
 import { get } from "../../../api/product"
@@ -9,11 +9,14 @@ import { toast } from "react-toastify"
 import { addtocart } from "../../../Store/slice/cartSlice"
 import { addtocartApi } from "../../../Store/action/cartAction"
 import { searchItem } from '../../../Store/action/products';
+import { addtoWishlist, getAllWishlist } from '../../../Store/action/wishlistAction';
+import { t } from 'i18next';
 const Productsearch = () => {
   const { value } = useParams()
   const dispatch = useDispatch()
   const fetchUser = useSelector((state) => state.auth.auth)
   const products = useSelector((state) => state.product.product)
+  const navigate = useNavigate()
   const [page, setPage] = useState({
     page: 1,
     limit: 9,
@@ -25,6 +28,13 @@ const Productsearch = () => {
     }
     getPrdSearch()
   }, [dispatch,page])
+  const wishlist = useSelector((state) => state.wishlist.wishlist)
+  useEffect(() => {
+    const getWish = async () => {
+      dispatch(getAllWishlist())
+    }
+    getWish()
+  }, [dispatch])
   const url = "#productView"
   const nf = Intl.NumberFormat();
   const handlePageClick = (data) => {
@@ -50,7 +60,30 @@ const Productsearch = () => {
                 </Link>
                 <div className="product-overlay">
                   <ul className="mb-0 list-inline">
-                    <li className="list-inline-item m-0 p-0"><Link className="btn btn-sm btn-outline-dark" to="#"><i className="far fa-heart" /></Link></li>
+                    <li className="list-inline-item m-0 p-0"><button className="btn btn-sm btn-outline-dark" onClick={async () => {
+                      if (fetchUser) {
+                        const idUser = fetchUser.users._id
+                          if (wishlist && Array.isArray(wishlist)) {
+                            const existWishlist = wishlist.filter((item) => item.idUser._id === idUser)
+                            if (existWishlist) {
+                              console.log('exit', existWishlist);
+                              const existItems = existWishlist.find((data) => data.idBook._id === item._id)
+                              if (existItems) {
+                                toast.error("Books already exist")
+                              } else {
+                                const data = {
+                                  idUser: idUser,
+                                  idBook: item._id
+                                }
+                                dispatch(addtoWishlist(data))
+                                toast.success("SuccessFully")
+                              } 
+                            }
+                          }
+                      } else {
+                        navigate('/signin')
+                      }
+                    }} ><i className="far fa-heart" /></button></li>
                     <li className="list-inline-item m-0 p-0"><button onClick={async () => {
                       const { data } = await get(item._id)
                       const cartItems = {
@@ -74,7 +107,7 @@ const Productsearch = () => {
                         dispatch(addtocart(cartItems))
                       }
 
-                    }} className="btn btn-sm btn-dark">Add to cart</button></li>
+                    }} className="btn btn-sm btn-dark">{t('buttonCart.button')}</button></li>
                     <li className="list-inline-item mr-0"><a className="btn btn-sm btn-outline-dark" href={url} data-toggle="modal"><i className="fas fa-expand" /></a></li>
                   </ul>
                 </div>
@@ -93,13 +126,21 @@ const Productsearch = () => {
       )
     }
   }
+  const showing = () => {
+    const end = page.limit * page.page
+    const start = (page.page - 1) * page.limit + 1
+    return (
+      <p className="text-small text-muted mb-0"> {t('shop.show', {start: start, end: end, total: products.total})}</p>
+
+    )
+  }
   return (
     <React.Fragment>
       <Views />
       <div className="col-lg-9 order-1 order-lg-2 mb-5 mb-lg-0">
         <div className="row mb-3 align-items-center">
           <div className="col-lg-6 mb-2 mb-lg-0">
-            <p className="text-small text-muted mb-0">Showing 1–12 of 53 results</p>
+            {showing()}
           </div>
           <div className="col-lg-6">
             <ul className="list-inline d-flex align-items-center justify-content-lg-end mb-0">

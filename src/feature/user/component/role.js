@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { changeUser } from "../../../Store/action/userAction";
 import { getUser } from "../../../api/user";
-
+import { t } from "i18next";
 const Role = () => {
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate()
@@ -27,12 +27,13 @@ const Role = () => {
                 <div className="container-fluid">
                     <div className="row mb-2">
                         <div className="col-sm-6">
-                            <h1>Project Add</h1>
+
                         </div>
                         <div className="col-sm-6">
                             <ol className="breadcrumb float-sm-right">
-                                <li className="breadcrumb-item"><Link to="#">Home</Link></li>
-                                <li className="breadcrumb-item active">Category Add</li>
+                                <li className="breadcrumb-item"><Link to="/admin">{t('admin.dash')}</Link></li>
+                                <li className="breadcrumb-item"><Link to="/admin/user">{t('admin.dash')}</Link></li>
+                                <li className="breadcrumb-item active">{t('CRUD.edit')}</li>
                             </ol>
                         </div>
                     </div>
@@ -52,7 +53,7 @@ const Role = () => {
                             <div className="card-body">
                                 <form onSubmit={handleSubmit(onSubmit)} >
                                     <div className="form-group">
-                                        <label htmlFor="inputStatus">Categories</label>
+                                        <label htmlFor="inputStatus">{t('CRUD.role')}</label>
                                         <select  {...register('role', { required: true })} id="inputStatus" className="form-control custom-select">
                                             <option value='2' >Giám đốc</option>
                                             <option value='3' >Content</option>
@@ -61,8 +62,8 @@ const Role = () => {
                                     </div>
 
                                     <div className="col-12">
-                                        <Link to="#" className="btn btn-secondary">Cancel</Link>
-                                        <button className="btn btn-success float-right" >Submit</button>
+                                        <Link to="#" className="btn btn-secondary">{t('CRUD.cancel')}</Link>
+                                        <button className="btn btn-success float-right" >{t('CRUD.submit')}</button>
                                     </div>
                                 </form>
                             </div>

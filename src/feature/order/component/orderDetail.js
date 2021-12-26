@@ -1,8 +1,8 @@
+import { t } from "i18next";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router"
 import { Link } from "react-router-dom";
 import { getOrder } from "../../../api/orderApi";
-
 const Orderdetail = () => {
     const { id } = useParams();
     const [item, setItem] = useState([])
@@ -55,8 +55,9 @@ const Orderdetail = () => {
                             </div>
                             <div className="col-sm-6">
                                 <ol className="breadcrumb float-sm-right">
-                                    <li className="breadcrumb-item"><Link to="#">Home</Link></li>
-                                    <li className="breadcrumb-item active">Invoice</li>
+                                <li className="breadcrumb-item"><Link to="/admin">{t('admin.dash')}</Link></li>
+                                <li className="breadcrumb-item"><Link to="/admin/orderadmin">{t('admin.order')}</Link></li>
+                                <li className="breadcrumb-item active">{t('CRUD.detail')}</li>
                                 </ol>
                             </div>
                         </div>
@@ -73,7 +74,7 @@ const Orderdetail = () => {
                                     <div className="row">
                                         <div className="col-12">
                                             <h4>
-                                                <i className="fas fa-globe" /> AdminLTE, Inc.
+                                                <i className="fas fa-book" /> BOOK STORE
 
                                             </h4>
                                         </div>
@@ -83,9 +84,9 @@ const Orderdetail = () => {
                                     <div className="row invoice-info">
                                         <div className="col-sm-4 invoice-col">
                                             <address>
-                                                <strong>{item.nameKh}</strong><br />
-                                                {item.address}<br />
-                                                Phone: {item.phone}<br />
+                                                <strong> {t('CRUD.name')} : {item.nameKh}</strong><br />
+                                                {t('CRUD.address')} : {item.address}<br />
+                                                {t('CRUD.phone')} :  {item.phone}<br />
                                                 Email: {item.email}
                                             </address>
                                         </div>
@@ -96,11 +97,11 @@ const Orderdetail = () => {
                                         {/* /.col */}
                                         <div className="col-sm-4 invoice-col">
 
-                                            <b>Serial:</b> {item._id}<br />
+                                            <b>{t('profile.code')}:</b> {item._id}<br />
                                             <small style={{
                                                 marginRight: '69px',
                                                 paddingTop: '20px'
-                                            }} className="float-right">Date: {item.createdAt}</small>
+                                            }} className="float-right">{t('profile.date')}: {item.createdAt}</small>
                                         </div>
                                         {/* /.col */}
                                     </div>
@@ -112,10 +113,10 @@ const Orderdetail = () => {
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Name</th>
-                                                        <th>Price</th>
-                                                        <th>Description</th>
-                                                        <th>Subtotal</th>
+                                                        <th>{t('CRUD.name')}</th>
+                                                        <th>{t('CRUD.price')}</th>
+                                                        <th>{t('CRUD.quantity')}</th>
+                                                        <th>{t('profile.subtotal')}</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -143,23 +144,23 @@ const Orderdetail = () => {
                                         </div>
                                         {/* /.col */}
                                         <div className="col-6">
-                                            <p className="lead">Amount Due 2/22/2014</p>
+
                                             <div className="table-responsive">
                                                 <table className="table">
                                                     <tbody><tr>
-                                                        <th style={{ width: '50%' }}>Subtotal:</th>
+                                                        <th style={{ width: '50%' }}>{t('profile.subtotal')}:</th>
                                                         <td>{nf.format(subTotal())} Vnd </td>
                                                     </tr>
                                                         <tr>
-                                                            <th>Tax (9.3%)</th>
+                                                            <th>{t('profile.tax')} (9.3%)</th>
                                                             <td>{nf.format(parseInt(vat))} Vnd</td>
                                                         </tr>
                                                         <tr>
-                                                            <th>Shipping:</th>
+                                                            <th>{t('profile.ship')}:</th>
                                                             <td>$5.80</td>
                                                         </tr>
                                                         <tr>
-                                                            <th>Total:</th>
+                                                            <th>{t('profile.total')}:</th>
                                                             <td>{nf.format(subTotal() + vat)} Vnd</td>
                                                         </tr>
                                                     </tbody></table>

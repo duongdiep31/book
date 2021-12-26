@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {  deleteUser, userList } from '../../../Store/action/userAction';
 import ReactPaginate from 'react-paginate'
+import { t } from 'i18next';
 
 const Listuser = () => {
   const user = useSelector((state) => state.user.user)
@@ -60,7 +61,7 @@ const Listuser = () => {
               <Link className="btn btn-info btn-sm" to={`/admin/roleuser/${item._id}`}>
                         <i className="fas fa-pencil-alt">
                         </i>
-                        Edit
+                        {t('CRUD.edit')}
                       </Link>
                 <button onClick={
                     ()=>{
@@ -69,7 +70,7 @@ const Listuser = () => {
                 } className="btn btn-danger btn-sm" to="#">
                   <i className="fas fa-trash">
                   </i>
-                  Delete
+                  {t('CRUD.delete')}
                 </button>
               </td>
             </tr>
@@ -85,12 +86,11 @@ const Listuser = () => {
     <div className="container-fluid">
       <div className="row mb-2">
         <div className="col-sm-6">
-          <h1>Projects</h1>
         </div>
         <div className="col-sm-6">
           <ol className="breadcrumb float-sm-right">
-            <li className="breadcrumb-item"><Link to="#">Home</Link></li>
-            <li className="breadcrumb-item active">Projects</li>
+            <li className="breadcrumb-item"><Link to="/admin">{t('admin.dash')}</Link></li>
+            <li className="breadcrumb-item active">{t('admin.user')}</li>
           </ol>
         </div>
       </div>
@@ -101,7 +101,6 @@ const Listuser = () => {
     {/* Default box */}
     <div className="card">
       <div className="card-header">
-        <h3 className="card-title">Projects</h3>
         <div className="card-tools">
           <button type="button" className="btn btn-tool" data-card-widget="collapse" title="Collapse">
             <i className="fas fa-minus" />
@@ -119,16 +118,16 @@ const Listuser = () => {
                 #
               </th>
               <th style={{width: '20%'}}>
-                 Name
+              {t('CRUD.name')}
               </th>
               <th>
                 Email
               </th>
               <th>
-                Role
+              {t('CRUD.role')}
               </th>
               <th style={{width: '20%'}}>
-                  Action
+              {t('CRUD.action')}
               </th>
             </tr>
           </thead>
