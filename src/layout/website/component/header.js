@@ -53,7 +53,7 @@ const Header = () => {
     }
   }
   const button = () => {
-    if (auth) {
+    if (auth !== "undefined") {
       return (<Dropdown overlay={dropdown1}>
         <Link to='#' className="ant-dropdown-link">
           <i className="fas fa-user-alt mr-1 text-gray" />
