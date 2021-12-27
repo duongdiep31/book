@@ -11,6 +11,7 @@ import { useTranslation } from 'react-i18next'
 import cookie from 'js-cookie'
 import { Menu, Dropdown, Button } from 'antd';
 import 'antd/dist/antd.css';
+import { cart } from "../../../Store/slice/cartSlice";
 const Header = () => {
   const languages = [
     {
@@ -32,8 +33,10 @@ const Header = () => {
   const [value, setValue] = useState('')
   useEffect(() => {
     const getApi = async () => {
+      if (auth) {
       const { data } = await getAllcart()
       setcartApi(data)
+      }
     }
     getApi()
   }, [])
@@ -86,6 +89,7 @@ const Header = () => {
         <Button danger type='text' onClick={() => {
           if (auth !== "undefined") {
             dispatch(logout())
+            dispatch(cart())
             localStorage.removeItem('persist:root')
             navigate('/', { replace: true })
           }

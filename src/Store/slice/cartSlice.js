@@ -35,6 +35,9 @@ import { toast } from "react-toastify";
             const id = action.payload;
             state.cart = state.cart.filter(item => item._id !== id);
         },
+        cart(state) {
+            state.cart = []
+        }
 
     },
     // extraReducers: (builder) => {
@@ -54,5 +57,5 @@ import { toast } from "react-toastify";
     // }
  
   })
-  export const {addtocart, increaseCart,decreaseCart,removeItemFromCart} = cartSlice.actions
+  export const {addtocart,cart ,increaseCart,decreaseCart,removeItemFromCart} = cartSlice.actions
   export default cartSlice

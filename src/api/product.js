@@ -42,20 +42,10 @@ export const search = (page) => {
     return instance.post(url)
 }
 export const related = (id) => {
-    const token = store.getState().auth.auth.token
     const url = `/api/related/${id}`
-    return instance.post(url, {
-        headers: {
-            "Authorization": "Bearer " + token
-        }
-    })
+    return instance.post(url)
 }   
 export const trending = () => {
-    const token = store.getState().auth.auth.token
-    const url = `/api/trending/`
-    return instance.get(url, {
-        headers: {
-            "Authorization": "Bearer " + token
-        }
-    })
+    const url = `/api/trending`
+    return instance.get(url)
 }   

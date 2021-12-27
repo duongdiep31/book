@@ -18,7 +18,7 @@ const url = "#productView"
   const fetchUser = useSelector((state) => state.auth.auth)
   useEffect(() => {
     const getTrending = async () => {
-      dispatch(trendingPrd())
+     await dispatch(trendingPrd())
     }
     getTrending()
   }, [dispatch])
@@ -32,6 +32,7 @@ const url = "#productView"
   const nf = Intl.NumberFormat();
   const listTrending = () => {
       if (trending && Array.isArray(trending)) {
+        console.log(trending);
           return trending.map((item, index) => {
             return (
               <React.Fragment key={index} >
@@ -100,8 +101,6 @@ const url = "#productView"
             )
           })
       }
-
-
   }
   return (
     <section className="py-5">
@@ -113,9 +112,6 @@ const url = "#productView"
         {
           listTrending()
         }
-
-
-
       </div>
     </section>
   )
