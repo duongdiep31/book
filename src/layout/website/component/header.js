@@ -39,7 +39,7 @@ const Header = () => {
       }
     }
     getApi()
-  }, [])
+  }, [auth])
   const dispatch = useDispatch()
   const lengthCart = () => {
     if (auth) {
@@ -53,15 +53,15 @@ const Header = () => {
     }
   }
   const button = () => {
-    if (auth !== "undefined") {
-      return (<Dropdown overlay={dropdown1}>
+    if (!auth) {
+      return (<Dropdown overlay={dropdown2}>
         <Link to='#' className="ant-dropdown-link">
           <i className="fas fa-user-alt mr-1 text-gray" />
         </Link>
       </Dropdown>)
     }
     else {
-      return (<Dropdown overlay={dropdown2}>
+      return (<Dropdown overlay={dropdown1}>
         <Link to='#' className="ant-dropdown-link">
           <i className="fas fa-user-alt mr-1 text-gray" />
         </Link>
