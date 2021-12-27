@@ -76,7 +76,7 @@ const Header = () => {
   const dropdown1 = (
     <Menu  >
       <Menu.Item>
-        <Link rel="noopener noreferrer" to="#">
+        <Link rel="noopener noreferrer" to="/profile">
           <span style={{
             paddingLeft: "13x"
           }}>{t('profile.profile')}</span>  
@@ -84,7 +84,7 @@ const Header = () => {
       </Menu.Item>
       <Menu.Item >
         <Button danger type='text' onClick={() => {
-          if (typeof window != "undefined") {
+          if (auth != "undefined") {
             dispatch(logout())
             localStorage.removeItem('persist:root')
             navigate('/', { replace: true })
