@@ -1,8 +1,9 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Trending from "./component/trending"
 import { Link } from "react-router-dom"
 import {useTranslation} from 'react-i18next'
 import Views from '../product/component/prdViews'
+
 const Homepage = () => {
   const {t} = useTranslation()
   return (
@@ -19,7 +20,7 @@ const Homepage = () => {
               <div className="row px-4 px-lg-5">
                 <div className="col-lg-6">
                   <p className="text-muted small text-uppercase mb-2">{t('banner.new')}</p>
-                  <h1 className="h2 text-uppercase mb-3">{t('banner.title')}</h1><Link className="btn btn-dark" to="shop.html">{t('banner.button')}</Link>
+                  <h1 className="h2 text-uppercase mb-3">{t('banner.title')}</h1><Link className="btn btn-dark" to="/shop">{t('banner.button')}</Link>
                 </div>
               </div>
             </div>

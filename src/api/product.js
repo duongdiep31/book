@@ -50,3 +50,12 @@ export const related = (id) => {
         }
     })
 }   
+export const trending = () => {
+    const token = store.getState().auth.auth.token
+    const url = `/api/trending/`
+    return instance.get(url, {
+        headers: {
+            "Authorization": "Bearer " + token
+        }
+    })
+}   
