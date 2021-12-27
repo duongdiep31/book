@@ -14,7 +14,7 @@ export const getUser = (id) => {
     const url = `/api/users/${id}` 
     return instance.get(url, {
         headers: {
-            "Authorization": "Bearer "+ token       }
+            "Authorization": "Bearer "+ token }
     })
 }
 export const removeUser = (id )=> {
@@ -22,7 +22,7 @@ export const removeUser = (id )=> {
     const url = `/api/users/${id}`
     return instance.delete(url, {
         headers: {
-            "Authorization": "Bearer "+ token       }
+            "Authorization": "Bearer "+ token }
     })
 }
 export const updateUser = (id, product) => {
@@ -30,6 +30,6 @@ export const updateUser = (id, product) => {
     const url = `/api/users/${id}`;
     return instance.patch(url, product, {
         headers: {
-            "Authorization": "Bearer " + token      }
+            "Authorization": "Bearer " + token }
     })
 }
