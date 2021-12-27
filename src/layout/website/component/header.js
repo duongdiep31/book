@@ -10,7 +10,6 @@ import i18n from 'i18next'
 import { useTranslation } from 'react-i18next'
 import cookie from 'js-cookie'
 import { Menu, Dropdown, Button } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 const Header = () => {
   const languages = [
