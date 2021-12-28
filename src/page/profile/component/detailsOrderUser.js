@@ -11,6 +11,7 @@ const OrderdetailUser = () => {
         const getItem = async () => {
             try {
                 const { data } = await getOrder(id)
+                console.log('data',data);
                 setItem(data)
             } catch (error) {
                 console.log(error);

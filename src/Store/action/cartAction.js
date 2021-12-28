@@ -14,6 +14,7 @@ export const addtocartApi = createAsyncThunk(
         const exitsUser = data.filter((item) => item.idUser._id === cartItems.idUser)
         if (exitsUser) {
             const existProduct = exitsUser.find((item) => item.idBook._id === cartItems.idBook)
+            console.log(existProduct);
             if (existProduct) {
                 const count = {
                     quantity: existProduct.quantity + cartItems.quantity

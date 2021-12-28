@@ -18,10 +18,11 @@ import cartSlice from "./slice/cartSlice";
 import cartSliceApi from "./slice/cartSliceApi";
 import orderSlice from "./slice/orderSlice";
 import wishListSlice from "./slice/wishlistSlice";
+import commentSlice from "./slice/commentSlice";
   const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['product', 'category','user','cartApi','order', 'wishlist']
+    blacklist: ['product', 'category','user','cartApi','order', 'wishlist','comment']
   }
   const rootReducer = combineReducers({
     product: productSlice.reducer,
@@ -31,7 +32,8 @@ import wishListSlice from "./slice/wishlistSlice";
     cart: cartSlice.reducer,
     cartApi: cartSliceApi.reducer,
     order: orderSlice.reducer,
-    wishlist: wishListSlice.reducer
+    wishlist: wishListSlice.reducer,
+    comment: commentSlice.reducer,
   })
   const persistedReducer = persistReducer(persistConfig,rootReducer)
 

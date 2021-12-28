@@ -32,14 +32,13 @@ const url = "#productView"
   const nf = Intl.NumberFormat();
   const listTrending = () => {
       if (trending && Array.isArray(trending)) {
-        console.log(trending);
           return trending.map((item, index) => {
             return (
               <React.Fragment key={index} >
                 <div className="col-xl-3 col-lg-4 col-sm-6">
                   <div className="product text-center">
                     <div className="position-relative mb-3">
-                      <div className="badge text-white badge-" /><Link className="d-block" to="detail.html"><img className="img-fluid w-100" src= {item.image} alt="..." /></Link>
+                      <div className="badge text-white badge-" /><Link className="d-block" to={`/detail/${item._id}`}><img className="img-fluid w-100" src= {item.image} alt="..." /></Link>
                       <div className="product-overlay">
                       <ul className="mb-0 list-inline">
                     <li className="list-inline-item m-0 p-0"><button className="btn btn-sm btn-outline-dark" onClick={async () => {
@@ -92,7 +91,7 @@ const url = "#productView"
                   </ul>
                       </div>
                     </div>
-                    <h6> <Link className="reset-anchor" to="detail.html">{item.name}</Link></h6>
+                    <h6> <Link className="reset-anchor"to={`/detail/${item._id}`}>{item.name}</Link></h6>
                     <p className="small text-muted">{nf.format(item.price)} Vnd </p>
                   </div>
                 </div>

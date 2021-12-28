@@ -24,7 +24,7 @@ export const deletePrd = createAsyncThunk(
 export const changePrd = createAsyncThunk(
     'product/changePrd',
     async (product ) => {
-        const {data} = await update(product._id,product)
+        const {data} = await update(product)
         return data
     }
 )

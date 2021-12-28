@@ -167,5 +167,8 @@
         "payment": "Direct",
         "wait":"Chờ Xác Nhận"
 
+    },
+    "comment": {
+        "form": "Please login to comment"
     }
 }

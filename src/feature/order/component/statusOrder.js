@@ -15,11 +15,16 @@ const Statusorder = () => {
     useEffect(() => {
         getOrder(id)
             .then(response => {
+                console.log(response.data);
                 reset(response.data)
             })
     }, [id, reset])
     const onSubmit = (user) => {
-        dispatch(updateStatusAction(user))
+        const data = {
+            id: id,
+            user: user
+        }
+        dispatch(updateStatusAction(data))
         navigate("/admin/orderadmin", { replace: true })
     };
     return (

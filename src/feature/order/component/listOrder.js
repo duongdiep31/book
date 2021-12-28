@@ -1,17 +1,31 @@
 import { t } from 'i18next';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {  listOrderAction } from '../../../Store/action/orderAction';
+import ReactPaginate from 'react-paginate'
+
+
 const ListOrder = () => {
     const order = useSelector((state) => state.order.order)
     const dispatch = useDispatch()
+    const [page, setPage] = useState({
+        page :1,
+        limit: 9
+      })
+
     useEffect(() => {
         const list = async () => {
-       await dispatch(listOrderAction())
+       await dispatch(listOrderAction(page))
         }
         list()
-    }, [dispatch])
+    }, [dispatch,page])
+    const handlePageClick = (data) => {
+        setPage({
+          page: data.selected+1,
+          limit: 9
+        })
+      }
     let Result
     const list = order.list
     if (list && Array.isArray(list)) {
@@ -139,7 +153,25 @@ const ListOrder = () => {
 
                             </tbody>
                         </table>
-
+                        <ReactPaginate
+              previousLabel={'<<'}
+              nextLabel={'>>'}
+              breakLabel={'...'}
+              pageCount={Math.ceil(order.total/ page.limit)}
+              marginPagesDisplayed={2}
+              pageRangeDisplayed={3}
+              onPageChange={handlePageClick}
+              containerClassName={'pagination justify-content-center justify-content-lg-end'}
+              pageClassName={'page-item'}
+              pageLinkClassName={'page-link'}
+              previousClassName={'page-item'}
+              nextClassName={'page-item'}
+              previousLinkClassName={'page-link'}
+              nextLinkClassName={'page-link'}
+              breakClassName={'page-item'}
+              breakLinkClassName={'page-link'}
+              activeClassName={'active'}
+            />
                     </div>
                     {/* /.card-body */}
                 </div>

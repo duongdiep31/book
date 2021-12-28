@@ -167,5 +167,8 @@
         "bank":"Chuyển Khoản",
         "payment": "Thanh Toán Trực Tiếp",
         "wait":"Chờ Xác Nhận"
+    },
+    "comment": {
+        "form": "Vui lòng đăng nhâp để bình luận"
     }
 }

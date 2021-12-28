@@ -5,15 +5,14 @@ import { useNavigate } from 'react-router';
 import { useForm } from 'react-hook-form';
 import styles from './search.module.css'
 import {useTranslation} from 'react-i18next'
-const Search = (props) => {
+const Search = () => {
     const {t} = useTranslation()
-    // const [value, setValue ] = useState()
     const navigate = useNavigate()
     const { register, handleSubmit } = useForm()
     const onsubmit = (e) => {
         const input = document.getElementById("search-input");
         input.value =''
-        navigate(`/shop/productSearch/${e.key}`)
+        navigate(`/shop/productSearch/${e.key}`)          
     }
     const clearInput = () => {
         const input = document.getElementById("search-input");

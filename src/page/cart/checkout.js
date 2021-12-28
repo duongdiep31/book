@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router';
 import { getAllCartApi, removeCart } from '../../Store/action/cartAction'
 import { addOrderAction } from '../../Store/action/orderAction';
 import {useTranslation} from 'react-i18next'
+import {  update } from '../../api/product';
 // const resolver = async (values) => {
 //   return {
 //     values: values.name ? values : {},
@@ -34,7 +35,7 @@ const Checkout = () => {
   const { register, handleSubmit } = useForm();
   const [checkPay, setCheck] = useState(0)
   const [status, setStatus] = useState(0)
-  const onHandleSubmit = (e) => {
+  const onHandleSubmit = async (e) => {
     if (fetchUser) {
       const arr = fetchItemCartApi.filter((item) => item.idUser._id === fetchUser.users._id)
       const subtotalApi = arr.reduce((a, b) => a + b.idBook.price * b.quantity, 0)
@@ -46,6 +47,17 @@ const Checkout = () => {
         totalPrice: subtotalApi,
         payment: checkPay
       }
+        if (arr && Array.isArray(arr)) {
+            arr.map(item =>{
+            const book = item.idBook.trending
+              console.log(book);
+              const zz = {
+                _id: item.idBook._id,
+                trending: book+1
+              }
+             update(zz)
+          })
+        }
       return new Promise(resolve => {
         setTimeout(() => {
           dispatch(addOrderAction(data))
@@ -265,8 +277,6 @@ const Checkout = () => {
                     {
                       total()
                     }
-
-
                     {
                       subTotal()
                     }

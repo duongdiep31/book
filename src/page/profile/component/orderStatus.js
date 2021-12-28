@@ -7,22 +7,27 @@ import { useTranslation } from 'react-i18next'
 
 const Orderstatus = () => {
     const { t } = useTranslation()
-
+    const [page, setPage] = useState({
+        page: 1,
+        limit: 9
+    })
     const order = useSelector((state) => state.order.order)
     const user = useSelector((state) => state.auth.auth)
     const dispatch = useDispatch()
     useEffect(() => {
         const getOrder = async () => {
-            dispatch(listOrderAction())
+            dispatch(listOrderAction(page))
         }
         getOrder()
-    }, [dispatch])
+    }, [dispatch,page])
     const listOrderUser = () => {
         if (user) {
             const userId = user.users._id
             const listOrder = order.list
+            console.log(userId);
             if (listOrder && Array.isArray(listOrder)) {
                 const list = listOrder.filter((item) => item.userId === userId)
+                console.log(list);
                 return list.map((item, index) => {
                     const payMent = () => {
                         if (item.payment === 0) {
@@ -81,11 +86,6 @@ const Orderstatus = () => {
             }
         }
     }
-    const [page, setPage] = useState({
-        page: 1,
-        limit: 9
-    })
-
     const handlePageClick = (data) => {
         setPage({
             page: data.selected + 1,

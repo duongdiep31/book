@@ -1,8 +1,9 @@
 import store from "../Store";
 import instance from "./instance";
-export const getAllOrderApi = () => {
+export const getAllOrderApi = (page) => {
+    console.log(page)
     const token = store.getState().auth.auth.token
-    const url = '/api/listOrder'
+    const url = `/api/listOrder?page=${page.page}&limit=${page.limit}`
     return instance.get(url, {
         headers: {
             "Authorization": "Bearer " + token}
@@ -25,13 +26,17 @@ export const remove = (id )=> {
     })
 }
 export const addOrder = (product) => {
-    const url = '/api/addOrder/'
-    return instance.post(url, product)
-}
-export const updateOrder = (id, product) => {
     const token = store.getState().auth.auth.token
-    const url = `/api/updateOrder/${id}`;
-    return instance.patch(url, product, {
+    const url = '/api/addOrder/'
+    return instance.post(url, product, {
+        headers: {
+            "Authorization": "Bearer " + token}
+    })
+}
+export const updateOrder = (data) => {
+    const token = store.getState().auth.auth.token
+    const url = `/api/updateOrder/${data.id}`;
+    return instance.patch(url, data.user, {
         headers: {
             "Authorization": "Bearer " + token}
     })

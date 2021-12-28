@@ -15,7 +15,7 @@ import { changePrd, createPrd, deletePrd, itemPrd, relatedProductAction, searchI
             })
            
             builder.addCase(deletePrd.fulfilled, (state, action) => {
-                state.product = state.product.filter(item => item._id !== action.payload._id)
+                state.product = state.product.list.filter(item => item._id !== action.payload._id)
             })
             builder.addCase(changePrd.fulfilled, (state,action) => {
                 state.product += action.payload
