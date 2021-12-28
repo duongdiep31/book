@@ -29,7 +29,6 @@ export const insert = (product) => {
     )
 }
 export const update = (product) => {
-    console.log('prd', product);
     const token = store.getState().auth.auth.token
     const url = `/api/book/update/${product._id}`;
     return instance.patch(url, product, {

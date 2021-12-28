@@ -26,7 +26,6 @@ export const removeUser = (id )=> {
     })
 }
 export const updateUser = (id, product) => {
-    console.log('sdsd',product);
     const token = store.getState().auth.auth.token
     const url = `/api/users/${id}`;
     return instance.patch(url, product, {

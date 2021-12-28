@@ -11,7 +11,6 @@ const Signup = () => {
         const onSubmit = (user) => {
                     signup(user)
                                 .then(response => {
-                                    console.log(response);
                                     toast.success('Đăng kí thành công') 
                                     navigate("/signin", {replace:true})
                                 }

@@ -66,7 +66,8 @@
         "home": "Home",
         "cart": "Cart",
         "checkout": "Checkout",
-        "wishlist": "Wish List"
+        "wishlist": "Wish List",
+        "comment": "Comment"
 
     },
     "detailPrd": {
@@ -169,6 +170,14 @@
 
     },
     "comment": {
-        "form": "Please login to comment"
+        "form": "Please login to comment",
+        "user": "User",
+        "product": "Product",
+        "content":"Content",
+        "action":"Action",
+        "img":"Image",
+        "status":"Status",
+        "wait": "waiting for confirmation",
+        "comfirm":"Comfirm"
     }
 }

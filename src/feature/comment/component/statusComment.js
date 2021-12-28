@@ -3,17 +3,16 @@ import { useForm } from 'react-hook-form'
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getOrder } from "../../../api/orderApi";
-import { updateStatusAction } from "../../../Store/action/orderAction";
 import { t } from "i18next";
-
-const Statusorder = () => {
+import { commentDetail } from "../../../api/comment";
+import { updateCommentAction } from "../../../Store/action/comment";
+const StatusComment = () => {
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { id } = useParams()
     useEffect(() => {
-        getOrder(id)
+        commentDetail(id)
             .then(response => {
                 reset(response.data)
             })
@@ -23,8 +22,8 @@ const Statusorder = () => {
             id: id,
             user: user
         }
-        dispatch(updateStatusAction(data))
-        navigate("/admin/orderadmin", { replace: true })
+        dispatch(updateCommentAction(data))
+        navigate("/admin/listcomment", { replace: true })
     };
     return (
         <>
@@ -37,8 +36,8 @@ const Statusorder = () => {
                         <div className="col-sm-6">
                             <ol className="breadcrumb float-sm-right">
                                 <li className="breadcrumb-item"><Link to="/admin">{t('admin.dash')}</Link></li>
-                                <li className="breadcrumb-item"><Link to="/admin">{t('admin.order')}</Link></li>
-                                <li className="breadcrumb-item active">{t('CRUD.role')}</li>
+                                <li className="breadcrumb-item"><Link to="/admin">{t('titlePage.comment')}</Link></li>
+                                <li className="breadcrumb-item active">{t('CRUD.status')}</li>
                             </ol>
                         </div>
                     </div>
@@ -59,11 +58,8 @@ const Statusorder = () => {
                                 <form onSubmit={handleSubmit(onSubmit)} >
                                     <div className="form-group">
                                         <select  {...register('status', { required: true })} id="inputStatus" className="form-control custom-select">
-                                            <option value='2' >{t('listOrder.cancel')}</option>
-                                            <option value='4' >{t('listOrder.wait')}</option>
-                                            <option value='0' >{t('listOrder.confirm')}</option>
-                                            <option value='1' >{t('listOrder.shipping')}</option>
-                                            <option value='3' >{t('listOrder.success')}</option>
+                                            <option value='0' >{t('comment.wait')}</option>
+                                            <option value='1' >{t('comment.comfirm')}</option>
                                         </select>
                                     </div>
 
@@ -83,4 +79,4 @@ const Statusorder = () => {
     );
 }
 
-export default Statusorder;
+export default StatusComment;

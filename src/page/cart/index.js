@@ -73,7 +73,6 @@ const Cart = () => {
                       onClick={() => dispatch(decreaseCart(item._id))}
                       className="dec-btn p-0"><i className="fas fa-caret-left"></i></button>
                     <input className="form-control form-control-sm border-0 shadow-0 p-0" type="text" onChange={(event) =>{
-                      console.log(event);
                     }} value={item.quantity} />
                     <button
                       onClick={() => dispatch(increaseCart(item._id))}

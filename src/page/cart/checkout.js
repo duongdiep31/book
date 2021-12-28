@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { getAllCartApi, removeCart } from '../../Store/action/cartAction'
 import { addOrderAction } from '../../Store/action/orderAction';
-import {useTranslation} from 'react-i18next'
-import {  update } from '../../api/product';
+import { useTranslation } from 'react-i18next'
+import { update } from '../../api/product';
 // const resolver = async (values) => {
 //   return {
 //     values: values.name ? values : {},
@@ -21,7 +21,7 @@ import {  update } from '../../api/product';
 //   };
 // };
 const Checkout = () => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
   const dispatch = useDispatch()
   const fetchItemCart = useSelector((state) => state.cart.cart)
   const fetchItemCartApi = useSelector((state) => state.cartApi.cartApi)
@@ -47,20 +47,23 @@ const Checkout = () => {
         totalPrice: subtotalApi,
         payment: checkPay
       }
+      const trending = () => {
         if (arr && Array.isArray(arr)) {
-            arr.map(item =>{
+          return arr.map(item => {
             const book = item.idBook.trending
-              console.log(book);
-              const zz = {
-                _id: item.idBook._id,
-                trending: book+1
-              }
-             update(zz)
+            const zz = {
+              _id: item.idBook._id,
+              trending: book + 1
+            }
+          return    update(zz)
           })
         }
+      }
+
       return new Promise(resolve => {
         setTimeout(() => {
           dispatch(addOrderAction(data))
+          trending()
           const arr = fetchItemCartApi.filter((item) => item.idUser._id === fetchUser.users._id)
           arr.map((zz) => {
             return dispatch(removeCart(zz._id))
@@ -110,7 +113,7 @@ const Checkout = () => {
                     return check.style.display = 'none'
                   }} type="radio" name="flexRadioDefault" defaultValue={2} id="trực tiếp" />
                 <label className="form-check-label" htmlFor="flexRadioDefault1">
-                {t('checkout.payment')}
+                  {t('checkout.payment')}
                 </label>
               </div>
               <div className="form-check">
@@ -119,12 +122,12 @@ const Checkout = () => {
                   return check.style.display = 'block'
                 }} className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
                 <label className="form-check-label" htmlFor="flexRadioDefault2">
-                {t('checkout.bank')}
+                  {t('checkout.bank')}
                 </label>
                 <div id='check' style={{ display: 'none' }}   >
                   <h3>
                     TechComBank<br />
-                   DUONG VAN DIEP<br />
+                    DUONG VAN DIEP<br />
                     19037121604010
                   </h3>
                 </div>

@@ -18,7 +18,6 @@ export const removeWishlist = createAsyncThunk(
     'wishlist/removeWishlist',
     async (id) => {
         const { data } = await removeWishlistApi(id)
-        console.log(data);
         return data._id
     }
 )

@@ -45,7 +45,6 @@ const Details = () => {
         const { data } = await get(id)
         setItem(data)
       } catch (error) {
-        console.log(error);
       }
     }
     getItem()
@@ -77,7 +76,6 @@ const Details = () => {
                           if (wishlist && Array.isArray(wishlist)) {
                             const existWishlist = wishlist.filter((item) => item.idUser._id === idUser)
                             if (existWishlist) {
-                              console.log('exit', existWishlist);
                               const existItems = existWishlist.find((data) => data.idBook._id === item._id)
                               if (existItems) {
                                 toast.error("Books already exist")

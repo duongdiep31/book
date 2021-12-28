@@ -56,7 +56,6 @@ const CListPrd = () => {
                           if (wishlist && Array.isArray(wishlist)) {
                             const existWishlist = wishlist.filter((item) => item.idUser._id === idUser)
                             if (existWishlist) {
-                              console.log('exit', existWishlist);
                               const existItems = existWishlist.find((data) => data.idBook._id === item._id)
                               if (existItems) {
                                 toast.error("Books already exist")

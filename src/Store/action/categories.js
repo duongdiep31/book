@@ -25,7 +25,6 @@ export const changecate = createAsyncThunk(
     'category/changecate',
     async (category ) => {
         const {data} = await updatecate(category._id,category)
-        console.log('daa',data)
         return data
     }
 )

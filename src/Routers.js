@@ -34,6 +34,8 @@ import Productsearch from "./page/product/component/productSearch";
 import OrderdetailUser from "./page/profile/component/detailsOrderUser";
 import Editorderuser from "./page/profile/component/editOrderUser";
 import Wishlist from "./page/wishlist";
+import Listcomment from "./feature/comment/component/listComment";
+import StatusComment from "./feature/comment/component/statusComment";
 const Routers = (props) => {
     return (
         <BrowserRouter>
@@ -77,6 +79,8 @@ const Routers = (props) => {
                         <Route path='orderadmin' element={<ListOrder />} />
                         <Route path='orderdetail/:id' element={<Orderdetail />} />
                         <Route path='statusOrder/:id' element={<Statusorder />} />
+                        <Route path='listcomment' element={<Listcomment />} />
+                        <Route path='statusComment/:id' element={<StatusComment />} />
                     </Route>
                 </Routes>
             </Suspense>

@@ -19,9 +19,7 @@ import { getAllUser, removeUser, updateUser } from "../../api/user";
  const changeUser = createAsyncThunk(
     'user/changeUser',
     async (user,token ) => {
-        console.log('user',user);
         return updateUser(user._id,user,token).then(response => response.data)
-        
     }
 )
 

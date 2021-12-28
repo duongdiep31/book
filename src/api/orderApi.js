@@ -1,7 +1,6 @@
 import store from "../Store";
 import instance from "./instance";
 export const getAllOrderApi = (page) => {
-    console.log(page)
     const token = store.getState().auth.auth.token
     const url = `/api/listOrder?page=${page.page}&limit=${page.limit}`
     return instance.get(url, {

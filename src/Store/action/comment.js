@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { createComment, deleteComment, getAllcomment, updateComment } from "../../api/comment"
+import { commentDetail, createComment, deleteComment, getAllcomment, updateComment } from "../../api/comment"
 
 export const listCommentAction = createAsyncThunk(
     'comment/listComment',
-    async () => {
-        const {data} = await getAllcomment()
+    async (page) => {
+        const {data} = await getAllcomment(page)
         return data
     }
 )
@@ -12,7 +12,6 @@ export const createCommentAction = createAsyncThunk(
     'comment/createCommentAction',
     async (e) => {
         const {data} = await createComment(e)
-        console.log(data)
         return data
     }
 )
@@ -26,7 +25,8 @@ export const removeCommentAction = createAsyncThunk(
 export const updateCommentAction = createAsyncThunk(
     'comment/updateCommentAction',
     async (e) => {
-        const {data} = await updateComment(e._id, e)
+        const {data} = await updateComment(e)
+        console.log('api',data)
         return data
     }
 )

@@ -66,8 +66,8 @@
         "home": "Trang Chủ",
         "cart": "Giỏ Hàng",
         "checkout": "Thanh Toán",
-        "wishlist": "Yêu Thích"
-
+        "wishlist": "Yêu Thích",
+        "comment": "Bình Luận"
     },
     "detailPrd": {
         "quantity": "Số Lượng",
@@ -169,6 +169,15 @@
         "wait":"Chờ Xác Nhận"
     },
     "comment": {
-        "form": "Vui lòng đăng nhâp để bình luận"
+        "form": "Vui lòng đăng nhâp để bình luận",
+        "user": "Người dùng",
+        "product": "Sản phẩm",
+        "content":"Nội dung",
+        "action":"Hành động",
+        "img":"Ảnh",
+        "status":"Trạng thái",
+        "wait":"Chờ Xác Nhận",
+        "comfirm":"Xác Nhận"
+
     }
 }

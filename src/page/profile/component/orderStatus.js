@@ -24,10 +24,8 @@ const Orderstatus = () => {
         if (user) {
             const userId = user.users._id
             const listOrder = order.list
-            console.log(userId);
             if (listOrder && Array.isArray(listOrder)) {
                 const list = listOrder.filter((item) => item.userId === userId)
-                console.log(list);
                 return list.map((item, index) => {
                     const payMent = () => {
                         if (item.payment === 0) {

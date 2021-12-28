@@ -14,11 +14,13 @@ const commentSlice = createSlice({
 
         })
         builder.addCase(removeCommentAction.fulfilled, (state, action) => {
-            state.comment = state.comment.filter(item => item._id !== action.payload._id)
+            state.comment = state.comment.list.filter(item => item._id !== action.payload._id)
         })
         builder.addCase(updateCommentAction.fulfilled, (state, action) => {
             state.comment += action.payload
         })
+       
+
     }
 })
 export default commentSlice

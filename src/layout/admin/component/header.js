@@ -47,6 +47,16 @@ const {t} = useTranslation()
             </Link>
            
           </li>
+          <li className="nav-item">
+            <Link to="/admin/listcomment" className="nav-link">
+              <i className="nav-icon fas fa-shopping-cart"></i>
+              <p>
+              {t('titlePage.comment')}
+
+              </p>
+            </Link>
+           
+          </li>
             </>
           )
       }else if (auth === 3) {

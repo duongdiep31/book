@@ -13,7 +13,6 @@ const Orderdetail = () => {
                 const { data } = await getOrder(id)
                 setItem(data)
             } catch (error) {
-                console.log(error);
             }
         }
         getItem()
