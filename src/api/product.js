@@ -48,4 +48,8 @@ export const related = (id) => {
 export const trending = () => {
     const url = `/api/trending`
     return instance.get(url)
+}
+export const prdCategoryApi = (id,data) => {
+    const url =`api/prdCategory/${id}?page=${data.page}&limit=${data.limit}`
+    return instance.get(url)
 }   

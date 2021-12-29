@@ -15,7 +15,9 @@ const ClistCategories = () => {
         Result =  categories.map((item,index) => {
           return(
             <React.Fragment key={index}>
-                  <li className="mb-2"><Link className="reset-anchor" to={`productCate/${item._id}`}>{item.name}</Link></li>
+                  <li  className="mb-2"><Link style={{
+                    fontSize: '20px'
+                  }}  className="reset-anchor" to={`productCate/${item._id}`}>{item.name}</Link></li>
             </React.Fragment>
           )
         })
@@ -25,7 +27,9 @@ const ClistCategories = () => {
 
     return(
       <ul className="list-unstyled small text-muted pl-lg-4 font-weight-normal">
-        <li className="mb-2"><Link className="reset-anchor" to="/shop">{t('shop.all')}</Link></li>
+        <li className="mb-2"><Link style={{
+                    fontSize: '25px'
+                  }}  className="reset-anchor" to="/shop">{t('shop.all')}</Link></li>
 
         {
             Result

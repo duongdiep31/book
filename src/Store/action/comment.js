@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit"
-import { commentDetail, createComment, deleteComment, getAllcomment, updateComment } from "../../api/comment"
+import {  createComment, deleteComment, getAllcomment, updateComment } from "../../api/comment"
 
 export const listCommentAction = createAsyncThunk(
     'comment/listComment',

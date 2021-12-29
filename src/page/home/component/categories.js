@@ -15,7 +15,7 @@ const Categories = (props) => {
                           <React.Fragment key={index} >
                             <div className="col-md-3 mb-4 mb-md-0" >
                               <a style={{
-                                height: '400px'
+                                height: '400px',
                               }} className="category-item" href={`/category/${item._id}`}>
                                 <img style={{
                                   height: '100%',
@@ -31,11 +31,6 @@ const Categories = (props) => {
 
     }
   }
-
-
-
-
-
   return (
     <section className="pt-5">
       <header className="text-center">
