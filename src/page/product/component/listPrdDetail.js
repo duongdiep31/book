@@ -112,8 +112,6 @@ const CListPrdDetail = () => {
           </div>
         </React.Fragment>)
       })
-    }else{
-      return <h1>no result</h1>
     }
   }
   const showing = () => {
