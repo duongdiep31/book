@@ -25,7 +25,6 @@ const Listcomment = () => {
   const listComment = comment.list
   if (listComment && Array.isArray(listComment)) {
       Result = listComment.map((item,index) => {
-          console.log(item.productId.name);
             const status = () =>{
                 if (item.status === 0) {
                     return t('comment.wait')

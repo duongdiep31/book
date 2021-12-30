@@ -92,7 +92,7 @@ const Cart = () => {
   }
   const subTotal = () => {
     if (fetchUser) {
-      const cartUser = fetchItemCartApi.filter(item => item.idUser === fetchUser.users._id)
+      const cartUser = fetchItemCartApi.filter(item => item.idUser._id === fetchUser.users._id)
       const subtotalApi = cartUser.reduce((a, b) => {
         return a + (b.idBook.price) * b.quantity
       }, 0)
