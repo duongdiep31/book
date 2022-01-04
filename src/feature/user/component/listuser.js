@@ -64,8 +64,8 @@ const Listuser = () => {
                         {t('CRUD.edit')}
                       </Link>
                 <button onClick={
-                    ()=>{
-                      dispatch(deleteUser(item._id))
+                   async ()=>{
+                   await   dispatch(deleteUser(item._id))
                     }
                 } className="btn btn-danger btn-sm" to="#">
                   <i className="fas fa-trash">

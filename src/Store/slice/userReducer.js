@@ -13,7 +13,7 @@ const deleteUser = createAsyncThunk(
     'user/deleteUser',
     async (id, token) => {
         const { data } = await removeUser(id, token)
-        return data.db
+        return data
     }
 )
 const changeUser = createAsyncThunk(
@@ -41,14 +41,14 @@ const userSlice = createSlice({
             state.loading = true
         })
         builder.addCase(deleteUser.fulfilled, (state, action) => {
-            state.user.list = state.user.filter(item => item._id !== action.payload._id)
+            state.user.list = state.user.list.filter(item => item._id !== action.payload._id)
             state.loading = false
         })
         builder.addCase(changeUser.pending, (state, action) => {
             state.loading = true
         })
         builder.addCase(changeUser.fulfilled, (state, action) => {
-            state.user += action.payload
+            state.user.list += action.payload
             state.loading = false
         })
     }

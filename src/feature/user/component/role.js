@@ -17,8 +17,8 @@ const Role = () => {
                 reset(response.data)
             })
     }, [id, reset])
-    const onSubmit = (user) => {
-        dispatch(changeUser(user))
+    const onSubmit = async (user) => {
+      await  dispatch(changeUser(user))
         navigate("/admin/user", { replace: true })
     };
     return (
