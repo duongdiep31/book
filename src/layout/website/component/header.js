@@ -53,7 +53,8 @@ const Header = () => {
     }
   }
   const button = () => {
-    if (!auth) {
+    console.log(auth);
+    if (auth === undefined) {
       return (<Dropdown overlay={dropdown2}>
         <Link to='#' className="ant-dropdown-link">
           <i className="fas fa-user-alt mr-1 text-gray" />
@@ -62,7 +63,6 @@ const Header = () => {
 
     }
     else {
-    
       return (<Dropdown overlay={dropdown1}>
         <Link to='#' className="ant-dropdown-link">
           <i className="fas fa-user-alt mr-1 text-gray" />
