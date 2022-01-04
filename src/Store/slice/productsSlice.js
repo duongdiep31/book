@@ -3,19 +3,32 @@ import { changePrd, createPrd, deletePrd, itemPrd, prdCategoryAction, relatedPro
  const productSlice = createSlice({
     name: 'product',
     initialState: {
-        product: []
+        product: [],
+        loading: false
     },
     reducers: {},
     extraReducers:  (builder)  =>{
+            builder.addCase(itemPrd.pending,(state,action)=>{
+                    state.loading = true
+            })
             builder.addCase(itemPrd.fulfilled, (state, action) => {
                         state.product = action.payload
+                        state.loading = false
+
+            })
+            builder.addCase(createPrd.pending,(state,action)=>{
+                state.loading = true
             })
             builder.addCase(createPrd.fulfilled, (state,aciton) => {
                         state.product += aciton.payload
+                        state.loading = false
             })
-           
+            builder.addCase(deletePrd.pending,(state,action)=>{
+                state.loading = true
+            })
             builder.addCase(deletePrd.fulfilled, (state, action) => {
-                state.product = state.product.list.filter(item => item._id !== action.payload._id)
+                state.product.list = state.product.list.filter(item => item._id !== action.payload._id)
+                state.loading= false
             })
             builder.addCase(changePrd.fulfilled, (state,action) => {
                 state.product += action.payload

@@ -1,4 +1,4 @@
-import React, { useEffect,  useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router";
 import { Link } from "react-router-dom";
@@ -10,10 +10,9 @@ import { toast } from "react-toastify"
 import { addtoWishlist, getAllWishlist } from "../Store/action/wishlistAction";
 import Views from "./product/component/prdViews";
 import { useTranslation } from 'react-i18next'
-import { Form, Button,Input } from 'antd';
+import { Form, Button, Input } from 'antd';
 import 'antd/dist/antd.css';
-import { listCommentAction } from "../Store/action/comment";
-import { createComment } from "../api/comment";
+import { createCommentAction, listCommentAction } from "../Store/action/comment";
 const Details = () => {
   const { TextArea } = Input;
   const { t } = useTranslation()
@@ -21,13 +20,13 @@ const Details = () => {
   const dispatch = useDispatch()
   const fetchUser = useSelector((state) => state.auth.auth)
   const comments = useSelector((state) => state.comment.comment)
-  useEffect(()=>{
-      const getListComment = async () => {
-        await dispatch(listCommentAction())
-      }
-      getListComment()
+  useEffect(() => {
+    const getListComment = async () => {
+      await dispatch(listCommentAction())
+    }
+    getListComment()
 
-  },[dispatch])
+  }, [dispatch])
   const { id } = useParams()
   const [item, setItem] = useState([])
   const nf = Intl.NumberFormat();
@@ -139,73 +138,73 @@ const Details = () => {
       setComment(e.target.value)
     }
     const onHandleSubmitComment = async () => {
-        if (fetchUser) {
-            const idUser = fetchUser.users._id
-            const data = {
-              user: idUser,
-              productId: id,
-              content: comment
-            }
-          await createComment(data)
-          setComment("")
-          toast.success("Thanks you")
+      if (fetchUser) {
+        const idUser = fetchUser.users._id
+        const data = {
+          user: idUser,
+          productId: id,
+          content: comment
         }
+        await dispatch(createCommentAction(data))
+        setComment("")
+        toast.success("Thanks you")
+      }
     }
     if (fetchUser) {
-         return (
-      <>
-        <Form.Item>
-          <TextArea value={comment} rows={4} onChange={onHandleChangeComment} />
-        </Form.Item>
-        <Form.Item>
-          <Button htmlType="submit" onClick={onHandleSubmitComment} type="primary">
-            Add Comment
-          </Button>
-        </Form.Item>
-      </>
-    )
-    }else{
-      return  (
-          <>
+      return (
+        <>
+          <Form.Item>
+            <TextArea value={comment} rows={4} onChange={onHandleChangeComment} />
+          </Form.Item>
+          <Form.Item>
+            <Button htmlType="submit" onClick={onHandleSubmitComment} type="primary">
+              Add Comment
+            </Button>
+          </Form.Item>
+        </>
+      )
+    } else {
+      return (
+        <>
           <div style={{
             textAlign: 'center',
-            backgroundColor:'rgb(248, 249, 250)',
+            backgroundColor: 'rgb(248, 249, 250)',
             padding: "30px"
           }} >
-              <span><Link to='/signin' >{t('comment.form')}</Link></span>
+            <span><Link to='/signin' >{t('comment.form')}</Link></span>
           </div>
-          </>
-      
-        )
+        </>
+
+      )
     }
   }
   const listComment = () => {
-      const list = comments.list
-        if (list && Array.isArray(list)) {
-          const filterPrd = list.filter((item) => item.productId._id === id)
-            const filterCmt = filterPrd.filter((zz) => zz.status === 1)
-            return filterCmt.map((item, index)=>{
-              return(
-                <React.Fragment key={index}>
-                      <div className="media mb-3">
-                        {/* <img className="rounded-circle" src="img/customer-1.png" alt={'...'} width={50} /> */}
-                      <div className="media-body ml-3">
-                        <h6 className="mb-0 text-uppercase">{item.user.name}</h6>
-                        <p className="small text-muted mb-0 text-uppercase">{item.createAt}</p>
-                        {/* <ul className="list-inline mb-1 text-xs">
+    const list = comments.list
+    if (list && Array.isArray(list)) {
+      const filterPrd = list.filter((item) => item.productId._id === id)
+      const filterCmt = filterPrd.filter((zz) => zz.status === 1)
+      return filterCmt.map((item, index) => {
+        return (
+          <React.Fragment key={index}>
+            <div className="media mb-3">
+              {/* <img className="rounded-circle" src="img/customer-1.png" alt={'...'} width={50} /> */}
+              <div className="media-body ml-3">
+                <h6 className="mb-0 text-uppercase">{item.user.name}</h6>
+                <p className="small text-muted mb-0 text-uppercase">{item.createAt}</p>
+                {/* <ul className="list-inline mb-1 text-xs">
                           <li className="list-inline-item m-0"><i className="fas fa-star text-warning" /></li>
                           <li className="list-inline-item m-0"><i className="fas fa-star text-warning" /></li>
                           <li className="list-inline-item m-0"><i className="fas fa-star text-warning" /></li>
                           <li className="list-inline-item m-0"><i className="fas fa-star text-warning" /></li>
                           <li className="list-inline-item m-0"><i className="fas fa-star-half-alt text-warning" /></li>
                         </ul> */}
-                        <p className="text-small mb-0 text-muted">{item.content}</p>
-                      </div>
-                    </div>
-                </React.Fragment>
-              )
-            })
-        }
+                <p className="text-small mb-0 text-muted">{item.content}</p>
+              </div>
+            </div>
+          </React.Fragment>
+        )
+      })
+    }
   }
 
 
@@ -307,8 +306,8 @@ const Details = () => {
               <div className="p-4 p-lg-5 bg-white">
                 <div className="row">
                   <div className="col-lg-8">
-                  
-                  {listComment()}
+
+                    {listComment()}
                   </div>
                   {commentfeature()}
 

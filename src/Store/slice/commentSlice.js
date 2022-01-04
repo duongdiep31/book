@@ -3,21 +3,37 @@ import { createCommentAction,  listCommentAction, removeCommentAction, updateCom
 const commentSlice = createSlice({
     name: 'comment',
     initialState: {
-        comment: []
+        comment: [],
+        loading: false
     },
     extraReducers: (builder) => {
+        builder.addCase(listCommentAction.pending, (state, action) => {
+            state.loading = true
+        })
         builder.addCase(listCommentAction.fulfilled, (state, action) => {
             state.comment = action.payload
+            state.loading = false
+        })
+        builder.addCase(createCommentAction.pending, (state, action) => {
+            state.loading = true
         })
         builder.addCase(createCommentAction.fulfilled, (state, action) => {
-            state.comment += action.payload
-
+            state.comment.list += action.payload
+            state.loading = false
+        })
+        builder.addCase(removeCommentAction.pending, (state, action) => {
+            state.loading = true
         })
         builder.addCase(removeCommentAction.fulfilled, (state, action) => {
-            state.comment = state.comment.list.filter(item => item._id !== action.payload._id)
+            state.comment.list = state.comment.list.filter(item => item._id !== action.payload._id)
+            state.loading = false
+        })
+        builder.addCase(updateCommentAction.pending, (state, action) => {
+            state.loading = true
         })
         builder.addCase(updateCommentAction.fulfilled, (state, action) => {
             state.comment += action.payload
+            state.loading = false
         })
        
 

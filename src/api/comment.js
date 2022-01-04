@@ -23,7 +23,6 @@ export const deleteComment = (id) => {
     })
 }
 export const updateComment = ( data) => {
-    console.log('dataApi', data);
     const url = `/api/comment/${data.id}`
     const token = store.getState().auth.auth.token
     return instance.patch(url, data.user, {

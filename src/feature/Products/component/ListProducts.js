@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { deletePrd, itemPrd } from '../../../Store/action/products';
 import ReactPaginate from 'react-paginate'
 import {useTranslation} from 'react-i18next'
+import { toast } from 'react-toastify';
 const Listproducts = () => {
   const {t} = useTranslation()
   const products = useSelector((state) => state.product.product)
@@ -13,8 +14,11 @@ const Listproducts = () => {
     limit: 9
   })
   useEffect(() => {
-    dispatch(itemPrd(page))
-  }, [dispatch, page])
+    const listprd =  async () => {
+      await  dispatch(itemPrd(page))
+    }
+    listprd()
+  }, [dispatch, page, products])
   const handlePageClick = (data) => {
     setPage({
       page: data.selected+1,
@@ -58,7 +62,14 @@ const Listproducts = () => {
                 </i>
                 {t('CRUD.edit')}
               </Link>
-              <button onClick={() => dispatch(deletePrd(item._id))} className="btn btn-danger btn-sm" to="#">
+              <button onClick={ async () =>  {
+                try {
+                  await dispatch(deletePrd(item._id))
+                  toast.success('Delete SuccessFully')
+                } catch (error) {
+                  toast.error('Delete Failed')
+                }
+              }} className="btn btn-danger btn-sm" to="#">
                 <i className="fas fa-trash">
                 </i>
                 {t('CRUD.delete')}

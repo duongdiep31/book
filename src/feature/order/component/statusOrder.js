@@ -18,12 +18,12 @@ const Statusorder = () => {
                 reset(response.data)
             })
     }, [id, reset])
-    const onSubmit = (user) => {
+    const onSubmit = async (user) => {
         const data = {
             id: id,
             user: user
         }
-        dispatch(updateStatusAction(data))
+      await  dispatch(updateStatusAction(data))
         navigate("/admin/orderadmin", { replace: true })
     };
     return (

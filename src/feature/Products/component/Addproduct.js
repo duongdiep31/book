@@ -62,9 +62,9 @@ const Addproduct = (props) => {
                     })
             })
     }
-    const onSubmit = (product) => {
+    const onSubmit = async (product) => {
         const zz = { ...product, image }
-        dispatch(createPrd(zz))
+        await dispatch(createPrd(zz))
         navigate("/admin/prdadmin", { replace: true })
     };
     const dispatch = useDispatch()

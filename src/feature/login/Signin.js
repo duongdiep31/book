@@ -58,7 +58,6 @@ const Signin = () => {
             // navigate('/', { replace: true })
         }
         const responseFailedGoogle = (response) => {
-            console.log('failed',response);
         }
         return (
             <GoogleLogin
@@ -82,8 +81,8 @@ const Signin = () => {
         }
     };
     const facebooklogin = () => {
-        const componentClicked = (response) => { console.log('click', response); }
-        const responseFacebook = (response) => { console.log('fb', response); }
+        const componentClicked = (response) => {  }
+        const responseFacebook = (response) => { }
         return (
             <FacebookLogin
                 appId="870872730277940"

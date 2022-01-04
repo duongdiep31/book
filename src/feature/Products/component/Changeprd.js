@@ -62,9 +62,9 @@ const dispatch = useDispatch()
           })
         } )                          
 }
-const onSubmit = (product) => {
+const onSubmit = async (product) => {
     const zz = {...product,image}
-        dispatch(changePrd(zz))
+        await dispatch(changePrd(zz))
         navigate("/admin/prdadmin" , {replace:true})
 };
 

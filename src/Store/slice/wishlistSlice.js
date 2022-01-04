@@ -16,6 +16,5 @@ import { addtoWishlist, getAllWishlist, removeWishlist } from "../action/wishlis
                             state.wishlist = state.wishlist.filter((item)=> item._id !== action.payload)
                         } )
     }
- 
   })
   export default wishListSlice
